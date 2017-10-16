@@ -9,7 +9,7 @@ global.mdb=mongoose;
 global.tool=require('./app/common/tool');
 const db = mongoose.connect(webconfig.db);
 const session = require("koa-session2");
-const Store = require("./app/session/store");
+// const Store = require("./app/session/store");
 
 
 render(app, {
@@ -22,7 +22,7 @@ render(app, {
 
 
 app.use(session({
-    store: new Store()   //default "koa:sess"
+    // store: new Store()   //default "koa:sess"
 }));
 
 

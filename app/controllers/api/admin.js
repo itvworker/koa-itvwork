@@ -5,8 +5,6 @@ class Admin {
 
     }
     async index(ctx,next){
-
-
         let data=ctx.query;
         data['_id']=tool.getid();
         data['add_time']=tool.time();

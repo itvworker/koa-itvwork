@@ -8,8 +8,7 @@ class Admin {
              },
              username:{
                  type: String,
-                 unique: true,
-                 index:true
+                 unique: false,
              },
              power:{
                  type:Object,
@@ -21,8 +20,6 @@ class Admin {
              add_time:String
 
         },{
-
-
              collection:'admin',
              versionKey:false
          });
@@ -37,7 +34,7 @@ class Admin {
     add(data){
 
         let doc=new this.model(data);
-        console.log(doc);
+
         doc.save(function (err) {
             console.log('-----------------------');
             console.log(err);

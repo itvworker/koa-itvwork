@@ -15,16 +15,14 @@ module.exports = function (app) {
     });
 
     //接口首页
-    router.get('api','/', function (ctx, next) {
+    router.get('api','/', async function (ctx, next) {
 
     });
 
     //管理员
-    router.get('admin','/admin',async function (ctx,next) {
+    router.get('admin','/admin',async function(ctx,next) {
           await ctrl.admin.index(ctx,next);
     });
-
-
 
 
     //运用路由
