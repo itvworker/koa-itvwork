@@ -20,9 +20,13 @@ module.exports = function (app) {
     });
 
     //管理员
-    router.get('admin','/admin',async function(ctx,next) {
-          await ctrl.admin.index(ctx,next);
+    router.post('api_admin_add','/admin/add',async function(ctx,next) {
+          await ctrl.admin.add(ctx,next);
     });
+    //管理员列表
+    router.post('api_add','/admin/list',async function (ctx,next) {
+         await ctrl.admin.list(ctx,next);
+    })
 
 
     //运用路由

@@ -5,11 +5,15 @@ var router = require('./app/router/admin');  //后台路由
 const render = require('koa-ejs');
 global.webconfig = require(path.join(__dirname,'app/config/config.js'))(__dirname);
 const mongoose= require('mongoose');
+mongoose.Promise = global.Promise;
 global.mdb=mongoose;
 global.tool=require('./app/common/tool');
 const db = mongoose.connect(webconfig.db);
 const session = require("koa-session2");
-// const Store = require("./app/session/store");
+const koajson =require('koa-json');
+const koaBody = require('koa-body');
+const resouce = require('koa-static2');
+const cors = require('@koa/cors');
 
 
 render(app, {
@@ -24,7 +28,10 @@ render(app, {
 app.use(session({
     // store: new Store()   //default "koa:sess"
 }));
-
+app.use(koajson());
+app.use(koaBody())
+app.use(cors());
+app.use(resouce("static", __dirname + "/assets"));
 
 
 

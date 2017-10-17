@@ -9,12 +9,17 @@
   "author": "langjue",
   "license": "ISC",
   "devDependencies": {
-    "ioredis": "^3.1.4",
-    "karma": "^1.7.1",
     "koa": "^2.3.0",
+    "koa-body": "^2.5.0",
+    "koa-cors": "^0.0.16",
     "koa-ejs": "^4.1.0",
+    "koa-json": "^2.0.2",
     "koa-router": "^7.2.1",
     "koa-session2": "^2.2.5",
+    "koa-static2": "^0.1.8",
     "mongoose": "^4.11.12"
+  },
+  "dependencies": {
+    "@koa/cors": "^2.2.1"
   }
 }
