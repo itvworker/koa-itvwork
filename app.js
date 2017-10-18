@@ -9,7 +9,7 @@ mongoose.Promise = global.Promise;
 global.mdb=mongoose;
 global.tool=require('./app/common/tool');
 const db = mongoose.connect(webconfig.db);
-const session = require("koa-session2");
+const session = require("koa-session");
 const koajson =require('koa-json');
 const koaBody = require('koa-body');
 const resouce = require('koa-static2');
@@ -25,13 +25,16 @@ render(app, {
 });
 
 
-app.use(session({
-    // store: new Store()   //default "koa:sess"
-}));
+
 app.use(koajson());
 app.use(koaBody())
 app.use(cors());
 app.use(resouce("static", __dirname + "/assets"));
+
+
+
+
+
 
 
 

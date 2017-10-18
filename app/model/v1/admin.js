@@ -104,6 +104,16 @@ class Admin {
             }
         })
     }
+    async findone(data){
+        return this.model.findOne(data).then(function (result) {
+            if(result===null){
+                return {err_code:0,err_msg:'用户名不存在'}
+            }
+              return {err_code:200,err_msg:'用户存在',data:result}
+        },function (err) {
+            return {err_code:0,err_msg:'数据库错误'}
+        });
+    }
 }
 
 module.exports=new Admin();

@@ -55,6 +55,13 @@ class Tool {
     };
     encodeReg(source) {
         return String(source).replace(/([.*+?^=!:${}()|[\]/\\])/g, '\\$1');
+    };
+    dataJson(err_code,err_msg,data) {
+        return {
+            err_code: err_code,
+            err_msg: err_msg,
+            data: data
+        }
     }
 
 }

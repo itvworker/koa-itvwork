@@ -5,6 +5,9 @@ var router = new Router({
 var ctrl={};
 var fs = require('fs');
 var path = require('path');
+
+
+
 module.exports = function (app) {
     //初始化控制器
     fs.readdirSync(webconfig.api).forEach(function(file) {
@@ -15,10 +18,31 @@ module.exports = function (app) {
     });
 
     //接口首页
+    router.use(async function (ctx,next) {
+        let data=ctx.request.body;
+        let url=ctx.request.url.substring(1,ctx.request.url.length).split('/');
+        ctx.session=require(path.join(webconfig.model+'/v1','session.js'));
+
+        switch (url[1]){
+            case 'login':
+                await next();
+                break;
+            default:
+            if(data['token']){
+                await next();
+            }else{
+                ctx.body={err_code:404,err_msg:'你没有权限，请登录'};
+            }
+        }
+
+    });
     router.get('api','/', async function (ctx, next) {
 
     });
-
+    //管理人员登录
+    router.post('api_login','/login', async function (ctx, next) {
+        await ctrl.login.index(ctx,next);
+    });
     //管理员
     router.post('api_admin_add','/admin/add',async function(ctx,next) {
           await ctrl.admin.add(ctx,next);

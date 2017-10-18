@@ -2,10 +2,12 @@
 Thumbs.db
 ehthumbs.db
 node_modules
+data
 dist
 test
 .xml
 .idea
+
 
 
 
