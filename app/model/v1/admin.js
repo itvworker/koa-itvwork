@@ -12,10 +12,10 @@ class Admin {
                  default:""
              },
              power:{
-                 type:Object,
+                 type:Array,
                  default:"",
-
              },
+
              pwd:{
                type:String
              },

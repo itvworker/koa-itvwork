@@ -17,7 +17,8 @@
     "koa-router": "^7.2.1",
     "koa-session2": "^2.2.5",
     "koa-static2": "^0.1.8",
-    "mongoose": "^4.11.12"
+    "mongoose": "^4.11.12",
+    "qiniu": "^6.1.13"
   },
   "dependencies": {
     "@koa/cors": "^2.2.1",
