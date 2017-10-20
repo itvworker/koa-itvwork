@@ -29,8 +29,7 @@ render(app, {
 app.use(koajson());
 app.use(koaBody())
 app.use(cors());
-app.use(resouce("static", __dirname + "/assets"));
-
+app.use(resouce("",__dirname+"/public"));
 
 
 

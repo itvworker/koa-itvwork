@@ -17,25 +17,27 @@ module.exports = function (app) {
         }
     });
 
+
+    // router.use(async function (ctx,next) {
+    //     let data=ctx.request.body;
+    //     let url=ctx.request.url.substring(1,ctx.request.url.length).split('/');
+    //     ctx.session=require(path.join(webconfig.model+'/v1','session.js'));
+    //
+    //     switch (url[1]){
+    //         case 'login':
+    //             await next();
+    //             break;
+    //         default:
+    //         if(data['token']){
+    //             await next();
+    //         }else{
+    //             ctx.body={err_code:404,err_msg:'你没有权限，请登录'};
+    //         }
+    //     }
+    //
+    // });
+
     //接口首页
-    router.use(async function (ctx,next) {
-        let data=ctx.request.body;
-        let url=ctx.request.url.substring(1,ctx.request.url.length).split('/');
-        ctx.session=require(path.join(webconfig.model+'/v1','session.js'));
-
-        switch (url[1]){
-            case 'login':
-                await next();
-                break;
-            default:
-            if(data['token']){
-                await next();
-            }else{
-                ctx.body={err_code:404,err_msg:'你没有权限，请登录'};
-            }
-        }
-
-    });
     router.get('api','/', async function (ctx, next) {
 
     });
@@ -50,6 +52,13 @@ module.exports = function (app) {
     //管理员列表
     router.post('api_add','/admin/list',async function (ctx,next) {
          await ctrl.admin.list(ctx,next);
+    })
+
+
+    //添加案例
+    router.get('api_addcase','/case/add',async function (ctx,next) {
+        await ctrl.case.add(ctx,next);
+
     })
 
 

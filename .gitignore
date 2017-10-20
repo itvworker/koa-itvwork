@@ -6,6 +6,7 @@ dist
 test
 .xml
 .idea
+public/images
 
 
 

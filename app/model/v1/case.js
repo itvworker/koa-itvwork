@@ -9,33 +9,33 @@ class Case {
                 type: String,
                 default: ""
             },
-            update_time:{
-                type:String,
-                default:""
+            update_time: {
+                type: String,
+                default: ""
             },
-            source:{
-                type:String,
-                default:''
+            source: {
+                type: String,
+                default: ''
             },
-            author:{
-               type:String,
-               default:''
+            author: {
+                type: String,
+                default: ''
             },
-            cover:{
-                type:Object,
-                default:''
+            cover: {
+                type: Object,
+                default: ''
             },
-            views:{
-                type:Number,
-                default:0
+            views: {
+                type: Number,
+                default: 0
             },
-            like:{
-                type:Number,
-                default:0
+            like: {
+                type: Number,
+                default: 0
             },
-            content:{
-                type:String,
-                default:''
+            content: {
+                type: String,
+                default: ''
             },
             add_time: String
 
@@ -45,21 +45,27 @@ class Case {
         });
 
         this.model = mdb.model('case', this.schema);
-        // this.model.schema.path('username').validate(function (value) {
-        //     if (value.length <= 1) {
-        //         return false;
-        //     } else {
-        //         return true;
-        //     }
-        //
-        // }, '用户名不能为空');
 
 
     }
 
-    //添加后台管理人员
+    //添加品牌案例
     async add(data) {
-
+        data['add_time'] = tool.time();
+        data['_id'] = tool.getid();
+        data['update_time']= data['add_time'];
+        return new this.model(data).save().then(function (result) {
+            return {
+                err_code: 200,
+                err_msg: '添加成功',
+                data: result
+            }
+        }, function (err) {
+            return {
+                err_code: 103,
+                err_msg: '添加失败'
+            }
+        })
 
     }
 }
