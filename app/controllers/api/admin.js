@@ -1,4 +1,4 @@
-const AdminModel = require(path.join(webconfig.model+'/v1','admin.js'));
+const AdminModel = require(path.join(webconfig.v1,'admin.js'));
 
 class Admin {
     constructor(ctx,next) {

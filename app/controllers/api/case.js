@@ -1,5 +1,5 @@
-const caseModel = require(path.join(webconfig.model+'/v1','case.js'));
-const imgModel = require(path.join(webconfig.model+'/v1','images.js'));
+const caseModel = require(path.join(webconfig.v1,'case.js'));
+const imgModel = require(path.join(webconfig.v1,'images.js'));
 
 class Case {
     constructor(ctx,next) {

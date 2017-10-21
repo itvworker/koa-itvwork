@@ -12,7 +12,7 @@ class Admin {
                  default:""
              },
              power:{
-                 type:Array,
+                 type:Object,
                  default:"",
              },
 

@@ -1,4 +1,4 @@
-const AdminModel = require(path.join(webconfig.model + '/v1', 'admin.js'));
+const AdminModel = require(path.join(webconfig.v1, 'admin.js'));
 
 
 class Login {
@@ -12,12 +12,15 @@ class Login {
         if (result.err_code == 200) {
             if (tool.md5(data.pwd + 'qazxswedqwertyuiop') === result.data.pwd) {
                 let tokenSession = await ctx.session.add({
-                    power: result.data.power,
+                    power: result.data.power?result.data.power:'',
                     _id: result.data._id,
                     username: result.data.username
                 });
-                ctx.body=tool.dataJson(200,"登录成功",{token:tokenSession._id,power:result.data.power,username:result.data.username});
-
+                if(tokenSession.err_code == 200){
+                    ctx.body=tool.dataJson(200,"登录成功",{token:tokenSession.data._id,power:tokenSession.data.power,username:result.data.username});
+                }else{
+                    ctx.body=tool.dataJson(103,"登录失败" ,'');
+                }
 
             } else {
                 ctx.body = {

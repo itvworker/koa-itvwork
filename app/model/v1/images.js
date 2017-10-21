@@ -40,8 +40,9 @@ class Images {
 
 
     async base64(data) {
-        let base64Data = data.path.replace(/^data:image\/\w+;base64,/, "");
-        let localimg = await this.saveBase64(base64Data);
+
+
+        let localimg = await this.saveBase64(data);
         if (localimg['err_code'] == 200) {
             data.path = localimg.url;
             data['_id'] = tool.getid();
@@ -69,8 +70,13 @@ class Images {
 
     }
 
-    saveBase64(base64Data) {
-        let dataBuffer = new Buffer(base64Data, 'base64');
+    saveBase64(data) {
+        let base64Data = data.path.replace(/^data:image\/\w+;base64,/, "");
+        let arr=data.split(',');
+        let dataBuffer = new Buffer(arr[1], 'base64');
+        let ba
+
+
         return new Promise(function (resolve, reject) {
             let id = tool.getid();
             fs.writeFile(webconfig.source + '/images/' + id + '.png', dataBuffer, function (err) {
