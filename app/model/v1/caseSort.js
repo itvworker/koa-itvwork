@@ -1,9 +1,11 @@
+
 class CaseSort {
     constructor() {
         this.schema = new mdb.Schema({
             _id: {
                 type: String,
-                index: true
+                index: true,
+                default:tool.getid()
             },
             title: {
                 type: String,
@@ -27,8 +29,6 @@ class CaseSort {
         });
 
         this.model = mdb.model('case_sort', this.schema);
-
-
     }
 
     async add(data) {
@@ -44,6 +44,39 @@ class CaseSort {
                 err_msg: '添加失败'
             }
         })
+    }
+
+    async find(){
+        return this.model.find({}).sort('+add_time').then(function (result) {
+            if(result===null){
+                return {err_code:0,err_msg:'没有数据'}
+            }
+            return {err_code:200,err_msg:'查找成功',data:result}
+        },function (err) {
+            return {err_code:0,err_msg:'数据库错误'}
+        });
+
+    }
+    async findone(data){
+        return this.model.find(data).then(function (result) {
+            if(result===null){
+                return {err_code:0,err_msg:'没有数据'}
+            }
+            return {err_code:200,err_msg:'查找成功',data:result}
+        },function (err) {
+            return {err_code:0,err_msg:'数据库错误'}
+        });
+    }
+
+    async del(data){
+        return this.model.remove(data).then(function (result) {
+            if(result===null){
+                return {err_code:0,err_msg:'删除成功'}
+            }
+            return {err_code:200,err_msg:'删除成功',data:result}
+        },function (err) {
+            return {err_code:0,err_msg:'数据库错误'}
+        });
     }
 }
 

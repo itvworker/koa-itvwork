@@ -1,6 +1,3 @@
-var qiniu = require("qiniu");
-qiniu.conf.ACCESS_KEY = 'XSghKCNu9i46NZrqepAOv7cknXRGgtfeva6O7WAr';
-qiniu.conf.SECRET_KEY = '7qahI3s3aOrEZZTviyi3v95pdcnFKtJ3_DvwWtvn';
 var fs = require("fs");
 
 class Images {
@@ -8,7 +5,8 @@ class Images {
         this.schema = new mdb.Schema({
             _id: {
                 type: String,
-                index: true
+                index: true,
+                default:tool.getid()
             },
             title: {
                 type: String,
@@ -26,7 +24,14 @@ class Images {
                 type: Number,
                 default: 0
             },
-            add_time: String
+            sort:{
+                type:String,
+                default:''
+            },
+            add_time: {
+                type:String,
+                default:tool.time()
+            }
 
         }, {
             collection: 'images',
@@ -40,12 +45,11 @@ class Images {
 
 
     async base64(data) {
-
-
-        let localimg = await this.saveBase64(data);
+        let localimg = await this.saveBase64(data.path);
         if (localimg['err_code'] == 200) {
             data.path = localimg.url;
             data['_id'] = tool.getid();
+
             return new this.model(data).save().then(function (result) {
                 return {
                     err_code: 200,
@@ -71,12 +75,8 @@ class Images {
     }
 
     saveBase64(data) {
-        let base64Data = data.path.replace(/^data:image\/\w+;base64,/, "");
         let arr=data.split(',');
         let dataBuffer = new Buffer(arr[1], 'base64');
-        let ba
-
-
         return new Promise(function (resolve, reject) {
             let id = tool.getid();
             fs.writeFile(webconfig.source + '/images/' + id + '.png', dataBuffer, function (err) {

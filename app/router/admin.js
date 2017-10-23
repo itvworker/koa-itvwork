@@ -64,11 +64,21 @@ module.exports = function (app) {
     })
 
     //添加案例分类
-    router.post('api_casse_add_sort','/caseSort/add',async function (ctx,next) {
-        await ctrl.caseSort.add(ctx,next);
+    router.post('api_case_sort','/caseSort/index',async function (ctx,next) {
+        await ctrl.caseSort.index(ctx,next);
 
     })
+    router.post('api_case_add_sort','/caseSort/add',async function (ctx,next) {
+        await ctrl.caseSort.add(ctx,next);
+    })
 
+    router.post('api_case_sort_detail','/caseSort/detail',async function (ctx,next) {
+        await ctrl.caseSort.detail(ctx,next);
+    });
+
+    router.post('api_case_sort_del','/caseSort/del',async function (ctx,next) {
+        await ctrl.caseSort.del(ctx,next);
+    });
 
 
     //运用路由
