@@ -78,6 +78,17 @@ class CaseSort {
             return {err_code:0,err_msg:'数据库错误'}
         });
     }
+
+    async update(check,doc){
+        return this.model.update(check,doc).then(function (result) {
+            if(result===null){
+                 return {err_code:0,err_msg:'删除成功'}
+            }
+             return {err_code:200,err_msg:'删除成功',data:result}
+        },function (err) {
+             return {err_code:0,err_msg:'数据库错误'}
+        });
+    }
 }
 
 module.exports = new CaseSort();

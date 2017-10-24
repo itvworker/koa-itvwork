@@ -6,7 +6,7 @@ class Images {
             _id: {
                 type: String,
                 index: true,
-                default:tool.getid()
+                default: tool.getid()
             },
             title: {
                 type: String,
@@ -24,13 +24,13 @@ class Images {
                 type: Number,
                 default: 0
             },
-            sort:{
-                type:String,
-                default:''
+            sort: {
+                type: String,
+                default: ''
             },
             add_time: {
-                type:String,
-                default:tool.time()
+                type: String,
+                default: tool.time()
             }
 
         }, {
@@ -75,7 +75,7 @@ class Images {
     }
 
     saveBase64(data) {
-        let arr=data.split(',');
+        let arr = data.split(',');
         let dataBuffer = new Buffer(arr[1], 'base64');
         return new Promise(function (resolve, reject) {
             let id = tool.getid();
@@ -90,11 +90,8 @@ class Images {
                     });
                 }
             });
-
         })
     };
-
-
 }
 
 module.exports = new Images();
