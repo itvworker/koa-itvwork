@@ -81,6 +81,10 @@ module.exports = function (app) {
         await ctrl.caseSort.update(ctx, next);
     });
 
+    router.post('api_file', '/file', async function (ctx, next) {
+        await ctrl.images.list(ctx, next);
+    })
+
 
     //运用路由
     app.use(router.routes());

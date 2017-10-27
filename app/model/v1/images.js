@@ -92,6 +92,44 @@ class Images {
             });
         })
     };
+
+    async find(arg){
+        arg['query']=arg['query']?arg['query']:{};
+        arg['sort']=arg['sort']?arg['sort']:'+add_time';
+        arg['num']=arg['num']?arg['num']:10;
+        arg['page']=arg['page']?(arg['num']-1)*(arg['page']-1):0;
+        let count=await this.count(arg['query']);
+        return this.model.find(arg.query).sort(arg.sort).limit(arg.num).skip(arg.page).then(function (result) {
+            if(result){
+                return {
+                    err_code:200,
+                    err_msg:'查询成功',
+                    data:{
+                        count:count,
+                        result:result
+                    }
+                }
+            }else{
+                return {
+                    err_code:0,
+                    err_msg:'没有数据',
+                }
+
+            }
+
+        },function (err) {
+            return {
+                err_code:500,
+                err_msg:'错误',
+                err:err
+            }
+        })
+    }
+    count(query){
+        return this.model.find(query).count(function (result){
+            return result;
+        });
+    }
 }
 
 module.exports = new Images();
