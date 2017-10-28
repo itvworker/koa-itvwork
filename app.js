@@ -9,7 +9,6 @@ mongoose.Promise = global.Promise;
 global.mdb=mongoose;
 global.tool=require('./app/common/tool');
 const db = mongoose.connect(webconfig.db);
-const session = require("koa-session");
 const koajson =require('koa-json');
 const koaBody = require('koa-body');
 const resouce = require('koa-static2');
@@ -33,19 +32,12 @@ app.use(resouce("",__dirname+"/public"));
 
 
 
-
-
-
-
 db.connection.on("error", function(error) {
     console.log("数据库连接失败：" + error);
 });
-
 db.connection.on("open", function() {
-
     console.log("数据库连接成功");
 })
-
 db.connection.on('disconnected', function() {
     console.log('数据库连接断开');
 })

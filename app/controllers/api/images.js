@@ -5,7 +5,8 @@ class Images {
 
     }
     async list(ctx,next){
-        ctx.body=await imgModel.find({});
+        let post = ctx.request.body;
+        ctx.body=await imgModel.find(post.data);
 
        // await ctx.render('user',{title:1000});
     }
