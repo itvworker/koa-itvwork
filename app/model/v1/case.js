@@ -37,8 +37,15 @@ class Case {
                 type: String,
                 default: ''
             },
-            add_time: String
+            sort:{
+              type:String,
+              default:0
+            },
 
+            add_time: {
+                type:String,
+                default:tool.time()
+            }
         }, {
             collection: 'case',
             versionKey: false
