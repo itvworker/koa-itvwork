@@ -31,12 +31,13 @@ class Session {
 
 
     async add(data) {
-        let alldata = {
-            data:data
-        };
-        return new this.model(alldata).save().then(function (result) {
+
+        return new this.model(data).save().then(function (result) {
+            console.log(result,'sucess');
             return tool.dataJson(200,'操作成功',result);
+
         }, function (err) {
+            console.log(err);
             return tool.dataJson(103,'操作失败',err);
         })
     }
