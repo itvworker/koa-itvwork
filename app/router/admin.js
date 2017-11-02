@@ -27,11 +27,11 @@ module.exports = function (app) {
             case 'login':
                 await next();
                 break;
-            default:
-                let data=ctx.request.body;
-                ctx.body=data;
-
+            case 'file':
+                await next();
                 break;
+            default:
+
                 if (data['token']) {
                     let mess = await ctx.session.findOne({_id: data.token});
                     if (mess.err_code == 200) {
