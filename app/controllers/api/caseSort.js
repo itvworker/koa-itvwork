@@ -14,21 +14,26 @@ class CaseSort {
     }
 
     async add(ctx, next) {
-        let post = ctx.request.body;
-        let img = await imgModel.base64({
-            use: 1,
-            path: post['data']['cover'],
-            sort: 'caseSort'
-        });
+        console.log(ctx.admin);
+        ctx.body = ctx.admin;
 
-        let data = await caseSortModel.add({
-            title: post['data']['title'],
-            cover: {
-                _id: img.data._id,
-                url: img.data.path
-            }
-        });
-        ctx.body = data;
+        // let post = ctx.request.body;
+        // let img = await imgModel.base64({
+        //     use: 1,
+        //     path: post['data']['cover'],
+        //     sort: 'caseSort'
+        // });
+        //
+        // let data = await caseSortModel.add({
+        //     title: post['data']['title'],
+        //     cover: {
+        //         _id: img.data._id,
+        //         url: img.data.path
+        //     }
+        // });
+        // ctx.body = ctx.admin;
+        //ctx.body = data;
+
         // await ctx.render('user',{title:1000});
     }
 

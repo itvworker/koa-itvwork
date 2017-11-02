@@ -21,7 +21,7 @@ class Admin {
     async list(ctx,next) {
 
             ctx.body=ctx.request.body;
-        // let content = await AdminModel.find();
+        //  let content = await AdminModel.find();
         // ctx.body = content;
 
     }

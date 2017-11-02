@@ -20,6 +20,14 @@ class Images {
                 type: Number,
                 default: 0
             },
+            author: {
+                type: String,
+                default: ''
+            },
+            uploader: {
+                type: String,
+                default: ''
+            },
             use: {
                 type: Number,
                 default: 0
@@ -75,61 +83,91 @@ class Images {
     }
 
     saveBase64(data) {
-        let arr = data.split(',');
-        let dataBuffer = new Buffer(arr[1], 'base64');
+
+        let dataBuffer = new Buffer(data.data, 'base64');
         return new Promise(function (resolve, reject) {
             let id = tool.getid();
-            fs.writeFile(webconfig.source + '/images/' + id + '.png', dataBuffer, function (err) {
+            fs.writeFile(webconfig.source + '/images/' + id + data.type, dataBuffer, function (err) {
                 if (err) {
                     resolve(err);
                 } else {
                     resolve({
                         err_code: 200,
                         err_msg: '保存成功',
-                        url: id + '.png'
+                        url: id + data.type
                     });
                 }
             });
         })
     };
 
-    async find(arg){
-        arg['query']=arg['query']?arg['query']:{};
-        arg['sort']=arg['sort']?arg['sort']:'+add_time';
-        arg['num']=arg['num']?arg['num']:10;
-        arg['page']=arg['page']?(arg['num']-1)*(arg['page']-1):0;
-        let count=await this.count(arg['query']);
+    async find(arg) {
+        arg['query'] = arg['query'] ? arg['query'] : {};
+        arg['sort'] = arg['sort'] ? arg['sort'] : '+add_time';
+        arg['num'] = arg['num'] ? arg['num'] : 10;
+        arg['page'] = arg['page'] ? (arg['num'] - 1) * (arg['page'] - 1) : 0;
+        let count = await this.count(arg['query']);
         return this.model.find(arg.query).sort(arg.sort).limit(parseInt(arg.num)).skip(parseInt(arg.page)).then(function (result) {
-            if(result){
+            if (result) {
                 return {
-                    err_code:200,
-                    err_msg:'查询成功',
-                    data:{
-                        count:count,
-                        result:result
+                    err_code: 200,
+                    err_msg: '查询成功',
+                    data: {
+                        count: count,
+                        result: result
                     }
                 }
-            }else{
+            } else {
                 return {
-                    err_code:0,
-                    err_msg:'没有数据',
+                    err_code: 0,
+                    err_msg: '没有数据',
                 }
 
             }
 
-        },function (err) {
+        }, function (err) {
             return {
-                err_code:500,
-                err_msg:'错误',
-                err:err
+                err_code: 500,
+                err_msg: '错误',
+                err: err
             }
         })
     }
-    count(query){
-        return this.model.find(query).count(function (result){
+
+    count(query) {
+        return this.model.find(query).count(function (result) {
             return result;
         });
     }
+
+    inserts(data) {
+        return new this.model.insertMany(data).then(function (result) {
+            return result;
+        }, function (err) {
+            return err;
+        });
+    }
+
+    async uploads(data,ctx) {
+        let arr=[];
+        let defeatNum=0;
+        for(let i=0,len=data.length;i<len;i++){
+            let result=await saveBase64(data[i]);
+            if(result.err_code==200){
+                arr.push({
+                    path:result.url,
+                    author:ctx.admin.id
+                })
+            }else{
+                defeatNum++;
+            }
+        }
+        return this.model.insertMany(arr,function (err,docs) {
+            if(err)return tool.dataJson(104, '操作失败', err);
+            return tool.dataJson(200, '操作成功', );
+        })
+    }
+
 }
 
 module.exports = new Images();

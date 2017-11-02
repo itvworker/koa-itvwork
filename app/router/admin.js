@@ -6,31 +6,44 @@ var ctrl = {};
 var fs = require('fs');
 var path = require('path');
 
+const multy = require('multy');
+
 
 module.exports = function (app) {
     //初始化控制器
+
     fs.readdirSync(webconfig.api).forEach(function (file) {
         if (file.indexOf('.js') != -1) {
             var ctrlName = file.split('.')[0];
             ctrl[ctrlName] = require(path.join(webconfig.api, file));
         }
     });
-
-
+    router.use(multy());
     router.use(async function (ctx, next) {
         let data = ctx.request.body;
         let url = ctx.request.url.substring(1, ctx.request.url.length).split('/');
         ctx.session = require(path.join(webconfig.model + '/v1', 'session.js'));
-
         switch (url[1]) {
             case 'login':
                 await next();
                 break;
             default:
+                let data=ctx.request.body;
+                ctx.body=data;
+
+                break;
                 if (data['token']) {
-                    await next();
+                    let mess = await ctx.session.findOne({_id: data.token});
+                    if (mess.err_code == 200) {
+                        ctx.admin = mess.data.data;
+                        await next();
+                    } else {
+                        ctx.body = {err_code: 104, err_msg: '登录过时'};
+                    }
+
                 } else {
-                    ctx.body = {err_code: 404, err_msg: '你没有权限，请登录'};
+
+                    ctx.body = {err_code: 104, err_msg: '你没有权限，请登录'};
                 }
         }
 
@@ -67,7 +80,7 @@ module.exports = function (app) {
     })
     router.post('api_case_add_sort', '/caseSort/add', async function (ctx, next) {
         await ctrl.caseSort.add(ctx, next);
-    })
+    });
 
     router.post('api_case_sort_detail', '/caseSort/detail', async function (ctx, next) {
         await ctrl.caseSort.detail(ctx, next);
@@ -81,8 +94,14 @@ module.exports = function (app) {
         await ctrl.caseSort.update(ctx, next);
     });
 
+    //图片上传
     router.post('api_file', '/file', async function (ctx, next) {
         await ctrl.images.list(ctx, next);
+    })
+
+
+    router.post('api_file_uploads', '/file/uploads/', async function (ctx, next) {
+        await ctrl.images.uploads(ctx, next);
     })
 
 

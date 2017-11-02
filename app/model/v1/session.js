@@ -3,24 +3,24 @@ class Session {
         this.schema = mdb.Schema({
             _id: {
                 type: String,
-                default:tool.getid()
+                default: tool.getid()
             },
             data: {
                 type: Object,
                 default: ''
             },
-            time:{
-              type:String,
-              defaut:tool.time()+60*60*24
+            time: {
+                type: String,
+                defaut: tool.time() + 60 * 60 * 24
             },
-            add_time:{
-                type:String,
-                default:tool.time()
+            add_time: {
+                type: String,
+                default: tool.time()
             },
             expires_time: {
                 type: Date,
-                default: new Date((tool.time()+60*60*24)*1000),
-                expires:0
+                default: new Date((tool.time() + 60 * 60 * 24) * 1000),
+                expires: 0
             }
         }, {
             collection: 'session',
@@ -31,18 +31,20 @@ class Session {
 
 
     async add(data) {
-
         return new this.model(data).save().then(function (result) {
-            console.log(result,'sucess');
-            return tool.dataJson(200,'操作成功',result);
-
+            return tool.dataJson(200, '操作成功', result);
         }, function (err) {
-            console.log(err);
-            return tool.dataJson(103,'操作失败',err);
+            return tool.dataJson(103, '操作失败', err);
         })
     }
-    
 
+    async findOne(data) {
+        return this.model.findOne(data).then(function (result) {
+            return tool.dataJson(200, '操作成功', result);
+        }, function (err) {
+            return tool.dataJson(103, '操作失败', err);
+        })
+    }
 }
 
 module.exports = new Session();

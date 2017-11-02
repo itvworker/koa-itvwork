@@ -26,7 +26,7 @@ render(app, {
 
 
 app.use(koajson());
-app.use(koaBody())
+app.use(koaBody({multipart: true}))
 app.use(cors());
 app.use(resouce("",__dirname+"/public"));
 

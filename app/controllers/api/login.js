@@ -7,6 +7,7 @@ class Login {
     }
 
     async index(ctx, next) {
+
         let data = ctx.request.body;
         let result = await AdminModel.findone({username: data['username']});
         if (result.err_code == 200) {
