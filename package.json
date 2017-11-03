@@ -25,6 +25,7 @@
     "connect-multiparty": "^2.1.0",
     "ioredis": "^3.1.4",
     "koa-bodyparser": "^2.5.0",
+    "koa-busboy": "^1.1.1",
     "koa-multer": "^1.0.2",
     "koa-session": "^5.5.0",
     "multiparty": "^4.1.3",

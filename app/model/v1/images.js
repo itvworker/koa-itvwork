@@ -83,18 +83,17 @@ class Images {
     }
 
     saveBase64(data) {
-
         let dataBuffer = new Buffer(data.data, 'base64');
         return new Promise(function (resolve, reject) {
             let id = tool.getid();
-            fs.writeFile(webconfig.source + '/images/' + id + data.type, dataBuffer, function (err) {
+            fs.writeFile(webconfig.source + '/images/' + id + '.'+ data.type, dataBuffer, function (err) {
                 if (err) {
                     resolve(err);
                 } else {
                     resolve({
                         err_code: 200,
                         err_msg: '保存成功',
-                        url: id + data.type
+                        url: id + '.'+data.type
                     });
                 }
             });
@@ -148,23 +147,26 @@ class Images {
         });
     }
 
-    async uploads(data,ctx) {
+    async uploads(data,ctx,type) {
         let arr=[];
         let defeatNum=0;
         for(let i=0,len=data.length;i<len;i++){
-            let result=await saveBase64(data[i]);
+            let result=await this.saveBase64(data[i]);
             if(result.err_code==200){
                 arr.push({
+                    _id:tool.getid(),
                     path:result.url,
-                    author:ctx.admin.id
+                    author:ctx.admin.id,
+                    sort:type
                 })
             }else{
                 defeatNum++;
             }
         }
+        
         return this.model.insertMany(arr,function (err,docs) {
             if(err)return tool.dataJson(104, '操作失败', err);
-            return tool.dataJson(200, '操作成功', );
+            return tool.dataJson(200, '操作成功', docs);
         })
     }
 

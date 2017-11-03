@@ -6,11 +6,16 @@ var ctrl = {};
 var fs = require('fs');
 var path = require('path');
 
-const multy = require('multy');
-
+const koaRouter = require('koa-router')
+const busboy = require('koa-busboy')
 
 module.exports = function (app) {
     //初始化控制器
+
+    const uploader = busboy({
+        dest: webconfig+'/temp', // default is system temp folder (`os.tmpdir()`)
+        fnDestFilename: (fieldname, filename) => uuid() + filename
+    })
 
     fs.readdirSync(webconfig.api).forEach(function (file) {
         if (file.indexOf('.js') != -1) {
@@ -18,29 +23,32 @@ module.exports = function (app) {
             ctrl[ctrlName] = require(path.join(webconfig.api, file));
         }
     });
-    router.use(multy());
+
     router.use(async function (ctx, next) {
         let data = ctx.request.body;
         let url = ctx.request.url.substring(1, ctx.request.url.length).split('/');
         ctx.session = require(path.join(webconfig.model + '/v1', 'session.js'));
+        let token='';
         switch (url[1]) {
             case 'login':
                 await next();
                 break;
-            case 'file':
-                await next();
-                break;
-            default:
 
-                if (data['token']) {
-                    let mess = await ctx.session.findOne({_id: data.token});
+            default:
+                if(data['fields']){
+                    token=data['fields']['token'];
+                }else{
+                    token=data['token'];
+                }
+
+                if (token) {
+                    let mess = await ctx.session.findOne({_id: token});
                     if (mess.err_code == 200) {
                         ctx.admin = mess.data.data;
                         await next();
                     } else {
                         ctx.body = {err_code: 104, err_msg: '登录过时'};
                     }
-
                 } else {
 
                     ctx.body = {err_code: 104, err_msg: '你没有权限，请登录'};
@@ -67,13 +75,12 @@ module.exports = function (app) {
     })
 
 
-    //添加案例
+    //案例
     router.get('api_addcase', '/case/add', async function (ctx, next) {
         await ctrl.case.add(ctx, next);
 
     })
 
-    //案例分类
     router.post('api_case_sort', '/caseSort/index', async function (ctx, next) {
         await ctrl.caseSort.index(ctx, next);
 
@@ -94,13 +101,12 @@ module.exports = function (app) {
         await ctrl.caseSort.update(ctx, next);
     });
 
-    //图片上传
+    //图片
     router.post('api_file', '/file', async function (ctx, next) {
         await ctrl.images.list(ctx, next);
     })
 
-
-    router.post('api_file_uploads', '/file/uploads/', async function (ctx, next) {
+    router.post('api_file_uploads','/file/uploads/', async function (ctx, next) {
         await ctrl.images.uploads(ctx, next);
     })
 
