@@ -1,5 +1,6 @@
 var fs = require("fs");
-
+var { promisify } = require('util');
+var sizeOf = promisify(require('image-size'));
 class Images {
     constructor() {
         this.schema = new mdb.Schema({
@@ -39,6 +40,23 @@ class Images {
             add_time: {
                 type: String,
                 default: tool.time()
+            },
+            width:{
+                type:Number,
+                default:0,
+
+            },
+            height:{
+                type:Number,
+                default:0
+            },
+            type:{
+                type:String,
+                default:'jpg'
+            },
+            size:{
+                type:Number,
+                default:0
             }
 
         }, {
@@ -47,7 +65,7 @@ class Images {
         });
 
         this.model = mdb.model('images', this.schema);
-
+        this.i=0;
 
     }
 
@@ -84,6 +102,7 @@ class Images {
 
     saveBase64(data) {
         let dataBuffer = new Buffer(data.data, 'base64');
+        let size=dataBuffer.length;
         return new Promise(function (resolve, reject) {
             let id = tool.getid();
             fs.writeFile(webconfig.source + '/images/' + id + '.'+ data.type, dataBuffer, function (err) {
@@ -93,7 +112,8 @@ class Images {
                     resolve({
                         err_code: 200,
                         err_msg: '保存成功',
-                        url: id + '.'+data.type
+                        url: id + '.'+data.type,
+                        size:size
                     });
                 }
             });
@@ -141,34 +161,47 @@ class Images {
 
     inserts(data) {
         return new this.model.insertMany(data).then(function (result) {
-            return result;
+            return tool.dataJson(200, '上传成功',result);
         }, function (err) {
-            return err;
+            return tool.dataJson(104, '上传失败',err);
         });
     }
-
+    sizeImg(data){
+        return sizeOf(webconfig.source+'/images/'+data)
+            .then(dimensions => {
+                return dimensions;
+            })
+            .catch(err => console.error(err));
+    }
     async uploads(data,ctx,type) {
         let arr=[];
         let defeatNum=0;
         for(let i=0,len=data.length;i<len;i++){
+            console.log(i);
             let result=await this.saveBase64(data[i]);
             if(result.err_code==200){
                 arr.push({
                     _id:tool.getid(),
                     path:result.url,
                     author:ctx.admin.id,
-                    sort:type
+                    sort:type,
+                    size:result.size
                 })
             }else{
                 defeatNum++;
             }
         }
-        
-        return this.model.insertMany(arr,function (err,docs) {
-            if(err)return tool.dataJson(104, '操作失败', err);
-            return tool.dataJson(200, '操作成功', docs);
-        })
+        for(let i=0,len=arr.length;i<len;i++){
+            let result=await this.sizeImg(arr[i]['path']);
+            arr[i]['width']=result.width;
+            arr[i]['height']=result.height;
+            arr[i]['type']=result.type;
+        }
+
+
+        return this.inserts(arr);
     }
+
 
 }
 
