@@ -95,15 +95,17 @@ module.exports = function (app) {
         await ctrl.case.detail(ctx, next);
     })
 
+    router.post('api_case_updata', '/case/updata', async function (ctx, next) {
+        await ctrl.case.updata(ctx, next);
+
+    })
+
     router.post('api_case_sort', '/caseSort/index', async function (ctx, next) {
         await ctrl.caseSort.index(ctx, next);
 
     })
 
-    router.post('api_case_sort', '/caseSort/index', async function (ctx, next) {
-        await ctrl.caseSort.updata(ctx, next);
-
-    })
+  
 
 
 

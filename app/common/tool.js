@@ -87,7 +87,6 @@ class Tool {
 
     return arr;
   }
-
   array_remove_repeat(a) { // 去重
     var r = [];
     for (var i = 0; i < a.length; i++) {
@@ -123,19 +122,19 @@ class Tool {
     return this.array_remove_repeat(a.concat(b));
   }
 
-  array_difference(a, b) { // 差集 a - b
-    //clone = a
-    var clone = a.slice(0);
-    for (var i = 0; i < b.length; i++) {
-      var temp = b[i];
-      for (var j = 0; j < clone.length; j++) {
-        if (temp === clone[j]) {
-          //remove clone[j]
-          clone.splice(j, 1);
-        }
+  array_difference(arr1, arr2) {
+    var diff = [];
+    var tmp = arr2;
+
+    arr1.forEach(function(val1, i) {
+      if (arr2.indexOf(val1) < 0) {
+        diff.push(val1);
+      } else {
+        tmp.splice(tmp.indexOf(val1), 1);
       }
-    }
-    return this.array_remove_repeat(clone);
+    });
+    return this.array_remove_repeat(diff.concat(tmp));
+
   }
 
 }

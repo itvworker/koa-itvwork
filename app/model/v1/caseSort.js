@@ -88,7 +88,7 @@ class CaseSort {
     async update(check,doc){
         return this.model.update(check,doc).then(function (result) {
             
-             return {err_code:200,err_msg:'删除成功',data:result}
+             return {err_code:200,err_msg:'修改成功',data:result}
         },function (err) {
              return {err_code:0,err_msg:'数据库错误'}
         });

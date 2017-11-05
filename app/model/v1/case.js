@@ -65,7 +65,7 @@ class Case {
         let err = await imgModel.useInc({
             path: arr
         }, 1);
-       
+
         return new this.model(data).save().then(function (result) {
             return tool.dataJson(200, '查询成功', result);
 
@@ -103,10 +103,10 @@ class Case {
         })
     }
     async findOne(data) {
-        
+
         return this.model.findOne(data).then(function (result) {
             if (result) {
-                return tool.dataJson(200, '查询成功',result)
+                return tool.dataJson(200, '查询成功', result)
 
             } else {
                 return tool.dataJson(0, '没有数据');
@@ -117,12 +117,25 @@ class Case {
 
         })
     }
-    async updata(data){
-       let newImg=tool.getImgurl(data.content);
-           newImg.push(data.cover);
-       let olddata=await this.find({_id:data.id})
-       let oldImg=tool.getImgurl(olddata.data.content);
-           oldImg.push(olddata.data.cover);
+    async updata(data) {
+        let newImg = tool.getImgurl(data.content);
+        newImg.push(data.cover);
+        let olddata = await this.findOne({
+            _id: data._id
+        })
+        let oldImg = tool.getImgurl(olddata.data.content);
+        oldImg.push(olddata.data.cover);
+        var old = tool.array_intersection(newImg, oldImg);
+        var del = tool.array_difference(old, oldImg);
+        var add = tool.array_difference(old, newImg);
+        await imgModel.useInc({path:del},-1);
+        await imgModel.useInc({path:add},1);
+        return this.model.update({_id:data._id},data).then(function (result) {
+             return {err_code:200,err_msg:'修改成功',data:result}
+        },function (err) {
+             return {err_code:0,err_msg:'数据库错误'}
+        });
+       
     }
 }
 
