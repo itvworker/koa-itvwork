@@ -13,7 +13,7 @@ module.exports = function (app) {
     //初始化控制器
 
     const uploader = busboy({
-        dest: webconfig+'/temp', // default is system temp folder (`os.tmpdir()`)
+        dest: webconfig + '/temp', // default is system temp folder (`os.tmpdir()`)
         fnDestFilename: (fieldname, filename) => uuid() + filename
     })
 
@@ -28,30 +28,38 @@ module.exports = function (app) {
         let data = ctx.request.body;
         let url = ctx.request.url.substring(1, ctx.request.url.length).split('/');
         ctx.session = require(path.join(webconfig.model + '/v1', 'session.js'));
-        let token='';
+        let token = '';
         switch (url[1]) {
             case 'login':
                 await next();
                 break;
 
             default:
-                if(data['fields']){
-                    token=data['fields']['token'];
-                }else{
-                    token=data['token'];
+                if (data['fields']) {
+                    token = data['fields']['token'];
+                } else {
+                    token = data['token'];
                 }
 
                 if (token) {
-                    let mess = await ctx.session.findOne({_id: token});
+                    let mess = await ctx.session.findOne({
+                        _id: token
+                    });
                     if (mess.err_code == 200) {
                         ctx.admin = mess.data.data;
                         await next();
                     } else {
-                        ctx.body = {err_code: 104, err_msg: '登录过时'};
+                        ctx.body = {
+                            err_code: 104,
+                            err_msg: '登录过时'
+                        };
                     }
                 } else {
 
-                    ctx.body = {err_code: 104, err_msg: '你没有权限，请登录'};
+                    ctx.body = {
+                        err_code: 104,
+                        err_msg: '你没有权限，请登录'
+                    };
                 }
         }
 
@@ -76,15 +84,31 @@ module.exports = function (app) {
 
 
     //案例
-    router.get('api_addcase', '/case/add', async function (ctx, next) {
-        await ctrl.case.add(ctx, next);
+    router.post('api_addcase', '/case/add', async function (ctx, next) {
 
+        await ctrl.case.add(ctx, next);
+    })
+    router.post('api_case_list', '/case/index', async function (ctx, next) {
+        await ctrl.case.list(ctx, next);
+    })
+    router.post('api_case_detail', '/case/detail', async function (ctx, next) {
+        await ctrl.case.detail(ctx, next);
     })
 
     router.post('api_case_sort', '/caseSort/index', async function (ctx, next) {
         await ctrl.caseSort.index(ctx, next);
 
     })
+
+    router.post('api_case_sort', '/caseSort/index', async function (ctx, next) {
+        await ctrl.caseSort.updata(ctx, next);
+
+    })
+
+
+
+
+
     router.post('api_case_add_sort', '/caseSort/add', async function (ctx, next) {
         await ctrl.caseSort.add(ctx, next);
     });
@@ -106,7 +130,7 @@ module.exports = function (app) {
         await ctrl.images.list(ctx, next);
     })
 
-    router.post('api_file_uploads','/file/uploads/', async function (ctx, next) {
+    router.post('api_file_uploads', '/file/uploads/', async function (ctx, next) {
         await ctrl.images.uploads(ctx, next);
     })
 

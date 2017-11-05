@@ -1,5 +1,7 @@
 var fs = require("fs");
-var { promisify } = require('util');
+var {
+    promisify
+} = require('util');
 var sizeOf = promisify(require('image-size'));
 class Images {
     constructor() {
@@ -41,22 +43,22 @@ class Images {
                 type: String,
                 default: tool.time()
             },
-            width:{
-                type:Number,
-                default:0,
+            width: {
+                type: Number,
+                default: 0,
 
             },
-            height:{
-                type:Number,
-                default:0
+            height: {
+                type: Number,
+                default: 0
             },
-            type:{
-                type:String,
-                default:'jpg'
+            type: {
+                type: String,
+                default: 'jpg'
             },
-            size:{
-                type:Number,
-                default:0
+            size: {
+                type: Number,
+                default: 0
             }
 
         }, {
@@ -65,7 +67,7 @@ class Images {
         });
 
         this.model = mdb.model('images', this.schema);
-        this.i=0;
+        this.i = 0;
 
     }
 
@@ -102,18 +104,18 @@ class Images {
 
     saveBase64(data) {
         let dataBuffer = new Buffer(data.data, 'base64');
-        let size=dataBuffer.length;
+        let size = dataBuffer.length;
         return new Promise(function (resolve, reject) {
             let id = tool.getid();
-            fs.writeFile(webconfig.source + '/images/' + id + '.'+ data.type, dataBuffer, function (err) {
+            fs.writeFile(webconfig.source + '/images/' + id + '.' + data.type, dataBuffer, function (err) {
                 if (err) {
                     resolve(err);
                 } else {
                     resolve({
                         err_code: 200,
                         err_msg: '保存成功',
-                        url: id + '.'+data.type,
-                        size:size
+                        url: id + '.' + data.type,
+                        size: size
                     });
                 }
             });
@@ -122,7 +124,7 @@ class Images {
 
     async find(arg) {
         arg['query'] = arg['query'] ? arg['query'] : {};
-        arg['sort'] = arg['sort'] ? arg['sort'] : '+add_time';
+        arg['sort'] = arg['sort'] ? arg['sort'] : {add_time:-1};
         arg['num'] = arg['num'] ? arg['num'] : 10;
         arg['page'] = arg['page'] ? (arg['num'] - 1) * (arg['page'] - 1) : 0;
         let count = await this.count(arg['query']);
@@ -161,47 +163,58 @@ class Images {
 
     inserts(data) {
         return new this.model.insertMany(data).then(function (result) {
-            return tool.dataJson(200, '上传成功',result);
+            return tool.dataJson(200, '上传成功', result);
         }, function (err) {
-            return tool.dataJson(104, '上传失败',err);
+            return tool.dataJson(104, '上传失败', err);
         });
     }
-    sizeImg(data){
-        return sizeOf(webconfig.source+'/images/'+data)
+    sizeImg(data) {
+        return sizeOf(webconfig.source + '/images/' + data)
             .then(dimensions => {
                 return dimensions;
             })
             .catch(err => console.error(err));
     }
-    async uploads(data,ctx,type) {
-        let arr=[];
-        let defeatNum=0;
-        for(let i=0,len=data.length;i<len;i++){
+    async uploads(data, ctx, type) {
+        let arr = [];
+        let defeatNum = 0;
+        for (let i = 0, len = data.length; i < len; i++) {
             console.log(i);
-            let result=await this.saveBase64(data[i]);
-            if(result.err_code==200){
+            let result = await this.saveBase64(data[i]);
+            if (result.err_code == 200) {
                 arr.push({
-                    _id:tool.getid(),
-                    path:result.url,
-                    author:ctx.admin.id,
-                    sort:type,
-                    size:result.size
+                    _id: tool.getid(),
+                    path: result.url,
+                    author: ctx.admin.id,
+                    sort: type,
+                    size: result.size
                 })
-            }else{
+            } else {
                 defeatNum++;
             }
         }
-        for(let i=0,len=arr.length;i<len;i++){
-            let result=await this.sizeImg(arr[i]['path']);
-            arr[i]['width']=result.width;
-            arr[i]['height']=result.height;
-            arr[i]['type']=result.type;
+        for (let i = 0, len = arr.length; i < len; i++) {
+            let result = await this.sizeImg(arr[i]['path']);
+            arr[i]['width'] = result.width;
+            arr[i]['height'] = result.height;
+            arr[i]['type'] = result.type;
         }
 
 
         return this.inserts(arr);
     }
 
+    async useInc(data, num) {
+        return this.model.updateMany(data, {
+            $inc: {
+                use: num
+            }
+        }).then(function (result) {
+            return tool.dataJson(200, '上传成功', result);
+        }, function (err) {
+            return tool.dataJson(104, '上传成功', err);
+        })
+    }
 
 }
 

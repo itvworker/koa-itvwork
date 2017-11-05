@@ -1,10 +1,10 @@
 
+const imgModel = require(path.join(webconfig.v1,'images.js'));
 class CaseSort {
     constructor() {
         this.schema = new mdb.Schema({
             _id: {
                 type: String,
-                index: true,
                 default:tool.getid()
             },
             title: {
@@ -16,7 +16,7 @@ class CaseSort {
                 default: tool.time()
             },
             cover: {
-                type: Object,
+                type: String,
                 default: ''
             },
             add_time:  {
@@ -32,6 +32,9 @@ class CaseSort {
     }
 
     async add(data) {
+        await imgModel.useInc({path:data.cover},1);
+        data['_id']=tool.getid();
+        data['update_time']= data['add_time']= tool.time();
         return new this.model(data).save().then(function (result) {
             return {
                 err_code: 200,
@@ -39,6 +42,7 @@ class CaseSort {
                 data: result
             }
         }, function (err) {
+          
             return {
                 err_code: 103,
                 err_msg: '添加失败'
@@ -48,42 +52,42 @@ class CaseSort {
 
     async find(){
         return this.model.find({}).sort('+add_time').then(function (result) {
-            if(result===null){
-                return {err_code:0,err_msg:'没有数据'}
-            }
+           
             return {err_code:200,err_msg:'查找成功',data:result}
         },function (err) {
-            return {err_code:0,err_msg:'数据库错误'}
+            return {err_code:0,err_msg:'数据库错误'};
         });
 
     }
     async findone(data){
         return this.model.find(data).then(function (result) {
             if(result===null){
-                return {err_code:0,err_msg:'没有数据'}
+                return {err_code:0,err_msg:'没有数据'};
             }
             return {err_code:200,err_msg:'查找成功',data:result}
         },function (err) {
-            return {err_code:0,err_msg:'数据库错误'}
+            return {err_code:0,err_msg:'数据库错误'};
         });
     }
 
     async del(data){
+        if(!data['cover']){
+            return {err_code:0,err_msg:'数据库错误'};
+        }
+        if(!data['_id']){
+            return {err_code:0,err_msg:'数据库错误'};
+        }
+        await imgModel.useInc({path:data.cover},-1);
         return this.model.remove(data).then(function (result) {
-            if(result===null){
-                return {err_code:0,err_msg:'删除成功'}
-            }
-            return {err_code:200,err_msg:'删除成功',data:result}
+            return {err_code:200,err_msg:'删除成功'};
         },function (err) {
-            return {err_code:0,err_msg:'数据库错误'}
+            return  {err_code:0,err_msg:'数据库错误'};
         });
     }
 
     async update(check,doc){
         return this.model.update(check,doc).then(function (result) {
-            if(result===null){
-                 return {err_code:0,err_msg:'删除成功'}
-            }
+            
              return {err_code:200,err_msg:'删除成功',data:result}
         },function (err) {
              return {err_code:0,err_msg:'数据库错误'}

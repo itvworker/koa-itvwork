@@ -14,27 +14,8 @@ class CaseSort {
     }
 
     async add(ctx, next) {
-        console.log(ctx.admin);
-        ctx.body = ctx.admin;
-
-        // let post = ctx.request.body;
-        // let img = await imgModel.base64({
-        //     use: 1,
-        //     path: post['data']['cover'],
-        //     sort: 'caseSort'
-        // });
-        //
-        // let data = await caseSortModel.add({
-        //     title: post['data']['title'],
-        //     cover: {
-        //         _id: img.data._id,
-        //         url: img.data.path
-        //     }
-        // });
-        // ctx.body = ctx.admin;
-        //ctx.body = data;
-
-        // await ctx.render('user',{title:1000});
+        let data=ctx.request.body;    
+        ctx.body =  await caseSortModel.add(data.data);
     }
 
     async detail(ctx, next) {
@@ -53,9 +34,6 @@ class CaseSort {
     async update(){
         let post = ctx.request.body;
         let detail = await caseSortModel.findone({_id:post.data._id});
-
-
-
     }
 
 }
