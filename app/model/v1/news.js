@@ -1,5 +1,5 @@
 const imgModel = require(path.join(webconfig.v1, 'images.js'));
-class Case {
+class News {
     constructor() {
         this.schema = new mdb.Schema({
             _id: {
@@ -45,11 +45,11 @@ class Case {
             add_time: String
 
         }, {
-            collection: 'case',
+            collection: 'news',
             versionKey: false
         });
 
-        this.model = mdb.model('case', this.schema);
+        this.model = mdb.model('news', this.schema);
 
 
     }
@@ -157,4 +157,4 @@ class Case {
     }
 }
 
-module.exports = new Case();
+module.exports = new News();

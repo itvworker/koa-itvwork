@@ -1,7 +1,7 @@
-const caseModel = require(path.join(webconfig.v1,'case.js'));
+const caseModel = require(path.join(webconfig.v1,'news.js'));
 
 
-class Case {
+class News {
     constructor(ctx,next) {
 
     }
@@ -32,4 +32,4 @@ class Case {
     }
 }
 
-module.exports=new Case();
+module.exports=new News();

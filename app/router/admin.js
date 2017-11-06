@@ -99,17 +99,18 @@ module.exports = function (app) {
         await ctrl.case.updata(ctx, next);
 
     })
+    router.post('api_case_del', '/case/del', async function (ctx, next) {
+        await ctrl.case.del(ctx, next);
+
+    })
+
+
+    //案例分类接口
 
     router.post('api_case_sort', '/caseSort/index', async function (ctx, next) {
         await ctrl.caseSort.index(ctx, next);
 
     })
-
-  
-
-
-
-
 
     router.post('api_case_add_sort', '/caseSort/add', async function (ctx, next) {
         await ctrl.caseSort.add(ctx, next);
@@ -136,6 +137,48 @@ module.exports = function (app) {
         await ctrl.images.uploads(ctx, next);
     })
 
+
+    //新闻
+   
+    router.post('api_addnews', '/news/add', async function (ctx, next) {
+        await ctrl.news.add(ctx, next);
+    })
+    router.post('api_news_list', '/news/index', async function (ctx, next) {
+        await ctrl.news.list(ctx, next);
+    })
+    router.post('api_news_detail', '/news/detail', async function (ctx, next) {
+        await ctrl.news.detail(ctx, next);
+    })
+
+    router.post('api_news_updata', '/news/updata', async function (ctx, next) {
+        await ctrl.news.updata(ctx, next);
+    })
+    router.post('api_case_del', '/news/del', async function (ctx, next) {
+        await ctrl.news.del(ctx, next);
+    })
+
+
+    // 新闻分类接口
+
+    router.post('api_news_sort', '/newsSort/index', async function (ctx, next) {
+        await ctrl.newsSort.index(ctx, next);
+    })
+
+    router.post('api_news_add_sort', '/newsSort/add', async function (ctx, next) {
+        await ctrl.newsSort.add(ctx, next);
+    });
+
+    router.post('api_news_sort_detail', '/newsSort/detail', async function (ctx, next) {
+        await ctrl.newsSort.detail(ctx, next);
+    });
+
+    router.post('api_news_sort_del', '/newsSort/del', async function (ctx, next) {
+        await ctrl.newsSort.del(ctx, next);
+    });
+
+    router.post('api_news_sort_update', '/newsSort/update', async function (ctx, next) {
+        await ctrl.newsSort.update(ctx, next);
+    });
 
     //运用路由
     app.use(router.routes());

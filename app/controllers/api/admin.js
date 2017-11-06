@@ -19,14 +19,11 @@ class Admin {
        // await ctx.render('user',{title:1000});
     }
     async list(ctx,next) {
-
             ctx.body=ctx.request.body;
         //  let content = await AdminModel.find();
         // ctx.body = content;
 
     }
-
-
 
 }
 
