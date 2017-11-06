@@ -80,6 +80,32 @@ class Case {
             return result;
         });
     }
+
+
+
+    // async find(arg) {
+    //     arg['query'] = arg['query'] ? arg['query'] : {};
+    //     arg['sort'] = arg['sort'] ? arg['sort'] : {
+    //         add_time: -1
+    //     };
+    //     arg['num'] = arg['num'] ? arg['num'] : 10;
+    //     arg['page'] = arg['page'] ? (arg['num'] - 1) * (arg['page'] - 1) : 0;
+    //     let count = await this.count(arg['query']);
+    //     return this.model.find(arg.query).sort(arg.sort).limit(parseInt(arg.num)).skip(parseInt(arg.page)).then(function (result) {
+    //         if (result) {
+    //             return tool.dataJson(200, '查询成功', {
+    //                 count: count,
+    //                 result: result
+    //             })
+    //         } else {
+    //             return tool.dataJson(0, '没有数据');
+    //         }
+
+    //     }, function (err) {
+    //         return tool.dataJson(104, '错误', err);
+    //     })
+    // }
+
     async find(arg) {
         arg['query'] = arg['query'] ? arg['query'] : {};
         arg['sort'] = arg['sort'] ? arg['sort'] : {
@@ -88,7 +114,20 @@ class Case {
         arg['num'] = arg['num'] ? arg['num'] : 10;
         arg['page'] = arg['page'] ? (arg['num'] - 1) * (arg['page'] - 1) : 0;
         let count = await this.count(arg['query']);
-        return this.model.find(arg.query).sort(arg.sort).limit(parseInt(arg.num)).skip(parseInt(arg.page)).then(function (result) {
+        return this.model.aggregate([{
+                $lookup: {
+                    from: 'case_sort',
+                    localField: "sort",
+                    foreignField: "_id",
+                    as: "docs"
+                }
+            }, {
+                $match: arg['query']
+            },{
+                $project :{content:0}
+            }]
+
+        ).sort(arg.sort).limit(parseInt(arg.num)).skip(parseInt(arg.page)).then(function (result) {
             if (result) {
                 return tool.dataJson(200, '查询成功', {
                     count: count,
@@ -102,6 +141,7 @@ class Case {
             return tool.dataJson(104, '错误', err);
         })
     }
+
     async findOne(data) {
 
         return this.model.findOne(data).then(function (result) {
@@ -128,17 +168,27 @@ class Case {
         var old = tool.array_intersection(newImg, oldImg);
         var del = tool.array_difference(old, oldImg);
         var add = tool.array_difference(old, newImg);
-        if(del.length>0)await imgModel.useInc({path:del},-1);
-        if(add.length>0)await imgModel.useInc({path:add},1);
-        return this.model.update({_id:data._id},data).then(function (result) {
-             return {err_code:200,err_msg:'修改成功',data:result}
-        },function (err) {
+        if (del.length > 0) await imgModel.useInc({
+            path: del
+        }, -1);
+        if (add.length > 0) await imgModel.useInc({
+            path: add
+        }, 1);
+        return this.model.update({
+            _id: data._id
+        }, data).then(function (result) {
+            return {
+                err_code: 200,
+                err_msg: '修改成功',
+                data: result
+            }
+        }, function (err) {
             return tool.dataJson(104, '数据库错误');
         });
 
     }
     async del(data) {
-        
+
         if (!data['_id']) {
             return tool.dataJson(104, '数据库错误');
         }
@@ -147,12 +197,14 @@ class Case {
         })
         let oldImg = tool.getImgurl(olddata.data.content);
         oldImg.push(olddata.data.cover);
-        await imgModel.useInc({ path: oldImg }, -1);
+        await imgModel.useInc({
+            path: oldImg
+        }, -1);
         return this.model.remove(data).then(function (result) {
-            return tool.dataJson(200, '删除成功' );
+            return tool.dataJson(200, '删除成功');
         }, function (err) {
             return tool.dataJson(104, '数据库错误');
-        
+
         });
     }
 }
