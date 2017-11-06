@@ -180,6 +180,49 @@ module.exports = function (app) {
         await ctrl.newsSort.update(ctx, next);
     });
 
+
+    //教程
+
+    router.post('api_teach_add', '/teach/add', async function (ctx, next) {
+        await ctrl.teach.add(ctx, next);
+    })
+    router.post('api_teach_list', '/teach/index', async function (ctx, next) {
+        await ctrl.teach.list(ctx, next);
+    })
+    router.post('api_teach_detail', '/teach/detail', async function (ctx, next) {
+        await ctrl.teach.detail(ctx, next);
+    })
+
+    router.post('api_teach_updata', '/teach/updata', async function (ctx, next) {
+        await ctrl.teach.updata(ctx, next);
+    })
+    router.post('api_teach_del', '/teach/del', async function (ctx, next) {
+        await ctrl.teach.del(ctx, next);
+    })
+
+
+    // 教程分类接口
+
+    router.post('api_teach_sort', '/teachSort/index', async function (ctx, next) {
+        await ctrl.teachSort.index(ctx, next);
+    })
+
+    router.post('api_teach_add_sort', '/teachSort/add', async function (ctx, next) {
+        await ctrl.teachSort.add(ctx, next);
+    });
+
+    router.post('api_teach_sort_detail', '/teachSort/detail', async function (ctx, next) {
+        await ctrl.teachSort.detail(ctx, next);
+    });
+
+    router.post('api_teach_sort_del', '/teachSort/del', async function (ctx, next) {
+        await ctrl.teachSort.del(ctx, next);
+    });
+
+    router.post('api_teach_sort_update', '/teachSort/update', async function (ctx, next) {
+        await ctrl.teachSort.update(ctx, next);
+    });
+
     //运用路由
     app.use(router.routes());
 

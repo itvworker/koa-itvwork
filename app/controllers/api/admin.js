@@ -15,7 +15,6 @@ class Admin {
         }else{
             ctx.body=content;
         }
-
        // await ctx.render('user',{title:1000});
     }
     async list(ctx,next) {
