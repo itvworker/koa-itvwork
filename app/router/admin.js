@@ -8,7 +8,7 @@ var path = require('path');
 
 const koaRouter = require('koa-router')
 const busboy = require('koa-busboy')
-
+const koajson =require('koa-json');
 module.exports = function (app) {
     //初始化控制器
 
@@ -64,6 +64,8 @@ module.exports = function (app) {
         }
 
     });
+
+    router.use(koajson());
 
     //接口首页
     router.get('api', '/', async function (ctx, next) {
