@@ -225,6 +225,29 @@ module.exports = function (app) {
         await ctrl.teachSort.update(ctx, next);
     });
 
+
+    //广告
+    router.post('api_teach_sort', '/ad/index', async function (ctx, next) {
+        await ctrl.ad.index(ctx, next);
+    })
+
+    router.post('api_teach_add_sort', '/ad/add', async function (ctx, next) {
+        await ctrl.ad.add(ctx, next);
+    });
+
+    router.post('api_teach_sort_detail', '/ad/detail', async function (ctx, next) {
+        await ctrl.ad.detail(ctx, next);
+    });
+
+    router.post('api_teach_sort_del', '/ad/del', async function (ctx, next) {
+        await ctrl.ad.del(ctx, next);
+    });
+
+    router.post('api_teach_sort_update', '/ad/update', async function (ctx, next) {
+        await ctrl.ad.update(ctx, next);
+    });
+
+
     //运用路由
     app.use(router.routes());
 

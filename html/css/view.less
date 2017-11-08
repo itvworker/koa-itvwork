@@ -79,6 +79,139 @@
     }
 }
 
+.main-home {
+    width: 100%;
+    min-width: 1200px;
+    background-color: @white;
+}
+
+.main-home-indoor {
+    margin: auto;
+    width: 1200px;
+}
+
+.icon-home-ul {
+    width: 100%;
+    height: 200px;
+    padding: 80px 0px;
+    li {
+        width: 25%;
+        float: left;
+        height: 200px;
+        text-align: center;
+    }
+}
+
+.home-case {
+    width: 1224px;
+    margin-left: -13px;
+    height: 700px;
+}
+
+.home-case-item {
+    position: relative;
+    width: 280px;
+    margin: 0px 13px 50px 13px;
+    float: left;
+    img {
+        width: 280px;
+        height: 210px;
+        .border-radius(0, 4px);
+    }
+    h2 {
+        font-size: 16px;
+        padding-top: 20px;
+        padding-bottom: 10px;
+        &:hover {
+            color: @mainColor;
+        }
+    }
+    &:hover {
+        .acitve-hover {
+            border: @line solid 1px;
+            position: absolute;
+            width: 108%;
+            height: 108%;
+            left: -4%;
+            top: -4%;
+            .border-radius(0, 4px);
+            background-color: @white;
+            z-index: 0;
+            .box-shadow(0, 0, 14px, 0.2);
+        }
+    }
+}
+
+.home-brand-classify {
+    border: @wordgray solid 1px;
+    .border-radius(0, 2px);
+    padding: 2px 5px;
+    font-size: 12px;
+    color: @wordgray;
+    &:hover {
+        border: @mainColor solid 1px;
+    }
+}
+
+.home-case-link,
+.home-brand-classify {
+    position: relative;
+    z-index: 1;
+}
+
+.main-home-tow {
+    width: 100%;
+    min-width: 1200px;
+    height: 450px;
+    background: url(bg.jpg);
+}
+
+.bar-line {
+    width: 80px;
+    height: 6px;
+    background-color: @mainColor;
+    opacity: 0.8;
+    border-top: @line/1.1 solid 1px;
+    border-right: @line/1.1 solid 1px;
+    border-left: @white solid 1px;
+    border-bottom: @white solid 1px;
+    .border-radius(0, 8px);
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 1)
+}
+
+.home-company-title {
+    text-align: center;
+    font-size: 30px;
+    background: url(bgline.jpg) bottom center no-repeat;
+    height: 54px;
+    padding-top: 70px;
+}
+
+.main-home-company {
+    width: 100%;
+    position: relative;
+    min-width: 1200px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.company-link {
+    position: absolute;
+    width: 10000px;
+    left: 50%;
+    bottom: 0px;
+    margin-left: -5000px;
+    text-align: center;
+}
+
+.home-company-link {
+    margin: 10px;
+    img {
+        .border-radius(0, 4px);
+        .box-shadow(4px, 4px, 6px, 0.1);
+    }
+}
+
 .sort-wrap {
     width: 100%;
     min-width: 320px;
@@ -362,6 +495,9 @@
     border-bottom: @white/1.2 solid 1px;
     font-size: 0px;
     padding: 30px 0px;
+    &:hover {
+        background: url(bg.jpg);
+    }
     .img {
         display: inline-block;
         width: 250px;
@@ -482,90 +618,4 @@
             }
         }
     }
-}
-
-.main-home {
-    width: 100%;
-    min-width: 1200px;
-    background-color: @white;
-}
-
-.main-home-indoor {
-    margin: auto;
-    width: 1200px;
-}
-
-.icon-home-ul {
-    width: 100%;
-    height: 200px;
-    padding: 80px 0px;
-    li {
-        width: 25%;
-        float: left;
-        height: 200px;
-        text-align: center;
-    }
-}
-
-.home-case {
-    width: 1224px;
-    margin-left: -13px;
-    height: 700px;
-}
-
-.home-case-item {
-    position: relative;
-    width: 280px;
-    margin: 0px 13px 50px 13px;
-    float: left;
-    img {
-        width: 280px;
-        height: 210px;
-        .border-radius(0,
-        4px);
-    }
-    h2 {
-        font-size: 16px;
-        padding-top: 20px;
-        padding-bottom: 10px;
-        &:hover {
-            color: @mainColor;
-        }
-    }
-    &:hover {
-        .acitve-hover {
-            border: @line solid 1px;
-            position: absolute;
-            width: 108%;
-            height: 108%;
-            left: -4%;
-            top: -4%;
-            .border-radius(0,
-            4px);
-            background-color: @white;
-            z-index: 0;
-            .box-shadow(0,
-            0,
-            14px,
-            0.2);
-        }
-    }
-}
-
-.home-brand-classify {
-    border: @wordgray solid 1px;
-    .border-radius(0,
-    2px);
-    padding: 2px 5px;
-    font-size: 12px;
-    color: @wordgray;
-    &:hover {
-        border: @mainColor solid 1px;
-    }
-}
-
-.home-case-link,
-.home-brand-classify {
-    position: relative;
-    z-index: 1;
 }

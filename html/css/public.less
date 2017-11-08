@@ -2,24 +2,37 @@ html {
     padding: 0px;
     margin: 0px;
     background-color: #eee;
-    font: 14px/150% '\u51ac\u9752\u9ed1\u4f53\u7b80\u4f53\u4e2d\u6587\u0020\u0057\u0033',Hiragino Sans GB, Microsoft YaHei, Arial;
-  
-    color:@wordColor;
+    font: 14px/150% '\u51ac\u9752\u9ed1\u4f53\u7b80\u4f53\u4e2d\u6587\u0020\u0057\u0033', Hiragino Sans GB, Microsoft YaHei, Arial;
+    color: @wordColor;
 }
-.format,a,[format],img
-section,body,html,
-div,ul {
+
+.format,
+a,
+[format],
+img section,
+body,
+html,
+div,
+ul {
     padding: 0px;
     margin: 0px;
     text-decoration: none;
     list-style: none;
     font-weight: normal;
-    color:@wordColor;
-
+    color: @wordColor;
 }
+
 .wrap-box {
     width: 100%;
-    min-width: 320px; 
+    min-width: 320px;
 }
-a{ cursor: pointer; }
-a:hover{color: @mainColor;}
+
+a {
+    cursor: pointer;
+}
+
+a:hover {
+    color: @mainColor;
+}
+
+.clear{ clear: both; width: 100%;}
