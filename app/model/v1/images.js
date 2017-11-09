@@ -124,7 +124,9 @@ class Images {
 
     async find(arg) {
         arg['query'] = arg['query'] ? arg['query'] : {};
-        arg['sort'] = arg['sort'] ? arg['sort'] : {add_time:-1};
+        arg['sort'] = arg['sort'] ? arg['sort'] : {
+            add_time: -1
+        };
         arg['num'] = arg['num'] ? arg['num'] : 10;
         arg['page'] = arg['page'] ? (arg['num'] - 1) * (arg['page'] - 1) : 0;
         let count = await this.count(arg['query']);
@@ -214,6 +216,35 @@ class Images {
         }, function (err) {
             return tool.dataJson(104, '上传成功', err);
         })
+    }
+
+    async del(url) {
+        return new Promise(function (resolve, reject) {
+            let exites = fs.existsSync(webconfig.source + '/' + url);
+            if (exites) {
+                resolve(fs.unlink(webconfig.source + '/' + url));
+            }
+
+        })
+
+        // fs.unlink()
+    }
+
+    findZero() {
+        return this.model.find({use:{$lte:0}}).then(function (result) {
+           resolve(result);
+
+        }, function (err) {
+            return {
+                err_code: 500,
+                err_msg: '错误',
+                err: err
+            }
+        })
+    }
+
+    async clear() {
+
     }
 
 }

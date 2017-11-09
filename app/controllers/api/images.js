@@ -58,6 +58,15 @@ class Images {
 
     }
 
+    del(url){
+        webconfig.div
+    }
+
+    async clear(){
+
+        
+    }
+
 
 
 
