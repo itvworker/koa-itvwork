@@ -8,6 +8,12 @@
   display: box;
   display: -webkit-box;
 }
+.selnone {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 html {
   padding: 0px;
   margin: 0px;
@@ -142,6 +148,45 @@ a:hover {
 }
 .hot-brand-right-nav .item-hot-brand .title em {
   font-style: normal;
+}
+.page {
+  text-align: right;
+  font-size: 0;
+  background-color: #eee;
+  left: 1.2rem;
+  height: 0.42rem;
+  box-sizing: border-box;
+  padding-top: 0.12rem;
+  padding-right: 20px;
+  z-index: 10;
+}
+.page a,
+.page span {
+  background-color: #aaa;
+  margin: o;
+  color: #ffffff;
+  font-size: 0.12rem;
+  padding: 0.06rem 0.12rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 0.03rem;
+  -webkit-border-radius: 0.03rem;
+  -moz-border-radius: 0.03rem;
+  margin: 0 5px;
+}
+.page a {
+  cursor: pointer;
+}
+.page a:hover {
+  background-color: #717171;
+}
+.page .active {
+  background-color: #2b2b2b;
+}
+.page .forbid {
+  display: none;
 }
 .nav-bar {
   width: 100%;

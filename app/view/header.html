@@ -11,37 +11,54 @@
 <body>
     <div class="wrap-box">
 
-    <div class='nav-bar <%if(typeof inpage=="undefined"){%>inpage<%}%>' >
-        <div class="nav-meun format">
-            <div class="logo">
-                <img src="/images/logo.png">
+        <div class='nav-bar <%if(typeof inpage=="undefined"){%>inpage<%}%>'>
+            <div class="nav-meun format">
+                <div class="logo">
+                    <img src="/images/logo.png">
+                </div>
+                <i class="nav-icon" format></i>
+                <ul class="nav-word resize-show" id="big-nav" format>
+                    <li>
+                        <a href="/case">品牌案例</a>
+                    </li>
+                    <li>
+                        <a href="/teach">网络学堂</a>
+                    </li>
+                    <li>
+                        <a href="/news">资讯中心</a>
+                    </li>
+                    <li>
+                        <a href="/about">关于一体</a>
+                    </li>
+                    <li>
+                        <a href="/contact">联系我们</a>
+                    </li>
+                </ul>
             </div>
-            <i class="nav-icon" format></i>
-            <ul class="nav-word resize-show" format>
-                <li>
-                    <a routerlink="/" ng-reflect-router-link="/" href="/">首页</a>
-    
-                </li>
-                <li>
-                    <a routerlink="/brand" routerlinkactive="active" ng-reflect-router-link="/brand" ng-reflect-router-link-active="active" href="/brand"
-                        class="active">品牌案例</a>
-                </li>
-                <li>
-                    <a routerlink="/school" routerlinkactive="active" ng-reflect-router-link="/school" ng-reflect-router-link-active="active"
-                        href="/school">网络学堂</a>
-                </li>
-                <li>
-                    <a routerlink="/news" routerlinkactive="active" ng-reflect-router-link="/news" ng-reflect-router-link-active="active" href="/news">资讯中心</a>
-                </li>
-                <li>
-                    <a routerlink="/about" routerlinkactive="active" ng-reflect-router-link="/about" ng-reflect-router-link-active="active" href="/about">关于一体</a>
-                </li>
-                <li>
-                    <a routerlink="/contact" routerlinkactive="active" ng-reflect-router-link="/contact" ng-reflect-router-link-active="active"
-                        href="/contact">联系我们</a>
-                </li>
-            </ul>
         </div>
-    </div>
+        <script>
+            var path = window.location.pathname;
+            var arr = path.split('/');
+            var nav = document.getElementById('big-nav').getElementsByTagName('a');
+            
+            switch (arr[1]) {
+                case 'case':
+                    nav[0].className = "active"
+                    break;
+                case 'teach':
+                    nav[1].className = "active"
+                    break;
+                case 'news':
+                    nav[2].className = "active"
+                    break;
+                case '/about':
+                    nav[3].className = "active"
+                    break;
+                case '/contact':
+                    nav[4].className = "active"
+                    break;
 
-
+                default:
+                    break;
+            }
+        </script>

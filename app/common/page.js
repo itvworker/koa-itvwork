@@ -38,11 +38,18 @@ class Page{
         var html='<div class="page">'
         if (this.page > 1) html += '<a href="' + this.url +'page=1">上一页</a>';
         for(let i=0,len=this.page_url.length;i<len;i++){
-             
-            html+='<a href="'+this.page_url[i]['url']+'">'+this.page_url[i]['page']+'</a>';
+             if(this.page_url[i]['page']==this.page){
+                html+='<apan class="active">'+this.page_url[i]['page']+'</apan>'    
+             }else{
+                html+='<a class="'+(this.page_url[i]['page']==this.page?'active':'')+'"  href="'+this.page_url[i]['url']+'">'+this.page_url[i]['page']+'</a>';
+             }
+           
         }
 
+
+
         if (this.page < this.pages) html += '<a href="' + this.url + 'page='+this.pages+'">下一页</a>';
+        html+='</div>';
         return html;
 
     //         < div class="page" >

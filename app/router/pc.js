@@ -63,13 +63,19 @@ module.exports = function (app) {
      
     });
 
-    //
+    //案例 
     router.get('/case', async function (ctx, next) {
         await ctrl.case.index(ctx, next);
     });
     router.get('/case/:sort', async function (ctx, next) {
         await ctrl.case.index(ctx, next);
     });
+
+    //学堂
+    router.get('/teach', async function (ctx, next) {
+        await ctrl.teach.index(ctx, next);
+    });
+
     
 
 

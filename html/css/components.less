@@ -82,3 +82,39 @@
         
     }
 }
+
+.page {
+    text-align: right;
+    font-size: 0;
+    background-color: @bodyColor;
+    left: 1.2rem;
+    height: 0.42rem;
+    box-sizing: border-box;
+    padding-top: 0.12rem;
+    padding-right: 20px;
+    z-index: 10;
+    a,
+    span {
+        background-color: @gray;
+        margin: o;
+        color: @white;
+        font-size: 0.12rem;
+        padding: 0.06rem 0.12rem;
+        .selnone;
+        .border-radius(0,
+        0.03rem);
+        margin: 0 5px;
+    }
+    a {
+        cursor: pointer;
+    }
+    a:hover {
+        background-color: @gray/1.5;
+    }
+    .active {
+        background-color: @gray/4;
+    }
+    .forbid {
+        display: none;
+    }
+}

@@ -7,10 +7,14 @@ class Index {
   async index(ctx, next) {
 
     
-    let ad = await adModel.find({ query: {classify:'25562c222aaf3ee42fbef315219cb3ad'}});
-    let brand = await caseModel.find({num:8,page:1 });
+    let ad = await adModel.find({ query: {classify:'90d67eabd91381c13f8ff0734f884f0b'}});
+    let link= await adModel.find({ query: {classify:'5a6f1b597502522a42d5c674248a77cd'}});
 
-    await ctx.render('index',{ad:ad.data.result,brand:brand.data.result});
+   console.log(link);
+    let brand = await caseModel.find({num:8,page:1 });
+    
+
+    await ctx.render('index',{ad:ad.data.result,brand:brand.data.result,inpage:true,link:link.data.result});
     
   }
 

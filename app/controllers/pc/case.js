@@ -7,14 +7,20 @@ class Case {
   async index(ctx, next) {
     let param=ctx.params;
     let query=ctx.query;
-    let ad = await adModel.find({ query: { classify:'c2579aa247445f4f100853ca063c483d'}});
-    let brand = await caseModel.find({query:{sort:param.sort},num:16,page:1 });
+    let ad = await adModel.find({ query: {classify:'bfdaf1d4b22e5a63ba9b944dd446ad1d'}});
+
+    let search={};
+    if(JSON.stringify(param)!=='{}'){
+      search['sort']=param.sort;
+    }
+
+    let brand = await caseModel.find({query:search,num:16,page:1 });
     let url = tool.pageurl(ctx.path,query); 
     
     let page=new Page({
       pot:13,
       url:url,
-      page:10,
+      page:query.page?query.page:1,
       num:12,
       count:30000
     })
