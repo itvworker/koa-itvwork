@@ -10,7 +10,7 @@ class Ad {
         ctx.body = await adModel.add(post.data);
 
     }
-    async list(ctx, next) {
+    async index(ctx, next) {
         let post = ctx.request.body;
         ctx.body = await adModel.find(post.data);
 

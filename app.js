@@ -1,6 +1,7 @@
 var koa = require('koa');
 var app =new koa();
 global.path = require('path');
+global.Page = require('./app/common/page');
 var router = require('./app/router/admin');  //后台路由
 var pcrouter= require('./app/router/pc');
 const render = require('koa-ejs');

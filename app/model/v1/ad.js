@@ -33,13 +33,11 @@ class News {
             add_time: String
 
         }, {
-                collection: 'news',
+                collection: 'ad',
                 versionKey: false
             });
 
-        this.model = mdb.model('news', this.schema);
-
-
+        this.model = mdb.model('ad', this.schema);
     }
 
     //添加品牌案例
@@ -47,7 +45,7 @@ class News {
         data['add_time'] = tool.time();
         data['_id'] = tool.getid();
         data['update_time'] = data['add_time'];
-        let arr = tool.getImgurl(data.content)
+        let arr =[];
         arr.push(data.cover);
 
         let err = await imgModel.useInc({
@@ -55,11 +53,10 @@ class News {
         }, 1);
 
         return new this.model(data).save().then(function (result) {
-            return tool.dataJson(200, '查询成功', result);
+            return tool.dataJson(200, '保存成功', result);
 
         }, function (err) {
-            return tool.dataJson(103, '添加失败');
-
+            return tool.dataJson(103, '保存失败',err);
         })
 
     }
@@ -76,7 +73,20 @@ class News {
         arg['num'] = arg['num'] ? arg['num'] : 10;
         arg['page'] = arg['page'] ? (arg['num'] - 1) * (arg['page'] - 1) : 0;
         let count = await this.count(arg['query']);
-        return this.model.find(arg.query).sort(arg.sort).limit(parseInt(arg.num)).skip(parseInt(arg.page)).then(function (result) {
+        return this.model.aggregate([{
+            $lookup: {
+                from: 'ad_sort',
+                localField: "classify",
+                foreignField: "_id",
+                as: "docs"
+            }
+        }, {
+            $match: arg['query']
+        }, {
+            $project: { content: 0 }
+        }]
+
+        ).sort(arg.sort).limit(parseInt(arg.num)).skip(parseInt(arg.page)).then(function (result) {
             if (result) {
                 return tool.dataJson(200, '查询成功', {
                     count: count,
@@ -140,7 +150,6 @@ class News {
             return tool.dataJson(200, '删除成功');
         }, function (err) {
             return tool.dataJson(104, '数据库错误');
-
         });
     }
 }

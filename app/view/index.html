@@ -1,0 +1,69 @@
+<%- include('./header') %>
+
+<div class="banner">
+    <ul class="banner-ul">
+        <% for(let i=0,len=ad.length;i<len;i++){ %>
+        <li>
+            <img src='/images/<%-ad[i]["cover"] %>' />
+        </li>
+        <% } %>
+    </ul>
+</div>
+
+<div class="main-home">
+    <div class="main-home-indoor">
+        <ul class="icon-home-ul">
+            <li>
+                <i>
+                    <img src="/style/pcstyle/icon1.png"> </i>
+                <h4>平面</h4>
+                <p>包装、画册、折页、宣传单、展架
+                    <br/>海报、企业VI、LOGO、名片</p>
+            </li>
+            <li>
+                <i>
+                    <img src="/style/pcstyle/icon2.png"> </i>
+                <h4>UI</h4>
+                <p>APP设计及开发、后期技术运行上
+                    <br/>线、微信H5营销界面设计</p>
+            </li>
+            <li>
+                <i>
+                    <img src="/style/pcstyle/icon3.png"> </i>
+                <h4>网页</h4>
+                <p>高端企业网站定制、商城定制、
+                    <br/>天猫淘宝店铺界面设计及维护</p>
+            </li>
+
+            <li>
+                <i>
+                    <img src="/style/pcstyle/icon4.png"> </i>
+                <h4>摄影</h4>
+                <p>产品专业视觉摄影并优化
+                    <br/>及处理</p>
+            </li>
+
+        </ul>
+        <ul class="home-case">
+            <% for(let i=0,len=brand.length;i<len;i++){ %>
+            <li class="home-case-item">
+                <div class="acitve-hover"></div>
+                <a class="home-case-link" href="#">
+                    <img src='/images/<%-brand[i]["cover"] %>' />
+                    <h2 format>
+                        <span class="home-brand-name">[R&H]品牌]</span>
+                        <span class="home-brand-subname"><%-brand[i]['title'] %></span>
+                    </h2>
+                </a>
+                <a class="home-brand-classify">
+                    <%-brand[i]["docs"][0]['title'] %>
+                </a>
+            </li>
+            <% } %>
+        </ul>
+    </div>
+</div>
+
+
+
+<%- include('./footer') %>

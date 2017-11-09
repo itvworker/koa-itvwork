@@ -42,19 +42,23 @@ class News {
                 type: String,
                 default: ''
             },
-            add_time: String
+            add_time:{
+                type: String,
+                defult:tool.time()
+            } 
 
         }, {
             collection: 'news',
             versionKey: false
         });
 
+
         this.model = mdb.model('news', this.schema);
 
 
     }
 
-    //添加品牌案例
+    // 
     async add(data) {
         data['add_time'] = tool.time();
         data['_id'] = tool.getid();

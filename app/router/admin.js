@@ -247,6 +247,28 @@ module.exports = function (app) {
         await ctrl.ad.update(ctx, next);
     });
 
+    // 广告分类接口
+
+    router.post('api_teach_sort', '/adSort/index', async function (ctx, next) {
+        await ctrl.adSort.index(ctx, next);
+    })
+
+    router.post('api_teach_add_sort', '/adSort/add', async function (ctx, next) {
+        await ctrl.adSort.add(ctx, next);
+    });
+
+    router.post('api_teach_sort_detail', '/adSort/detail', async function (ctx, next) {
+        await ctrl.adSort.detail(ctx, next);
+    });
+
+    router.post('api_teach_sort_del', 'adSort/del', async function (ctx, next) {
+        await ctrl.adSort.del(ctx, next);
+    });
+
+    router.post('api_teach_sort_update', '/adSort/update', async function (ctx, next) {
+        await ctrl.adSort.update(ctx, next);
+    });
+
 
     //运用路由
     app.use(router.routes());

@@ -75,17 +75,14 @@ class Tool {
 
   }
   getImgurl(str) {
-    let regx = /imgurl=['"]([^'"]+)/gi;
-    let arr = [];
+    let regx = /\w{32}.(?:jpg|png|gif|jps|bmp|jpeg)/gi;
+    let arr=[];
     str.replace(regx, function (value) {
       arr.push(value);
       return value;
     });
-    for (let i = 0, len = arr.length; i < len; i++) {
-      arr[i] = arr[i].replace('imgurl="', '').replace('"', '');
-    }
-
-    return arr;
+    
+    return this.array_remove_repeat(arr);
   }
   array_remove_repeat(a) { // 去重
     var r = [];
@@ -136,6 +133,17 @@ class Tool {
     return this.array_remove_repeat(diff.concat(tmp));
 
   }
+
+  pageurl(path,query){
+     var url=path+'?';
+     for(let i in query){
+       if(i!='page'){
+          url+=i+'='+query[i]+'&'
+       }
+     }
+     return url;
+  }
+  
 
 }
 module.exports = new Tool();
