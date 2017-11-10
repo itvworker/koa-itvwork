@@ -1,0 +1,88 @@
+<%- include('./header') %>
+    <div class="outer-wrap">
+        <div class="main-wrap">
+
+            <div class="left-news-box">
+                <ul class="news-list">
+                    <% for(let i=0,len=data.length;i<len;i++){ %>
+                        <li class="news-item">
+                            <div class="cricle-pot">
+                                <i class="cricle"></i>
+                            </div>
+                            <a class="news-title">
+                                <%-data[i]['title']%>
+                            </a>
+                            <p class="news-info">
+                                <%-data[i]['info']%>
+                            </p>
+
+                            <div class="new-item-bar">
+                                <div class="author">
+                                    <em format> 来源：</em>
+                                    <span>
+                                        <%-data[i]['author']%>
+                                    </span>
+                                </div>
+                                <div class="send-date">
+                                    <i class="icon-date"></i>
+                                    <%-tool.formatDate(data[i]['add_time'],'yy-mm-dd')%>
+                                </div>
+                                <div class="view-bar">
+                                    <i class="icon-view"></i>
+                                    <%-data[i]['views']%>
+                                </div>
+                                <i class="icon-share"></i>
+                            </div>
+
+                        </li>
+                        <% } %>
+                </ul>
+                <%-page%>
+
+            </div>
+
+
+
+            <div class="hot-brand-right-nav">
+                <h1>
+                    案例推荐
+                    <i class="icon-more"></i>
+                </h1>
+                <ul class="hot-brand-list">
+                    <li class="item-hot-brand">
+                        <a class="img" href="#">
+                            <img src="/images/b5.jpg">
+                        </a>
+                        <a class="title">
+                            <em>【 微诚金服 】</em>日历整套设计与印刷</a>
+                    </li>
+                    <li class="item-hot-brand">
+                        <a class="img" href="#">
+                            <img src="/images/b5.jpg">
+                        </a>
+                        <a class="title">
+                            <em>【 微诚金服 】</em>日历整套设计与印刷</a>
+                    </li>
+                    <li class="item-hot-brand">
+                        <a class="img" href="#">
+                            <img src="/images/b5.jpg">
+                        </a>
+                        <a class="title">
+                            <em>【 微诚金服 】</em>日历整套设计与印刷</a>
+                    </li>
+                    <li class="item-hot-brand">
+                        <a class="img" href="#">
+                            <img src="/images/b5.jpg">
+                        </a>
+                        <a class="title">
+                            <em>【 微诚金服 】</em>日历整套设计与印刷</a>
+                    </li>
+
+
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <%- include('./footer') %>

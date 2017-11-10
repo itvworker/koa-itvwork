@@ -85,8 +85,13 @@ module.exports = function (app) {
     router.get('/teach', async function (ctx, next) {
         await ctrl.teach.index(ctx, next);
     });
+    
+    router.get('/news', async function (ctx, next) {
+        await ctrl.news.index(ctx, next);
+    });
 
     
+       
 
 
     //运用路由
