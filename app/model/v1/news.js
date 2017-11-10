@@ -14,6 +14,10 @@ class News {
                 type: String,
                 default: ""
             },
+            info:{
+               type:String,
+               default:'' 
+            },
             source: {
                 type: String,
                 default: ''
@@ -84,6 +88,29 @@ class News {
             return result;
         });
     }
+    // async find(arg) {
+    //     arg['query'] = arg['query'] ? arg['query'] : {};
+    //     arg['sort'] = arg['sort'] ? arg['sort'] : {
+    //         add_time: -1
+    //     };
+    //     arg['num'] = arg['num'] ? arg['num'] : 10;
+    //     arg['page'] = arg['page'] ? (arg['num'] - 1) * (arg['page'] - 1) : 0;
+    //     let count = await this.count(arg['query']);
+    //     return this.model.find(arg.query).sort(arg.sort).limit(parseInt(arg.num)).skip(parseInt(arg.page)).then(function (result) {
+    //         if (result) {
+    //             return tool.dataJson(200, '查询成功', {
+    //                 count: count,
+    //                 result: result
+    //             })
+    //         } else {
+    //             return tool.dataJson(0, '没有数据');
+    //         }
+
+    //     }, function (err) {
+    //         return tool.dataJson(104, '错误', err);
+    //     })
+    // }
+
     async find(arg) {
         arg['query'] = arg['query'] ? arg['query'] : {};
         arg['sort'] = arg['sort'] ? arg['sort'] : {
@@ -92,7 +119,19 @@ class News {
         arg['num'] = arg['num'] ? arg['num'] : 10;
         arg['page'] = arg['page'] ? (arg['num'] - 1) * (arg['page'] - 1) : 0;
         let count = await this.count(arg['query']);
-        return this.model.find(arg.query).sort(arg.sort).limit(parseInt(arg.num)).skip(parseInt(arg.page)).then(function (result) {
+        return this.model.aggregate([{
+            $lookup: {
+                from: 'news_sort',
+                localField: "sort",
+                foreignField: "_id",
+                as: "docs"
+            }
+        }, {
+            $match: arg['query']
+        }, {
+            $project: { content: 0 }
+        }]
+        ).sort(arg.sort).limit(parseInt(arg.num)).skip(parseInt(arg.page)).then(function (result) {
             if (result) {
                 return tool.dataJson(200, '查询成功', {
                     count: count,

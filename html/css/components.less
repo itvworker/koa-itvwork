@@ -57,12 +57,22 @@
     width: 350px;
     overflow: hidden;
     float: right;
-    h1{ height: 70px; margin: 0px; line-height: 70px;
-         position: relative;
-          font-weight: normal; width: 350px; font-size: 24px;
-          .icon-more{ font-size: 24px; position: absolute; right: 0px; 
+    h1 {
+        height: 70px;
+        margin: 0px;
+        line-height: 70px;
+        position: relative;
+        font-weight: normal;
+        width: 350px;
+        font-size: 24px;
+        .icon-more {
+            font-size: 24px;
+            position: absolute;
+            right: 0px;
             color: @white/2;
-            &:hover{ color: @mainColor;}
+            &:hover {
+                color: @mainColor;
+            }
         }
     }
     .item-hot-brand {
@@ -70,49 +80,59 @@
         margin-bottom: 10px;
         .img {
             width: 350px;
-            .border-radius(0,8px); font-size: 0px;
-            overflow: hidden;  height: 205px;
+            .border-radius(0, 8px);
+            font-size: 0px;
+            overflow: hidden;
+            height: 205px;
             display: block;
-           
             img {
                 width: 100%;
             }
         }
-        .title{ line-height: 50px; font-size: 18px; em{ font-style: normal;} }
-        
+        .title {
+            line-height: 50px;
+            font-size: 18px;
+            em {
+                font-style: normal;
+            }
+        }
     }
 }
 
 .page {
-    text-align: right;
+    text-align: center;
     font-size: 0;
     background-color: @bodyColor;
-    left: 1.2rem;
-    height: 0.42rem;
+    height: 50px;
     box-sizing: border-box;
     padding-top: 0.12rem;
     padding-right: 20px;
     z-index: 10;
+    width: 1200px;
     a,
     span {
-        background-color: @gray;
-        margin: o;
         color: @white;
         font-size: 0.12rem;
         padding: 0.06rem 0.12rem;
         .selnone;
-        .border-radius(0,
-        0.03rem);
+        .border-radius(0, 0.03rem);
         margin: 0 5px;
+        padding: 6px 12px;
+        .border-radius(0, 4px);
     }
     a {
         cursor: pointer;
+        border: @gray solid 1px;
+        color: #333;
     }
     a:hover {
-        background-color: @gray/1.5;
+        background-color: @gray/2.6;
+        border: @gray/2.6 solid 1px;
+        color: @white;
     }
     .active {
         background-color: @gray/4;
+        border: @gray/4 solid 1px;
     }
     .forbid {
         display: none;

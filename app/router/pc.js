@@ -63,6 +63,16 @@ module.exports = function (app) {
      
     });
 
+    //注册
+
+    router.get('/reg', async function (ctx, next) {
+        await ctrl.user.reg(ctx, next);
+    });
+    router.get('/user/setperson', async function (ctx, next) {
+        await ctrl.user.updataPerson(ctx, next);
+    });
+    
+
     //案例 
     router.get('/case', async function (ctx, next) {
         await ctrl.case.index(ctx, next);

@@ -39,7 +39,7 @@ class Page{
         if (this.page > 1) html += '<a href="' + this.url +'page=1">上一页</a>';
         for(let i=0,len=this.page_url.length;i<len;i++){
              if(this.page_url[i]['page']==this.page){
-                html+='<apan class="active">'+this.page_url[i]['page']+'</apan>'    
+                html+='<span class="active">'+this.page_url[i]['page']+'</span>'    
              }else{
                 html+='<a class="'+(this.page_url[i]['page']==this.page?'active':'')+'"  href="'+this.page_url[i]['url']+'">'+this.page_url[i]['page']+'</a>';
              }

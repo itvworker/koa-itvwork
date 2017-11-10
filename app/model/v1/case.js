@@ -154,7 +154,7 @@ class Case {
         }, 1);
         return this.model.update({
             _id: data._id
-        }, data).then(function (result) {
+        }, {$set:data}).then(function (result) {
             return {
                 err_code: 200,
                 err_msg: '修改成功',
