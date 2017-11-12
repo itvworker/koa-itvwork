@@ -1,4 +1,4 @@
-const caseSortModel = require(path.join(webconfig.v1, 'AdSort.js'));
+const caseSortModel = require(path.join(webconfig.v1, 'adSort.js'));
 const imgModel = require(path.join(webconfig.v1, 'images.js'));
 
 class AdSort {
