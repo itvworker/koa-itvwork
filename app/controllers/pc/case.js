@@ -17,12 +17,13 @@ class Case {
     let brand = await caseModel.find({query:search,num:16,page:1 });
     let url = tool.pageurl(ctx.path,query); 
     
+
     let page=new Page({
       pot:13,
       url:url,
       page:query.page?query.page:1,
-      num:12,
-      count:30000
+      num:10,
+      count: brand.data.count
     })
     
 
