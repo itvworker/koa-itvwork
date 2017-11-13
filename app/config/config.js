@@ -11,7 +11,7 @@ module.exports = (root)=> {
         common:path.join(root,'Common'),
         root:root,
         port: 7200,
-        db:'mongodb://localhost:27017/more',
+        db:'mongodb://localhost:6969/more',
         scret:'moreapp_admin'
     }
 }

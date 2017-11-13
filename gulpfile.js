@@ -61,6 +61,7 @@ function html(done) {
 
 function js(done) {
     return gulp.src(src.js)
+        .pipe(uglify)
         .pipe(gulp.dest(dist.js));
     done();
 }
@@ -80,8 +81,8 @@ function images(done) {
 function css(done) {
     gulp.src(src.css) //该任务针对的文件
     .pipe(less())
-    //.pipe(autoprefixer())
-    //.pipe(minifycss()) //该任务调用的模块
+    .pipe(autoprefixer())
+    .pipe(minifycss()) //该任务调用的模块
     .pipe(gulp.dest(dist.css))
     .pipe(connect.reload());
 done();

@@ -64,6 +64,10 @@ module.exports = function (app) {
     });
 
     //注册
+    router.get('/adminmanger', async function (ctx, next) {
+        await ctx.render('admin');
+    });
+
 
     router.get('/reg', async function (ctx, next) {
         await ctrl.user.reg(ctx, next);
