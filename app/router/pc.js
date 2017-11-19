@@ -16,9 +16,9 @@ module.exports = function (app) {
             ctrl[ctrlName] = require(path.join(webconfig.pc, file));
         }
     });
-    
 
- 
+
+
 
 
     router.use(koajson());
@@ -58,9 +58,16 @@ module.exports = function (app) {
 
 
     //首页
+    router.get('/.well-known/acme-challenge/:id', async function (ctx, next) {
+        let param=ctx.params;
+        ctx.body = '73mM5uVWUwISukWvHxVXlucoTBCQb_AzZ45y96_P3R4.-fi2OBKHYLvi_nrDi1cWDtu1H3QTM8V3t9ind_UDros';    
+
+    });
+
+
     router.get('/', async function (ctx, next) {
-        await ctrl.index.index(ctx,next);
-     
+        await ctrl.index.index(ctx, next);
+
     });
 
     //注册
@@ -75,7 +82,7 @@ module.exports = function (app) {
     router.get('/user/setperson', async function (ctx, next) {
         await ctrl.user.updataPerson(ctx, next);
     });
-    
+
 
     //案例 
     router.get('/case', async function (ctx, next) {
@@ -89,18 +96,17 @@ module.exports = function (app) {
     router.get('/teach', async function (ctx, next) {
         await ctrl.teach.index(ctx, next);
     });
-    
+
     router.get('/news', async function (ctx, next) {
         await ctrl.news.index(ctx, next);
     });
 
-    
-       
+
+
 
 
     //运用路由
     app.use(router.routes());
-   
+
 
 }
-

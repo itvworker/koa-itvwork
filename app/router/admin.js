@@ -68,9 +68,7 @@ module.exports = function (app) {
     router.use(koajson());
 
     //接口首页
-    router.get('api', '/', async function (ctx, next) {
-
-    });
+ 
     //管理人员登录
     router.post('api_login', '/login', async function (ctx, next) {
         await ctrl.login.index(ctx, next);

@@ -10,13 +10,13 @@ class News {
                 type: String,
                 default: ""
             },
-            update_time: {
-                type: String,
-                default: ""
-            },
             cover: {
                 type: Object,
                 default: ''
+            },
+            link:{
+               type:String,
+               default:''     
             },
             classify: {
                 type: String,
@@ -25,10 +25,6 @@ class News {
             like: {
                 type: Number,
                 default: 0
-            },
-            content: {
-                type: String,
-                default: ''
             },
             add_time: String
 

@@ -558,18 +558,18 @@
                     width: 120px;
                     color: @white/2;
                     .icon-date {
-                        font-size: 18px;
+                        font-size: 16px; 
                         position: absolute;
-                        left: 0px;
-                        top: -2px;
-                        color: @white/2;
+                        left: 5px;
+                        top: 1px;
+                        color: @white/2; 
                     }
                 }
                 .view-bar {
                     float: left;
                     position: relative;
-                    height: 34px;
-                    line-height: 30px;
+                    height: 30px;
+                    line-height: 34px;
                     padding-left: 26px;
                     font-size: 12px;
                     color: @white/2;
@@ -577,7 +577,7 @@
                         position: absolute;
                         top: 0px;
                         left: 0px;
-                        font-size: 18px;
+                        font-size: 20px;
                     }
                 }
             } //
@@ -665,3 +665,48 @@
                 width: 1224px;
                 margin-left: -13px; 
             }
+
+
+.wrap-detail{
+    width: 800px; margin: auto; padding-top: 80px; padding-bottom:60px;
+    .teach-sort{ text-align: center; color: @gray;}
+    .title{ text-align: center;}
+    .detail-content{
+        padding-top:30px; line-height: 180%;
+    }
+}            
+.source{ color: @wordgray;
+    padding-top: 30px;
+    font-size: 12px;
+    a{ color:@wordgray;
+      
+        &:hover{
+            color: @mainColor;
+        }
+    }
+    span{ padding: 0 20px;}
+    .icon-date{ font-size: 14px; padding-right: 5px;}
+    .icon-view{ font-size: 16px;  padding-right: 5px;}
+}
+.source-link{ width: 100px; margin-right: 60px;}
+
+.change-artcle{ text-align: center; padding-top:40px; color: @wordgray;
+    a{ color: @wordColor;
+       
+        &:hover{ color: @mainColor;}
+    }
+    span{
+        margin: 0px 20px;
+    }
+}
+
+.news-outer-box{
+     padding-top: 60px;
+      background-color:@bg;
+}
+
+.wrap-detail-news{ width: 1200px; margin: auto;
+    .source{ padding-top: 0px;}
+
+    .detail-content{ padding-top: 20px;}
+}

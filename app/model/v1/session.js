@@ -31,6 +31,7 @@ class Session {
 
 
     async add(data) {
+        data['expires_time']=new Date((tool.time() + 60 * 60 * 24) * 1000);
         return new this.model(data).save().then(function (result) {
             return tool.dataJson(200, '操作成功', result);
         }, function (err) {

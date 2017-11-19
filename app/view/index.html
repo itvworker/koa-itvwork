@@ -12,7 +12,7 @@
 
     <div class="main-home">
         <div class="main-home-indoor">
-            <!-- <ul class="icon-home-ul">
+            <ul class="icon-home-ul">
                 <li>
                     <i>
                         <img src="/style/pcstyle/icon1.png"> </i>
@@ -43,7 +43,7 @@
                         <br/>及处理</p>
                 </li>
 
-            </ul> -->
+            </ul>
             <ul class="home-case">
                 <% for(let i=0,len=brand.length;i<len;i++){ %>
                     <li class="home-case-item">
@@ -86,3 +86,15 @@
 
 
     <%- include('./footer') %>
+
+    <script type="text/javascript">
+        window.addEventListener('scroll',function(){
+            if(document.body.scrollTop>620){
+                document.getElementById('nav-bg').className="nav-bar inpage";
+            }else{
+                document.getElementById('nav-bg').className="nav-bar";
+            }
+      
+          
+        })
+    </script>

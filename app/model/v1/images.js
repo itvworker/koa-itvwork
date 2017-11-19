@@ -128,7 +128,8 @@ class Images {
             add_time: -1
         };
         arg['num'] = arg['num'] ? arg['num'] : 10;
-        arg['page'] = arg['page'] ? (arg['num'] - 1) * (arg['page'] - 1) : 0;
+        arg['page'] = arg['page'] ? arg['num'] * (arg['page'] - 1) : 0;
+       
         let count = await this.count(arg['query']);
         return this.model.find(arg.query).sort(arg.sort).limit(parseInt(arg.num)).skip(parseInt(arg.page)).then(function (result) {
             if (result) {

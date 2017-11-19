@@ -15,6 +15,11 @@ var rest = require('connect-rest');
 var uglify = require('gulp-uglify');
 
 
+var browserSync = require('browser-sync');
+var webreload = browserSync.reload;
+var nodemon = require('gulp-nodemon');
+
+
 var src = {
     css: './html/css/index.less',
     file: './html/file/**/*',
@@ -30,6 +35,35 @@ var dist = {
     js: './dist/js',
     images:'./dist/images'
 }
+
+
+
+function node(done) {
+    nodemon({
+        script: 'app.js',
+        ext: 'js html',
+        env: {
+            'NODE_ENV': 'development'
+
+        }
+    })
+    done();
+
+}
+
+function webStart(done){
+    browserSync.init('./app/**/*', {
+         proxy: 'http://localhost:8099',
+         browser: 'chrome',
+         notify: false,
+         port: 8100
+     });
+     done();
+}
+
+
+
+
 function connectServer(done) {
     connect.server({
         root: dist.view,
@@ -61,7 +95,7 @@ function html(done) {
 
 function js(done) {
     return gulp.src(src.js)
-        .pipe(uglify)
+        .pipe(uglify())
         .pipe(gulp.dest(dist.js));
     done();
 }
@@ -111,4 +145,13 @@ function reload() {
         .pipe(connect.reload()); //自动刷新
 }
 
+
+function watchs(done){
+    gulp.watch('./app/**/*',webreload);
+    done();
+}
+
 gulp.task("default", gulp.series(clean,html,js,css,file,images,connectServer,watch));
+
+
+gulp.task('dev',gulp.series(node,webStart,watchs));
