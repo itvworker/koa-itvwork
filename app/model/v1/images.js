@@ -3,6 +3,7 @@ var {
     promisify
 } = require('util');
 var sizeOf = promisify(require('image-size'));
+var gm = require('gm');
 class Images {
     constructor() {
         this.schema = new mdb.Schema({
@@ -71,7 +72,7 @@ class Images {
 
     }
 
-
+    //将base64位图片保存成图片文件---单张
     async base64(data) {
         let localimg = await this.saveBase64(data.path);
         if (localimg['err_code'] == 200) {
@@ -101,7 +102,7 @@ class Images {
         }
 
     }
-
+    //将base64位图片保存成图片文件
     saveBase64(data) {
         let dataBuffer = new Buffer(data.data, 'base64');
         let size = dataBuffer.length;
@@ -115,13 +116,15 @@ class Images {
                         err_code: 200,
                         err_msg: '保存成功',
                         url: id + '.' + data.type,
-                        size: size
+                        size: size,
+                        id: id,
+                        type: data.type
                     });
                 }
             });
         })
     };
-
+    //图片列表 
     async find(arg) {
         arg['query'] = arg['query'] ? arg['query'] : {};
         arg['sort'] = arg['sort'] ? arg['sort'] : {
@@ -157,13 +160,13 @@ class Images {
             }
         })
     }
-
+    //获取条数
     count(query) {
         return this.model.find(query).count(function (result) {
             return result;
         });
     }
-
+    //插入多数据
     inserts(data) {
         return new this.model.insertMany(data).then(function (result) {
             return tool.dataJson(200, '上传成功', result);
@@ -171,6 +174,7 @@ class Images {
             return tool.dataJson(104, '上传失败', err);
         });
     }
+    //获取图片信息
     sizeImg(data) {
         return sizeOf(webconfig.source + '/images/' + data)
             .then(dimensions => {
@@ -178,12 +182,17 @@ class Images {
             })
             .catch(err => console.error(err));
     }
+
+    //上传多张图片
     async uploads(data, ctx, type) {
         let arr = [];
         let defeatNum = 0;
         for (let i = 0, len = data.length; i < len; i++) {
             console.log(i);
             let result = await this.saveBase64(data[i]);
+            let resize1 = await this.resizeImg(result.url,400,result.id,result.type);    
+
+
             if (result.err_code == 200) {
                 arr.push({
                     _id: tool.getid(),
@@ -232,8 +241,12 @@ class Images {
     }
 
     findZero() {
-        return this.model.find({use:{$lte:0}}).then(function (result) {
-           resolve(result);
+        return this.model.find({
+            use: {
+                $lte: 0
+            }
+        }).then(function (result) {
+            resolve(result);
 
         }, function (err) {
             return {
@@ -242,6 +255,19 @@ class Images {
                 err: err
             }
         })
+    }
+    resizeImg(url, width, name, type) {
+        return new Promise(function (resolve, reject) {
+            gm('/public/images/' + url).resize(width).write('/public/images/' + name +'whith_'+ width +'.'+ type, function (err) {
+                if (!err) {
+                    resolve(true);   
+                }else{
+                    console.log(err);
+                    resolve(false);
+                }
+            });
+        })
+       
     }
 
     async clear() {

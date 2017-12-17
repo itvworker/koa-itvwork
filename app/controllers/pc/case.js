@@ -18,6 +18,18 @@ class Case {
       search['sort'] = param.sort;
     }
 
+    let brand = await caseModel.find({query:search,num:16,page:1 });
+    let url = tool.pageurl(ctx.path,query);
+
+
+    let page=new Page({
+      pot:13,
+      url:url,
+      page:query.page?query.page:1,
+      num:10,
+      count: brand.data.count
+    })
+
 
     let brand = await caseModel.find({query: search, num: 12, page: query.page? query.page: 1});
     console.log(brand);
