@@ -17,16 +17,16 @@
                     <% for(let i=0,len=brand.length;i<len;i++){ %>
                         <li class="home-case-item">
                             <div class="acitve-hover"></div>
-                            <a class="home-case-link" href="#">
+                            <a class="home-case-link" href="/case/msg/<%-brand[i]['_id'] %>.html">
                                 <img src='/images/<%-brand[i]["cover"] %>' />
-                                <h2 format>
+                                <h2 >
                                     <span class="home-brand-name">[R&H]品牌]</span>
                                     <span class="home-brand-subname">
                                         <%-brand[i]['title'] %>
                                     </span>
                                 </h2>
                             </a>
-                            <a class="home-brand-classify">
+                            <a class="home-brand-classify" href="/case/msg/<%-brand[i]['_id'] %>.html" >
                                 <%-brand[i]["docs"][0]['title'] %>
                             </a>
                         </li>
@@ -36,7 +36,7 @@
                 <%- page %>
             </div>
         </div>
-       
+
         <div class="left-nav">
             <ul class="ul-left-nav">
                 <li>

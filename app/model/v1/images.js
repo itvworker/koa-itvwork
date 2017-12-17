@@ -40,7 +40,7 @@ class Images {
                 default: ''
             },
             add_time: {
-                type: String,
+                type: Number,
                 default: tool.time()
             },
             width: {
@@ -129,9 +129,9 @@ class Images {
         };
         arg['num'] = arg['num'] ? arg['num'] : 10;
         arg['page'] = arg['page'] ? arg['num'] * (arg['page'] - 1) : 0;
-       
+
         let count = await this.count(arg['query']);
-        return this.model.find(arg.query).sort(arg.sort).limit(parseInt(arg.num)).skip(parseInt(arg.page)).then(function (result) {
+        return this.model.find(arg.query).sort(arg.sort).skip(parseInt(arg.page)).limit(parseInt(arg.num)).then(function (result) {
             if (result) {
                 return {
                     err_code: 200,

@@ -34,15 +34,26 @@ class Teach {
                 type: String,
                 default: ''
             },
+            tags:{
+              type:Array,
+              default:[]
+            },
+            chapter:{
+              type:Object,
+              default:[]
+            },
             like: {
                 type: Number,
                 default: 0
             },
-            content: {
+            info: {
                 type: String,
                 default: ''
             },
-            add_time: String
+            add_time: {
+              type: Number,
+              default: tool.time()
+            }
 
         }, {
             collection: 'teach',
@@ -138,7 +149,7 @@ class Teach {
 
     }
     async del(data) {
-        
+
         if (!data['_id']) {
             return tool.dataJson(104, '数据库错误');
         }
@@ -152,7 +163,7 @@ class Teach {
             return tool.dataJson(200, '删除成功' );
         }, function (err) {
             return tool.dataJson(104, '数据库错误');
-        
+
         });
     }
 }

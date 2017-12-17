@@ -66,10 +66,6 @@ class Images {
 
         
     }
-
-
-
-
 }
 
 module.exports=new Images();

@@ -12,7 +12,7 @@ class CaseSort {
                 default: ""
             },
             update_time:  {
-                type: String,
+                type: Number,
                 default: tool.time()
             },
             cover: {
@@ -42,7 +42,7 @@ class CaseSort {
                 data: result
             }
         }, function (err) {
-          
+
             return {
                 err_code: 103,
                 err_msg: '添加失败'
@@ -52,15 +52,15 @@ class CaseSort {
 
     async find(){
         return this.model.find({}).sort('+add_time').then(function (result) {
-           
+
             return {err_code:200,err_msg:'查找成功',data:result}
         },function (err) {
             return {err_code:0,err_msg:'数据库错误'};
         });
 
     }
-    async findone(data){
-        return this.model.find(data).then(function (result) {
+    async findOne(data){
+        return this.model.findOne(data).then(function (result) {
             if(result===null){
                 return {err_code:0,err_msg:'没有数据'};
             }
@@ -87,11 +87,11 @@ class CaseSort {
 
     async update(check,doc){
         return this.model.update(check,doc).then(function (result) {
-            
              return {err_code:200,err_msg:'修改成功',data:result}
         },function (err) {
              return {err_code:0,err_msg:'数据库错误'}
         });
+
     }
 }
 

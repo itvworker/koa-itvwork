@@ -10,7 +10,7 @@ class CaseSort {
                 default: ""
             },
             update_time:  {
-                type: String,
+                type: Number,
                 default: tool.time()
             },
             width:{
@@ -22,7 +22,7 @@ class CaseSort {
                 default:''
             },
             add_time:  {
-                type: String,
+                type: Number,
                 default: tool.time()
             },
         }, {
@@ -34,7 +34,7 @@ class CaseSort {
     }
 
     async add(data) {
-      
+
         data['_id']=tool.getid();
         data['update_time']= data['add_time']= tool.time();
         return new this.model(data).save().then(function (result) {
@@ -44,7 +44,7 @@ class CaseSort {
                 data: result
             }
         }, function (err) {
-          
+
             return {
                 err_code: 103,
                 err_msg: '添加失败'
@@ -54,7 +54,7 @@ class CaseSort {
 
     async find(){
         return this.model.find({}).sort('+add_time').then(function (result) {
-           
+
             return {err_code:200,err_msg:'查找成功',data:result}
         },function (err) {
             return {err_code:0,err_msg:'数据库错误'};
@@ -79,7 +79,7 @@ class CaseSort {
         if(!data['_id']){
             return {err_code:0,err_msg:'数据库错误'};
         }
-        
+
         return this.model.remove(data).then(function (result) {
             return {err_code:200,err_msg:'删除成功'};
         },function (err) {
@@ -89,7 +89,7 @@ class CaseSort {
 
     async update(check,doc){
         return this.model.update(check,doc).then(function (result) {
-            
+
              return {err_code:200,err_msg:'修改成功',data:result}
         },function (err) {
              return {err_code:0,err_msg:'数据库错误'}

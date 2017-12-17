@@ -60,7 +60,7 @@ module.exports = function (app) {
     //首页
     router.get('/.well-known/acme-challenge/:id', async function (ctx, next) {
         let param=ctx.params;
-        ctx.body = '73mM5uVWUwISukWvHxVXlucoTBCQb_AzZ45y96_P3R4.-fi2OBKHYLvi_nrDi1cWDtu1H3QTM8V3t9ind_UDros';    
+        ctx.body = '73mM5uVWUwISukWvHxVXlucoTBCQb_AzZ45y96_P3R4.-fi2OBKHYLvi_nrDi1cWDtu1H3QTM8V3t9ind_UDros';
 
     });
 
@@ -84,13 +84,17 @@ module.exports = function (app) {
     });
 
 
-    //案例 
+    //案例
     router.get('/case', async function (ctx, next) {
         await ctrl.case.index(ctx, next);
     });
-    router.get('/case/:sort', async function (ctx, next) {
+    router.get('/case/index/:sort', async function (ctx, next) {
         await ctrl.case.index(ctx, next);
     });
+    router.get('/case/msg/:id',async function (ctx, next) {
+        await ctrl.case.msg(ctx, next);
+    })
+
 
     //学堂
     router.get('/teach', async function (ctx, next) {

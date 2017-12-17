@@ -1,0 +1,85 @@
+<%- include('./header') %>
+
+
+
+<div class="wrap-detail" style="width:1200px;">
+    <h1 class="title">  <%- msg.title %></h1>
+    <div class="teach-sort">分类： <%- sort.title %></div>
+    <div class="detail-content">  <%- msg.content %></div>
+    <div class="source">
+
+        <!-- <a href="#" class="source-link">本篇文章来自UI中国转载</a>
+        <span class="write">作者：
+            <a href="#">科技 </a>
+        </span> -->
+        <span>
+            <i class="icon-date"></i> <%- tool.formatDate(msg.add_time) %></span>
+        <span>
+            <i class="icon-view"></i><%- msg.views %></span>
+    </div>
+
+    <div class="change-artcle">
+         <span>上一篇：
+            <% if(prev.err_code==200){ %>
+                 <a href="/case/msg/<%- prev.data._id %>.html"><%- prev.data.title %></a>
+            <% }else{ %>
+                没有上一篇
+
+                <% } %>
+          </span>
+         <span>下一篇：
+           <% if(next.err_code==200){ %>
+                <a href="/case/msg/<%- next.data._id %>.html"><%- next.data.title %></a>
+           <% }else{ %>
+               没有下一篇
+
+               <% } %>
+
+        </span>
+
+    </div>
+    <div class="share-bar">
+
+        <div class="bdsharebuttonbox" data-tag="share_1">
+                <span class="share-bar-title">分享至</span>
+            <a class="bds_weixin" data-cmd="weixin">
+
+            </a>
+            <a class="bds_qzone" data-cmd="qzone" href="#"></a>
+            <a class="bds_tsina" data-cmd="tsina"></a>
+            <a class="bds_sqq" data-cmd="sqq" href="#"></a>
+
+            <a class="bds_count" data-cmd="count" style="display:none"></a>
+        </div>
+        <script>
+            window._bd_share_config = {
+                common: {
+                    bdText: '<%- msg.title %>__一互联网工作室',
+                    bdDesc: 'itv工作室',
+                    bdUrl: 'http://www.itvwork.com/case/msg/<%- msg._id %>.html',
+                    bdPic: 'http://www.itvwork.com/images/<%- msg.cover %>',
+                },
+                share: [{
+                        "bdSize": 32,
+                        "bdCustomStyle": "<style></style>"
+                    }
+                ],
+
+
+            }
+            // <a data-cmd="weixin" style="padding-left:0px;"><img src="/pcstyle/icon_01.png"/></a>
+            // <a data-cmd="qzone"  style="padding-left:0px;"><img src="/pcstyle/icon_09.png" /></a>
+            // <a style="padding-left:0px;" data-cmd="tsina"><img src="/pcstyle/icon_07.png" /></a>
+            //以下为js加载部分
+            with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src =
+                'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)];
+        </script>
+    </div>
+
+</div>
+
+
+
+
+
+<%- include('./footer') %>

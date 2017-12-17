@@ -81,7 +81,6 @@ class Tool {
       arr.push(value);
       return value;
     });
-    
     return this.array_remove_repeat(arr);
   }
   array_remove_repeat(a) { // 去重

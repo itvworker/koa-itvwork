@@ -11,12 +11,12 @@ class News {
                 default: ""
             },
             update_time: {
-                type: String,
-                default: ""
+                type: Number,
+                default: 0
             },
             info:{
                type:String,
-               default:'' 
+               default:''
             },
             source: {
                 type: String,
@@ -47,9 +47,9 @@ class News {
                 default: ''
             },
             add_time:{
-                type: String,
+                  type: Number,
                 defult:tool.time()
-            } 
+            }
 
         }, {
             collection: 'news',
@@ -62,7 +62,7 @@ class News {
 
     }
 
-    // 
+    //
     async add(data) {
         data['add_time'] = tool.time();
         data['_id'] = tool.getid();
@@ -181,7 +181,7 @@ class News {
 
     }
     async del(data) {
-        
+
         if (!data['_id']) {
             return tool.dataJson(104, '数据库错误');
         }
@@ -195,7 +195,7 @@ class News {
             return tool.dataJson(200, '删除成功' );
         }, function (err) {
             return tool.dataJson(104, '数据库错误');
-        
+
         });
     }
 }

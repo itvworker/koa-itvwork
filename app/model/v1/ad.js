@@ -16,7 +16,7 @@ class News {
             },
             link:{
                type:String,
-               default:''     
+               default:''
             },
             classify: {
                 type: String,
@@ -26,7 +26,10 @@ class News {
                 type: Number,
                 default: 0
             },
-            add_time: String
+            add_time: {
+              type:Number,
+              default:0
+            }
 
         }, {
                 collection: 'ad',
@@ -139,13 +142,14 @@ class News {
         let olddata = await this.findOne({
             _id: data._id
         })
-        let oldImg = tool.getImgurl(olddata.data.content);
-        oldImg.push(olddata.data.cover);
-        await imgModel.useInc({ path: oldImg }, -1);
+
+        await imgModel.useInc({ path: olddata.data.cover }, -1);
         return this.model.remove(data).then(function (result) {
             return tool.dataJson(200, '删除成功');
         }, function (err) {
-            return tool.dataJson(104, '数据库错误');
+
+            return tool.dataJson(104,err);
+            //return tool.dataJson(104, '数据库错误');
         });
     }
 }

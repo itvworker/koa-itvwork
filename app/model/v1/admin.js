@@ -19,7 +19,10 @@ class Admin {
              pwd:{
                type:String
              },
-             add_time:String
+             add_time: {
+               type:Number,
+               default:0
+             }
 
         },{
              collection:'admin',

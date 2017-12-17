@@ -19,10 +19,10 @@ class TeachSort {
                 type: String,
                 default: ''
             },
-            add_time:  {
-                type: String,
-                default: tool.time()
-            },
+            add_time: {
+              type: Number,
+              default: tool.time()
+            }
         }, {
             collection: 'teach_sort',
             versionKey: false
@@ -42,7 +42,7 @@ class TeachSort {
                 data: result
             }
         }, function (err) {
-          
+
             return {
                 err_code: 103,
                 err_msg: '添加失败'
@@ -52,7 +52,7 @@ class TeachSort {
 
     async find(){
         return this.model.find({}).sort('+add_time').then(function (result) {
-           
+
             return {err_code:200,err_msg:'查找成功',data:result}
         },function (err) {
             return {err_code:0,err_msg:'数据库错误'};
@@ -87,7 +87,7 @@ class TeachSort {
 
     async update(check,doc){
         return this.model.update(check,doc).then(function (result) {
-            
+
              return {err_code:200,err_msg:'修改成功',data:result}
         },function (err) {
              return {err_code:0,err_msg:'数据库错误'}
