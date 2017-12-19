@@ -124,7 +124,7 @@ class Images {
             });
         })
     };
-    //图片列表 
+    //图片列表
     async find(arg) {
         arg['query'] = arg['query'] ? arg['query'] : {};
         arg['sort'] = arg['sort'] ? arg['sort'] : {
@@ -190,7 +190,7 @@ class Images {
         for (let i = 0, len = data.length; i < len; i++) {
             console.log(i);
             let result = await this.saveBase64(data[i]);
-            let resize1 = await this.resizeImg(result.url,400,result.id,result.type);    
+          //  let resize1 = await this.resizeImg(result.url,400,result.id,result.type);    
 
 
             if (result.err_code == 200) {
@@ -260,14 +260,14 @@ class Images {
         return new Promise(function (resolve, reject) {
             gm('/public/images/' + url).resize(width).write('/public/images/' + name +'whith_'+ width +'.'+ type, function (err) {
                 if (!err) {
-                    resolve(true);   
+                    resolve(true);
                 }else{
                     console.log(err);
                     resolve(false);
                 }
             });
         })
-       
+
     }
 
     async clear() {

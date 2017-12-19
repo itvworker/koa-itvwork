@@ -1,20 +1,18 @@
-const caseModel = require(path.join(webconfig.v1,'teach.js'));
+const caseModel = require(path.join(webconfig.v1,'teachItem.js'));
 
 
-class Teach {
+class TeachItem {
     constructor(ctx,next) {
 
     }
     async add(ctx,next){
        let post=ctx.request.body;
-      
        ctx.body= await caseModel.add(post.data);
 
     }
     async list(ctx,next) {
         let post=ctx.request.body;
         ctx.body=await caseModel.find(post.data);
-
     }
 
     async detail(ctx,next){
@@ -33,4 +31,4 @@ class Teach {
     }
 }
 
-module.exports=new Teach();
+module.exports=new TeachItem();

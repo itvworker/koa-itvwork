@@ -68,7 +68,7 @@ module.exports = function (app) {
     router.use(koajson());
 
     //接口首页
- 
+
     //管理人员登录
     router.post('api_login', '/login', async function (ctx, next) {
         await ctrl.login.index(ctx, next);
@@ -139,7 +139,7 @@ module.exports = function (app) {
 
 
     //新闻
-   
+
     router.post('api_addnews', '/news/add', async function (ctx, next) {
         await ctrl.news.add(ctx, next);
     })
@@ -198,6 +198,26 @@ module.exports = function (app) {
     })
     router.post('api_teach_del', '/teach/del', async function (ctx, next) {
         await ctrl.teach.del(ctx, next);
+    })
+
+    router.post('api_teach_item_add','/teachItem/add', async function (ctx, next) {
+        await ctrl.teachItem.add(ctx, next);
+    })
+
+    router.post('api_teach_item_add','/teachItem/list', async function (ctx, next) {
+        await ctrl.teachItem.list(ctx, next);
+    })
+
+    router.post('api_teach_item_detail', '/teachItem/detail', async function (ctx, next) {
+        await ctrl.teachItem.detail(ctx, next);
+    })
+
+    router.post('api_teach_item_updata', '/teachItem/updata', async function (ctx, next) {
+        await ctrl.teachItem.updata(ctx, next);
+    })
+
+    router.post('api_teach_item_del', '/teachItem/del', async function (ctx, next) {
+        await ctrl.teachItem.del(ctx, next);
     })
 
 
