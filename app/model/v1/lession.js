@@ -1,5 +1,5 @@
 const imgModel = require(path.join(webconfig.v1, 'images.js'));
-class TeachItem {
+class Lession {
     constructor() {
         this.schema = new mdb.Schema({
             _id: {
@@ -84,7 +84,7 @@ class TeachItem {
         });
 
     }
-    async findone(data) {
+    async findOne(data) {
         return this.model.find(data).then(function(result) {
             if (result === null) {
                 return {
@@ -151,4 +151,4 @@ class TeachItem {
     }
 }
 
-module.exports = new TeachItem();
+module.exports = new Lession();

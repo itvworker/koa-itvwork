@@ -1,4 +1,4 @@
-const caseModel = require(path.join(webconfig.v1,'teach.js'));
+const teachModel = require(path.join(webconfig.v1,'teach.js'));
 
 
 class Teach {
@@ -7,29 +7,29 @@ class Teach {
     }
     async add(ctx,next){
        let post=ctx.request.body;
-      
-       ctx.body= await caseModel.add(post.data);
+
+       ctx.body= await teachModel.add(post.data);
 
     }
     async list(ctx,next) {
         let post=ctx.request.body;
-        ctx.body=await caseModel.find(post.data);
+        ctx.body=await teachModel.find(post.data);
 
     }
 
     async detail(ctx,next){
         let post=ctx.request.body;
-        ctx.body=await caseModel.findOne(post.data);
+        ctx.body=await teachModel.findOne(post.data);
     }
 
     async updata(ctx,next){
         let post = ctx.request.body;
-        ctx.body= await caseModel.updata(post.data);
+        ctx.body= await teachModel.updata(post.data);
     }
 
     async del(ctx, next) {
         let post = ctx.request.body;
-        ctx.body = await caseModel.del(post.data);
+        ctx.body = await teachModel.del(post.data);
     }
 }
 

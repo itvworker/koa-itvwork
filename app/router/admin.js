@@ -200,24 +200,24 @@ module.exports = function (app) {
         await ctrl.teach.del(ctx, next);
     })
 
-    router.post('api_teach_item_add','/teachItem/add', async function (ctx, next) {
-        await ctrl.teachItem.add(ctx, next);
+    router.post('api_teach_item_add','/lession/add', async function (ctx, next) {
+        await ctrl.lession.add(ctx, next);
     })
 
-    router.post('api_teach_item_add','/teachItem/list', async function (ctx, next) {
-        await ctrl.teachItem.list(ctx, next);
+    router.post('api_teach_item_add','/lession/list', async function (ctx, next) {
+        await ctrl.lession.list(ctx, next);
     })
 
-    router.post('api_teach_item_detail', '/teachItem/detail', async function (ctx, next) {
-        await ctrl.teachItem.detail(ctx, next);
+    router.post('api_teach_item_detail', '/lession/detail', async function (ctx, next) {
+        await ctrl.lession.detail(ctx, next);
     })
 
-    router.post('api_teach_item_updata', '/teachItem/updata', async function (ctx, next) {
-        await ctrl.teachItem.updata(ctx, next);
+    router.post('api_teach_item_updata', '/lession/updata', async function (ctx, next) {
+        await ctrl.lession.updata(ctx, next);
     })
 
-    router.post('api_teach_item_del', '/teachItem/del', async function (ctx, next) {
-        await ctrl.teachItem.del(ctx, next);
+    router.post('api_teach_item_del', '/lession/del', async function (ctx, next) {
+        await ctrl.lession.del(ctx, next);
     })
 
 

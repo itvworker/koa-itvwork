@@ -74,10 +74,12 @@ class Teach {
         data['add_time'] = tool.time();
         data['_id'] = tool.getid();
         data['update_time'] = data['add_time'];
-        let arr = tool.getImgurl(data.content)
+
+        let arr=[];
+        arr[0]=data.cover;
         if (arr.lenght > 0) {
             let err = await imgModel.useInc({
-                path: arr
+                path: [data.cover]
             }, 1);
         }
         return new this.model(data).save().then(function(result) {
@@ -166,7 +168,7 @@ class Teach {
         let olddata = await this.findOne({
             _id: data._id
         })
-        let oldImg = tool.getImgurl(olddata.data.content);
+        let oldImg = [];
         oldImg.push(olddata.data.cover);
         await imgModel.useInc({
             path: oldImg

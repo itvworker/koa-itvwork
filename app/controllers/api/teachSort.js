@@ -1,7 +1,7 @@
 const caseSortModel = require(path.join(webconfig.v1, 'teachSort.js'));
 const imgModel = require(path.join(webconfig.v1, 'images.js'));
 
-class CaseSort {
+class TeachSort {
     constructor(ctx, next) {
 
     }
@@ -14,7 +14,7 @@ class CaseSort {
     }
 
     async add(ctx, next) {
-        let data=ctx.request.body;    
+        let data=ctx.request.body;
         ctx.body =  await caseSortModel.add(data.data);
     }
 
@@ -38,4 +38,4 @@ class CaseSort {
 
 }
 
-module.exports = new CaseSort();
+module.exports = new TeachSort();
