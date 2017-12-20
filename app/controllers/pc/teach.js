@@ -2,12 +2,10 @@ const teachModel = require(path.join(webconfig.v1, 'teach.js'));
 
 
 class Teach {
-  constructor() {    
+  constructor() {
   }
   async index(ctx, next) {
     
-    
-
     await ctx.render('school');
 
 
