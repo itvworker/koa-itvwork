@@ -58,11 +58,11 @@ module.exports = function (app) {
 
 
     //首页
-    router.get('/.well-known/acme-challenge/:id', async function (ctx, next) {
-        let param=ctx.params;
-        ctx.body = '73mM5uVWUwISukWvHxVXlucoTBCQb_AzZ45y96_P3R4.-fi2OBKHYLvi_nrDi1cWDtu1H3QTM8V3t9ind_UDros';
-
-    });
+    // router.get('/.well-known/acme-challenge/:id', async function (ctx, next) {
+    //     let param=ctx.params;
+    //     ctx.body = '73mM5uVWUwISukWvHxVXlucoTBCQb_AzZ45y96_P3R4.-fi2OBKHYLvi_nrDi1cWDtu1H3QTM8V3t9ind_UDros';
+    //
+    // });
 
 
     router.get('/', async function (ctx, next) {
@@ -85,6 +85,9 @@ module.exports = function (app) {
 
 
     //案例
+    // router.get('/case/**/*',async function(ctx, next){
+    //      await ctrl.case.constructor(ctx, next);
+    // })
     router.get('/case', async function (ctx, next) {
         await ctrl.case.index(ctx, next);
     });
