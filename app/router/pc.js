@@ -1,27 +1,44 @@
 var Router = require('koa-router');
 var router = new Router();
 var ctrl = {};
+
 var fs = require('fs');
 var path = require('path');
 const koajson = require('koa-json');
-
-
-
-module.exports = function (app) {
-
-
-    fs.readdirSync(webconfig.pc).forEach(function (file) {
+module.exports = function(app) {
+    router.use(koajson());
+    fs.readdirSync(webconfig.pc).forEach(function(file) {
         if (file.indexOf('.js') != -1) {
             var ctrlName = file.split('.')[0];
             ctrl[ctrlName] = require(path.join(webconfig.pc, file));
+
+        }
+    });
+
+    router.use(async(ctx, next) => {
+        let url = "";
+        let path = ctx.url.substr(1, ctx.url.length);
+        path = path.split('/');
+        if (!path[0]) {
+            url = await ctrl.index.init(ctx,next);
+        } else {
+            url = await ctrl[path[0]].init(ctx,next);
+        }
+
+        if (url === true) {
+            await next();
+        } else {
+            if (url === false) {
+                ctx.redirect('/');
+            } else {
+                ctx.redirect(url);
+            }
         }
     });
 
 
 
 
-
-    router.use(koajson());
 
     //判断是否是ie以下
     // router.use(async function (ctx, next) {
@@ -64,47 +81,42 @@ module.exports = function (app) {
     //
     // });
 
-
-    router.get('/', async function (ctx, next) {
-        await ctrl.index.index(ctx, next);
-
-    });
-
     //注册
-    router.get('/adminmanger', async function (ctx, next) {
+    router.get('/adminmanger', async (ctx, next)=> {
         await ctx.render('admin');
     });
 
+    router.get('/', async (ctx, next)=>{
+        await ctrl.index.index();
 
-    router.get('/reg', async function (ctx, next) {
-        await ctrl.user.reg(ctx, next);
     });
-    router.get('/user/setperson', async function (ctx, next) {
-        await ctrl.user.updataPerson(ctx, next);
+
+    router.get('/reg', async (ctx, next)=> {
+        await ctrl.reg.index(ctx, next);
     });
+    // router.get('/user/setperson', async function(ctx, next) {
+    //     await ctrl.user.updataPerson(ctx, next);
+    // });
 
 
     //案例
-    // router.get('/case/**/*',async function(ctx, next){
-    //      await ctrl.case.constructor(ctx, next);
-    // })
-    router.get('/case', async function (ctx, next) {
-        await ctrl.case.index(ctx, next);
+    router.get('/case', async (ctx, next)=>{
+        await ctrl.case.index();
     });
-    router.get('/case/index/:sort', async function (ctx, next) {
-        await ctrl.case.index(ctx, next);
+    router.get('/case/index/:sort',async (ctx, next)=> {
+        await ctrl.case.index();
     });
-    router.get('/case/msg/:id',async function (ctx, next) {
-        await ctrl.case.msg(ctx, next);
+    router.get('/case/msg/:id', async (ctx, next)=> {
+        await ctrl.case.msg();
     })
 
 
     //学堂
-    router.get('/teach', async function (ctx, next) {
+    router.get('/teach', async (ctx, next)=> {
         await ctrl.teach.index(ctx, next);
     });
 
-    router.get('/news', async function (ctx, next) {
+    router.get('/news', async (ctx, next)=> {
         await ctrl.news.index(ctx, next);
     });
 
