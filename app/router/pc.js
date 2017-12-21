@@ -15,6 +15,8 @@ module.exports = function(app) {
         }
     });
 
+
+    //初始控制器的init()
     router.use(async(ctx, next) => {
         let url = "";
         let path = ctx.url.substr(1, ctx.url.length);
@@ -24,7 +26,6 @@ module.exports = function(app) {
         } else {
             url = await ctrl[path[0]].init(ctx,next);
         }
-
         if (url === true) {
             await next();
         } else {
