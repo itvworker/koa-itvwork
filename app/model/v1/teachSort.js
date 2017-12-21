@@ -19,6 +19,10 @@ class TeachSort {
                 type: String,
                 default: ''
             },
+            tags:{
+              type:Array,
+              default:[]
+            },
             add_time: {
               type: Number,
               default: tool.time()
