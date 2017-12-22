@@ -73,7 +73,7 @@ var patt = new RegExp(/async[ ]+\w+/,"g");
             arr.push(val);
             return val;
         })
-          
+
 
       }
    }
