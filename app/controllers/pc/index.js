@@ -4,7 +4,9 @@ const userModel = require(path.join(webconfig.v1, 'user.js'));
 const fs = require('fs');
 
 class Index {
-
+    constructor() {
+      return this;
+    }
     async init(ctx,next){
       this.ctx=ctx;
       this.next=next;

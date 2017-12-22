@@ -3,7 +3,10 @@ const caseModel = require(path.join(webconfig.v1, 'case.js'));
 const caseSort = require(path.join(webconfig.v1, 'caseSort.js'));
 
 class Case {
-    async init(ctx, next) {
+    constructor() {
+      return this;
+    }
+    init(ctx, next) {
         this.ctx = ctx;
         this.next = next;
 

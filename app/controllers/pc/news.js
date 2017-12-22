@@ -3,7 +3,9 @@ const newsModel = require(path.join(webconfig.v1, 'news.js'));
 const fs = require('fs');
 
 class News {
-
+  constructor() {
+    return this;
+  }
     async init(ctx){
       return true;
 

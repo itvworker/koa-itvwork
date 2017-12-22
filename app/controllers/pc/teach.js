@@ -2,7 +2,9 @@ const teachModel = require(path.join(webconfig.v1, 'teach.js'));
 
 
 class Teach {
-
+  constructor() {
+    return this;
+  }
   async init(ctx){
     return true;
 
