@@ -3,18 +3,15 @@ const caseModel = require(path.join(webconfig.v1, 'case.js'));
 const caseSort = require(path.join(webconfig.v1, 'caseSort.js'));
 
 class Case {
-    constructor() {
-      return this;
-    }
-    init(ctx, next) {
+
+    init(ctx, next){
         this.ctx = ctx;
         this.next = next;
-
-        return true;
-
+        //ctx.redirect('/news');
+        this.params=tool.paramArr(ctx.path);
     }
     async index() {
-        let param = this.ctx.params;
+        let param = this.params;
         let query = this.ctx.query;
         let ad = await adModel.find({
             query: {
@@ -23,7 +20,7 @@ class Case {
         });
 
         let search = {};
-        if (JSON.stringify(param) !== '{}') {
+        if (JSON.stringify(param) !== '[]') {
             search['sort'] = param.sort;
         }
 
@@ -55,11 +52,12 @@ class Case {
     }
 
     async msg() {
-        let param = this.ctx.params;
-        let id = param.id.replace('.html', '');
+
+        let id = this.params[2].replace('.html', '');
         let data = await caseModel.findOne({
             _id: id
         });
+
 
         //404
         if (data.err_code !== 200) {

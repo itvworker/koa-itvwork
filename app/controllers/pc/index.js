@@ -4,14 +4,10 @@ const userModel = require(path.join(webconfig.v1, 'user.js'));
 const fs = require('fs');
 
 class Index {
-    constructor() {
-      return this;
-    }
-    async init(ctx,next){
+
+    init(ctx,next){
       this.ctx=ctx;
       this.next=next;
-      return true;
-
       }
     async index() {
         let ad = await adModel.find({
@@ -29,8 +25,7 @@ class Index {
             num: 8,
             page: 1
         });
-
-
+      
         await this.ctx.render('index', {
             ad: ad.data.result,
             brand: brand.data.result,

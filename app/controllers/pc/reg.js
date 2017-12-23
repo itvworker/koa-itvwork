@@ -7,12 +7,11 @@ class Reg {
   constructor() {
     return this;
   }
-    init(ctx,next) {
-        this.ctx=ctx;
-        this.next=next;
-        return true;
+  init(ctx, next) {
+      this.ctx = ctx;
+      this.next = next;
 
-    }
+  }
     async index(ctx, next) {
         let pwd = tool.md5('wwwww' + 'qazxswedqwertyuiop');
         ctx.body = await userModel.reg({

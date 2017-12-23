@@ -1,45 +1,52 @@
-
 const newsModel = require(path.join(webconfig.v1, 'news.js'));
 const fs = require('fs');
 
 class News {
-  constructor() {
-    return this;
-  }
-    async init(ctx){
-      return true;
 
-      }
-  async index(ctx, next) {
-     let param=ctx.params;
-     let query=ctx.query;
-     let search={};
-     if(JSON.stringify(param)!=='{}'){
-       search['sort']=param.sort;
-     }
+    init(ctx, next) {
+        this.ctx = ctx;
+        this.next = next;
+        this.params=tool.paramArr(ctx.path);
+    }
+    async index(ctx, next) {
 
-     let list = await newsModel.find({query:search,num:16,page:1 });
-     let url = tool.pageurl(ctx.path,query);
+        let query = this.ctx.query;
+        let search = {};
+        if (this.params.length>3) {
+            search['sort'] ={
+              id:this.params[3]
+            };
+        }
 
-     let page=new Page({
-       pot:13,
-       url:url,
-       page:query.page?query.page:1,
-       num:12,
-       count:30000
-     })
+        let list = await newsModel.find({
+            query: search,
+            num: 16,
+            page: 1
+        });
+        let url = tool.pageurl(this.ctx.path, query);
 
-     await ctx.render('news',{data:list.data.result,page:page.html()});
+        let page = new Page({
+            pot: 13,
+            url: url,
+            page: query.page ? query.page : 1,
+            num: 12,
+            count: 30000
+        })
+
+        await this.ctx.render('news', {
+            data: list.data.result,
+            page: page.html()
+        });
 
 
 
-  }
+    }
 
-  async reg(ctx, next) {
+    async reg(ctx, next) {
 
 
 
-  }
+    }
 
 
 

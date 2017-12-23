@@ -2,11 +2,13 @@ class Index{
   constructor() {
     return this;
   }
-  init(){
+  init(ctx, next) {
+      this.ctx = ctx;
+      this.next = next;
 
   }
 
-  index(){
+  async index(){
 
   }
 

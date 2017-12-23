@@ -174,5 +174,11 @@ class Tool {
 
   }
 
+  paramArr(path){
+    let arr = path.split('/');
+    arr.splice(0, 1);
+    return arr;
+  }
+
 }
 module.exports = new Tool();

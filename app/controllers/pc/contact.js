@@ -1,16 +1,15 @@
-class Index{
+class Contact{
   constructor() {
     return this;
   }
   init(ctx, next) {
       this.ctx = ctx;
       this.next = next;
-
   }
-
   async index(){
-      this.ctx.body="----------------------------------";
+      await this.ctx.render('contact',{});
   }
 
 }
-module.exports = new Index();
+
+module.exports = new Contact();

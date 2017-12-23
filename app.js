@@ -10,6 +10,7 @@ const mongoose= require('mongoose');
 mongoose.Promise = global.Promise;
 global.mdb=mongoose;
 global.tool=require('./app/common/tool');
+global.routerTool=require('./app/common/router');
 const db = mongoose.connect(webconfig.db);
 
 const koaBody = require('koa-body');
