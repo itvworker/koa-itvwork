@@ -8,7 +8,7 @@ module.exports = (root)=> {
         validate:path.join(root,'App/Validate'),
         view:path.join(root,'App/View'),
         source:path.join(root,'public'),
-        common:path.join(root,'Common'),
+        common:path.join(root,'app/common'),
         root:root,
         port: 7200,
         db:'mongodb://localhost:27017/more',

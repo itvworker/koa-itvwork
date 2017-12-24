@@ -5,6 +5,7 @@ var fs = require('fs');
 var path = require('path');
 const koajson = require('koa-json');
 
+
 module.exports = async (app)=>{
     router.use(koajson());
     let paths = [];

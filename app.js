@@ -2,10 +2,11 @@ var koa = require('koa');
 var app =new koa();
 global.path = require('path');
 global.Page = require('./app/common/page');
-var router = require('./app/router/admin');  //后台路由
-var pcrouter= require('./app/router/pc');
 const render = require('koa-ejs');
 global.webconfig = require(path.join(__dirname,'app/config/config.js'))(__dirname);
+var router = require('./app/router/admin');  //后台路由
+var pcrouter= require('./app/router/pc');
+var apirouter= require('./app/router/api.js');
 const mongoose= require('mongoose');
 mongoose.Promise = global.Promise;
 global.mdb=mongoose;
@@ -25,9 +26,6 @@ render(app, {
     cache: false,
     debug: true
 });
-
-
-
 
 app.use(koaBody({multipart: true}))
 app.use(cors());
@@ -49,6 +47,7 @@ db.connection.on('disconnected', function() {
 
 router(app);
 pcrouter(app);
+apirouter(app);
 
 
 
