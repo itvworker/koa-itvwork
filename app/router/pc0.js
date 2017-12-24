@@ -153,24 +153,7 @@ module.exports = function(app) {
     await controller.index['controller'].index();
   });
 
-  router.get('/:p1',async (ctx,next)=>{
-    let p1=ctx.request.params.p1;
-    console.log(p1,'---------------aaaaaaaaaaaa');
-    if(controller[p1]['type']=="Controller"){
-        if(controller[p1]['controller']['index']){
-            await controller[p1].index();
-        }else{
-            await  controller[p1]['children']['index']['index']();
-        }
-    }
 
-  });
-
-  router.get('/:p1/:p2',async (ctx,next)=>{
-      let arr=ctx.request.params;
-    
-
-  })
 
   // router.get('/reg', async (ctx, next) => {
   //   await ctrl.reg.index(ctx, next);

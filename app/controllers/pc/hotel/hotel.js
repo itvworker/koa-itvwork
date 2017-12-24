@@ -1,4 +1,4 @@
-class Index{
+class Hotel{
   constructor() {
     return this;
   }
@@ -9,12 +9,10 @@ class Index{
   }
 
   async index(){
-    this.ctx.body="plan-index-index";
+    this.ctx.body="hotel-hotel-index";
   }
-
-  async plans(){
-    this.ctx.body="plan-index-plans";
+  async hotel(){
+    this.ctx.body="hotel-hotel-hotel";
   }
-
 }
-module.exports = new Index();
+module.exports = new Hotel();

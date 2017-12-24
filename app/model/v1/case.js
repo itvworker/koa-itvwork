@@ -99,7 +99,7 @@ class Case {
       ? arg['num'] * (arg['page'] - 1)
       : 0;
 
-    console.log(arg, '------------------wwwwwwwwwwwwwwwwwwwww----------------');
+
     let count = await this.count(arg['query']);
     return this.model.aggregate([
       {

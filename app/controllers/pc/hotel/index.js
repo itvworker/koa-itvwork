@@ -5,11 +5,15 @@ class Index{
   init(ctx, next) {
       this.ctx = ctx;
       this.next = next;
-
   }
 
   async index(){
-      this.ctx.body="----------------------------------";
+      this.ctx.body="hotel-index-index";
+
+  }
+  async plan(){
+      this.ctx.body="hotel-index-plan";
+
   }
 
 }

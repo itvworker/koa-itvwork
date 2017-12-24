@@ -7,6 +7,6 @@ class Hotel{
       this.next = next;
   }
 
-
 }
+
 module.exports = new Hotel();
