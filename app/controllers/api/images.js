@@ -1,9 +1,10 @@
 const imgModel = require(path.join(webconfig.v1, 'images.js'));
 
 class Images {
-    constructor(ctx,next) {
-
-    }
+  init(ctx,next){
+    this.ctx=ctx;
+    this.next=next;
+  }
     async list(ctx,next){
         let post = ctx.request.body;
         ctx.body=await imgModel.find(post.data);
@@ -64,7 +65,7 @@ class Images {
 
     async clear(){
 
-        
+
     }
 }
 

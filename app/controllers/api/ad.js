@@ -2,8 +2,9 @@ const adModel = require(path.join(webconfig.v1, 'ad.js'));
 
 
 class Ad {
-    constructor(ctx, next) {
-
+    init(ctx,next){
+      this.ctx=ctx;
+      this.next=next;
     }
     async add(ctx, next) {
         let post = ctx.request.body;

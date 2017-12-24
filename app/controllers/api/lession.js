@@ -2,9 +2,10 @@ const lessionModel = require(path.join(webconfig.v1,'lession.js'));
 
 
 class TeachItem {
-    constructor(ctx,next) {
-
-    }
+  init(ctx,next){
+    this.ctx=ctx;
+    this.next=next;
+  }
     async add(ctx,next){
        let post=ctx.request.body;
        ctx.body= await lessionModel.add(post.data);

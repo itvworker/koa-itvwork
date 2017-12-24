@@ -2,9 +2,10 @@ const teachModel = require(path.join(webconfig.v1,'teach.js'));
 
 
 class Teach {
-    constructor(ctx,next) {
-
-    }
+  init(ctx,next){
+    this.ctx=ctx;
+    this.next=next;
+  }
     async add(ctx,next){
        let post=ctx.request.body;
 

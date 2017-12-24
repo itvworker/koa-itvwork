@@ -2,9 +2,10 @@ const caseSortModel = require(path.join(webconfig.v1, 'newsSort.js'));
 const imgModel = require(path.join(webconfig.v1, 'images.js'));
 
 class NewsSort {
-    constructor(ctx, next) {
-
-    }
+  init(ctx,next){
+    this.ctx=ctx;
+    this.next=next;
+  }
 
     async index(ctx, next) {
         let post = ctx.request.body;
@@ -14,7 +15,7 @@ class NewsSort {
     }
 
     async add(ctx, next) {
-        let data=ctx.request.body;    
+        let data=ctx.request.body;
         ctx.body =  await caseSortModel.add(data.data);
     }
 

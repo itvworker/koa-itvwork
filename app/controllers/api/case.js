@@ -2,9 +2,10 @@ const caseModel = require(path.join(webconfig.v1,'case.js'));
 
 
 class Case {
-    constructor(ctx,next) {
-
-    }
+  init(ctx,next){
+    this.ctx=ctx;
+    this.next=next;
+  }
     async add(ctx,next){
        let post=ctx.request.body;
        ctx.body= await caseModel.add(post.data);
@@ -15,7 +16,7 @@ class Case {
         ctx.body=await caseModel.find(post.data);
 
     }
-    
+
     async detail(ctx,next){
         let post=ctx.request.body;
         ctx.body=await caseModel.findOne(post.data);

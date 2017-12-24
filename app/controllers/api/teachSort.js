@@ -2,9 +2,10 @@ const caseSortModel = require(path.join(webconfig.v1, 'teachSort.js'));
 const imgModel = require(path.join(webconfig.v1, 'images.js'));
 
 class TeachSort {
-    constructor(ctx, next) {
-
-    }
+  init(ctx,next){
+    this.ctx=ctx;
+    this.next=next;
+  }
 
     async index(ctx, next) {
         let post = ctx.request.body;

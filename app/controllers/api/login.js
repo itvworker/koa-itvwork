@@ -2,9 +2,10 @@ const AdminModel = require(path.join(webconfig.v1, 'admin.js'));
 
 
 class Login {
-    constructor(ctx, next) {
-
-    }
+  init(ctx,next){
+    this.ctx=ctx;
+    this.next=next;
+  }
 
     async index(ctx, next) {
 

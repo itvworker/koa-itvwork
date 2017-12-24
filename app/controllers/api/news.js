@@ -2,9 +2,10 @@ const newsModel = require(path.join(webconfig.v1,'news.js'));
 
 
 class News {
-    constructor(ctx,next) {
-
-    }
+  init(ctx,next){
+    this.ctx=ctx;
+    this.next=next;
+  }
     async add(ctx,next){
        let post=ctx.request.body;
        ctx.body= await newsModel.add(post.data);
@@ -15,7 +16,7 @@ class News {
         ctx.body=await newsModel.find(post.data);
 
     }
-    
+
     async detail(ctx,next){
         let post=ctx.request.body;
         ctx.body=await newsModel.findOne(post.data);
