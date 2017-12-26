@@ -70,25 +70,16 @@ module.exports = async (app)=>{
 
 
     //获取控制器里的所有方法名
-    router.use(async (ctx,next)=>{
-        let arr=ctx.path.split('/').splice(0,1);
-        if(arr[0].length<=0){
-            await controller.index['controller'].init(ctx,next);
-
-        }
-        await next()
-    })
+    controller=routerTool.funName(controller);
+    routerTool.initRouter(router, controller); //执行init()
     router.get('/adminmanger', async(ctx, next) => {
         await ctx.render('admin');
     });
     router.get(['/', '/index', '/index/index'], async (ctx, next) => {
         await controller.index['controller'].index();
     });
-    
-
-
-
-
+    //建立路由
+    routerTool.bulidRouter(router,controller);
 
 
 
