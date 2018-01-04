@@ -15,7 +15,7 @@ module.exports = function (app) {
     const uploader = busboy({
         dest: webconfig + '/temp', // default is system temp folder (`os.tmpdir()`)
         fnDestFilename: (fieldname, filename) => uuid() + filename
-    })
+    });
 
     fs.readdirSync(webconfig.api).forEach(function (file) {
         if (file.indexOf('.js') != -1) {

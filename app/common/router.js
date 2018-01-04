@@ -90,7 +90,9 @@ class Router {
         data.replace(/async[ ]+[\w|_]+/ig, function(val) {
           let vs = val.replace('async', '');
           vs = vs.replace(/\s+/g, "");
-          arr.push(vs);
+          if(vs !='init'){
+                arr.push(vs);
+          }
           return val;
         })
         controller[i]['fun_name'] = arr;
