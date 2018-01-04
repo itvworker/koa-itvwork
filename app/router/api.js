@@ -17,6 +17,8 @@ module.exports =async function (app) {
   let controller=await ctrl.readdirSync(webconfig.apiadmin);
   controller=routerTool.funName(controller);
   api.initRouter('apiadmin', router, controller);
+  api.bulidRouter(router,controller);
+  console.log(router);
   app.use(router.routes());
 
 }

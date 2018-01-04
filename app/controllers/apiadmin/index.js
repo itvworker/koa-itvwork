@@ -8,6 +8,7 @@ class Index {
     async init(ctx,next){
       this.ctx=ctx;
       this.next=next;
+      console.log(ctx.path);
       }
     async index() {
         let ad = await adModel.find({

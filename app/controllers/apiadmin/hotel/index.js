@@ -5,6 +5,8 @@ class Index{
   async init(ctx, next) {
       this.ctx = ctx;
       this.next = next;
+      console.log('hotel-index-init');
+
   }
 
   async index(){
@@ -13,7 +15,6 @@ class Index{
   }
   async plan(){
       this.ctx.body="hotel-index-plan";
-
   }
 
 }
