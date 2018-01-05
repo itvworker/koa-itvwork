@@ -15,10 +15,9 @@ const busboy = require('koa-busboy')
 module.exports =async function (app) {
   // router.use(koajson());
   let controller=await ctrl.readdirSync(webconfig.apiadmin);
-  controller=routerTool.funName(controller);
-  api.initRouter('apiadmin', router, controller);
+  controller=ctrl.funName(controller);
+  api.initRouter('apiadmin',router,controller);
   api.bulidRouter(router,controller);
-  console.log(router);
   app.use(router.routes());
 
 }

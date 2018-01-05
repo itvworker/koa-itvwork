@@ -94,5 +94,48 @@ class Controllers {
 
     }
 
+    //获取控制器的方法名
+    funName(controller) {
+      for (let i in controller) {
+        if (controller[i]['type'] == 'Controller') {
+          let data = fs.readFileSync(controller[i]['path'], "utf-8");
+          let arr = [];
+          data.replace(/async[ ]+[\w|_]+/ig, function(val) {
+            let vs = val.replace('async', '');
+            vs = vs.replace(/\s+/g, "");
+            if(vs !='init'){
+                  arr.push(vs);
+            }
+            return val;
+          })
+          controller[i]['fun_name'] = arr;
+          controller = this.childFunName(controller, i);
+        } else {
+          controller = this.childFunName(controller, i);
+        }
+      }
+      return controller;
+    }
+    //获取子文件夹控制器方法
+    childFunName(controller, i) {
+      let child = controller[i]['children'];
+      if (child) {
+        for (let a in child) {
+          let arr = [];
+          if (child[a]['type'] == 'Controller') {
+            let data = fs.readFileSync(child[a]['path'], "utf-8");
+            data.replace(/async[ ]+[\w|_]+/ig, function(val) {
+              let vs = val.replace('async', '');
+              vs = vs.replace(/\s+/g, "");
+              arr.push(vs);
+              return val;
+            })
+          }
+          controller[i]['children'][a]['fun_name'] = arr;
+        }
+      }
+      return controller;
+    }
+
 }
 module.exports = new Controllers();

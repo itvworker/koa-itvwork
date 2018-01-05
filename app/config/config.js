@@ -7,12 +7,13 @@ module.exports = (root)=> {
         model: path.join(root,'app/model/'),//逻辑数据层，model，主要负数据增删改查
         v1:path.join(root,'app/model/v1/'),
         validate:path.join(root,'App/Validate/'),
-        view:path.join(root,'App/View/'),
+        view:path.join(root,'app/view/'),
         source:path.join(root,'public/'),
         common:path.join(root,'app/common/'),
         root:root,
         port: 7200,
         db:'mongodb://localhost:27017/more',
-        scret:'moreapp_admin'
+        scret:'moreapp_admin',
+        rsa:path.join(root,'app/rsa/'),
     }
 }

@@ -53,6 +53,7 @@
     "koa-static2": "^0.1.8",
     "mongoose": "^4.11.12",
     "multiparty": "^4.1.3",
-    "multy": "^0.1.5"
+    "multy": "^0.1.5",
+    "node-rsa": "^0.4.2"
   }
 }

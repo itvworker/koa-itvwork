@@ -2,7 +2,6 @@ const fs = require('fs');
 
 class Router {
   controller(router, controller, name) {
-
     router.get('/' + name, async (ctx, next) => {
       await controller['controller']['index']();
     });

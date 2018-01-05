@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-
+const http = require('http');
 class Tool {
   constructor() {
 
@@ -180,5 +180,36 @@ class Tool {
     return arr;
   }
 
+
+  post(txt){
+    let data = JSON.stringify(txt);
+    var opt = {
+        method: "POST",
+        host: "localhost",
+        port: 8099,
+        path: "/api/login",
+        headers: {
+            "Content-Type": 'application/json',
+            "Content-Length": data.length
+        }
+    };
+    return new Promise((resolve,reject)=>{
+      var req = http.request(opt, function(res) {
+          if (res.statusCode == 200) {
+            res.on('data', function (data) {
+              resolve(data.toString('utf-8'));
+            })
+          } else {
+            resolve({
+              err_code:res.statusCode,
+              msg:'数据错误'
+            })
+
+          }
+      });
+      req.write(data + "\n");
+      req.end();
+    })
+  }
 }
 module.exports = new Tool();
