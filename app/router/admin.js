@@ -6,7 +6,7 @@ var ctrl = {};
 var fs = require('fs');
 var path = require('path');
 
-const koaRouter = require('koa-router')
+
 const busboy = require('koa-busboy')
 const koajson =require('koa-json');
 module.exports = function (app) {

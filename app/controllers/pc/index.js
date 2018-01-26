@@ -1,6 +1,7 @@
 const adModel = require(path.join(webconfig.v1, 'ad.js'));
 const caseModel = require(path.join(webconfig.v1, 'case.js'));
 const userModel = require(path.join(webconfig.v1, 'user.js'));
+const rsa=require(path.join(webconfig.common, 'rsa.js'));
 const fs = require('fs');
 
 class Index {
@@ -25,19 +26,23 @@ class Index {
             num: 8,
             page: 1
         });
-      
+        let s=rsa.encrypt('我是谁');
+        let sar="DemZSyoWK4VHYjzWUhq1nG6IHg5Ih1U9+ElVaENun69clADJd0ILl1oW5O7ch14VK+gSsnwqPFSxD6HtY1jHZHlWdTXGXupruOo4+/+gC58CzWt6Ml4vl/LhBEmBSMenJ5qVL0Mrsvgx/co8s23Q2+AaZKLnJ28Tx9BCi29Wo10=";
+        console.log(rsa.decrypt(s));
+
         await this.ctx.render('index', {
             ad: ad.data.result,
             brand: brand.data.result,
             inpage: true,
-            link: link.data.result
+            link: link.data.result,
+            rsa:{
+              begin:'我是谁',
+              end:s,
+              init:rsa.decrypt(sar)
+            }
         });
 
     }
-
-
-
-
 }
 
 

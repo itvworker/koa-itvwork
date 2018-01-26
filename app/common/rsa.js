@@ -1,27 +1,19 @@
 const fs = require('fs');
 const crypto = require('crypto');
-
+const nodeRsa = require('node-rsa');
 class Rsa {
     encrypt(data) {
-        var privatePem = fs.readFileSync(path.join(webconfig.rsa, 'rsa_private_key.pem'));
         var publicPem = fs.readFileSync(path.join(webconfig.rsa, 'rsa_public_key.pem'));
-        var key = privatePem.toString();
-        var pubkey = publicPem.toString()
-        var sign = crypto.createSign('RSA-SHA256');
-        sign.update(data);
-        var sig = sign.sign(pubkey, 'hex');
-        return sig;
+        let rsa = new nodeRsa(publicPem);
+        var encrypted = rsa.encrypt(data, 'base64');
+        return encrypted;
     }
-    // decrypt(data) {
-    //     var privatePem = fs.readFileSync(path.join(webconfig.rsa, 'rsa_private_key.pem'));
-    //     var publicPem = fs.readFileSync(path.join(webconfig.rsa, 'rsa_public_key.pem'));
-    //     var key = privatePem.toString();
-    //     var pubkey = publicPem.toString();
-    //     var verify = crypto.createVerify('RSA-SHA256');
-    //     verify.update(data);
-    //     return verify.verify(pubkey, data, 'hex');
-    //
-    // }
+    decrypt(data) {
+        var privatePem = fs.readFileSync(path.join(webconfig.rsa, 'rsa_private_key.pem'));
+        let rsa = new nodeRsa(privatePem);
+        var decrypted = rsa.decrypt(data, 'utf8');
+        return decrypted;
+    }
 
 }
 

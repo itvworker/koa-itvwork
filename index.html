@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>3d微改车</title>
+
+    <meta charset='utf-8'>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="App-Config" content="fullscreen=yes,useHistoryState=yes,transition=yes">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <meta name="wap-font-scale" content="no">
+    <link rel="manifest" href="manifest.json">
+    <script src="jsencrypt.min.js"></script>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+var rsa='-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9eqwFdj7HKO5mm3G/BBr7l4oV//KzHYd1bIeyFeDWwWfXv/a2lJCY6E7AUr+OxIvKD8YG4fCT5k0q59M7cVPhGQkgT2hmq/uDXckiQBmYStQO65L8lwQ/N361FWfHN3WO8TH4yfdIPNBqLfTtf6tT9zadyeiAASWX/IiHD8asZQIDAQAB-----END PUBLIC KEY-----'
+    function encryptSend(data, publicKey) {
+        var jsencrypt = new JSEncrypt();
+        jsencrypt.setPublicKey(publicKey);
+        // enData用来装载加密后的数据
+        var rsas=jsencrypt.encrypt(data);
+        console.log(rsas);
+
+
+    }
+    encryptSend('我是谁',rsa);
+</script>

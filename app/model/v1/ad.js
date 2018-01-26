@@ -14,9 +14,9 @@ class News {
                 type: Object,
                 default: ''
             },
-            link:{
-               type:String,
-               default:''
+            link: {
+                type: String,
+                default: ''
             },
             classify: {
                 type: String,
@@ -27,14 +27,14 @@ class News {
                 default: 0
             },
             add_time: {
-              type:Number,
-              default:0
+                type: Number,
+                default: 0
             }
 
         }, {
-                collection: 'ad',
-                versionKey: false
-            });
+            collection: 'ad',
+            versionKey: false
+        });
 
         this.model = mdb.model('ad', this.schema);
     }
@@ -44,23 +44,23 @@ class News {
         data['add_time'] = tool.time();
         data['_id'] = tool.getid();
         data['update_time'] = data['add_time'];
-        let arr =[];
+        let arr = [];
         arr.push(data.cover);
 
         let err = await imgModel.useInc({
             path: arr
         }, 1);
 
-        return new this.model(data).save().then(function (result) {
+        return new this.model(data).save().then(function(result) {
             return tool.dataJson(200, '保存成功', result);
 
-        }, function (err) {
-            return tool.dataJson(103, '保存失败',err);
+        }, function(err) {
+            return tool.dataJson(103, '保存失败', err);
         })
 
     }
     count(query) {
-        return this.model.find(query).count(function (result) {
+        return this.model.find(query).count(function(result) {
             return result;
         });
     }
@@ -73,19 +73,21 @@ class News {
         arg['page'] = arg['page'] ? (arg['num'] - 1) * (arg['page'] - 1) : 0;
         let count = await this.count(arg['query']);
         return this.model.aggregate([{
-            $lookup: {
-                from: 'ad_sort',
-                localField: "classify",
-                foreignField: "_id",
-                as: "docs"
-            }
-        }, {
-            $match: arg['query']
-        }, {
-            $project: { content: 0 }
-        }]
+                $lookup: {
+                    from: 'ad_sort',
+                    localField: "classify",
+                    foreignField: "_id",
+                    as: "docs"
+                }
+            }, {
+                $match: arg['query']
+            }, {
+                $project: {
+                    content: 0
+                }
+            }]
 
-        ).sort(arg.sort).limit(parseInt(arg.num)).skip(parseInt(arg.page)).then(function (result) {
+        ).sort(arg.sort).limit(parseInt(arg.num)).skip(parseInt(arg.page)).then(function(result) {
             if (result) {
                 return tool.dataJson(200, '查询成功', {
                     count: count,
@@ -95,13 +97,13 @@ class News {
                 return tool.dataJson(0, '没有数据');
             }
 
-        }, function (err) {
+        }, function(err) {
             return tool.dataJson(104, '错误', err);
         })
     }
     async findOne(data) {
 
-        return this.model.findOne(data).then(function (result) {
+        return this.model.findOne(data).then(function(result) {
             if (result) {
                 return tool.dataJson(200, '查询成功', result)
 
@@ -109,7 +111,7 @@ class News {
                 return tool.dataJson(0, '没有数据');
             }
 
-        }, function (err) {
+        }, function(err) {
             return tool.dataJson(104, '错误', err);
 
         })
@@ -125,11 +127,21 @@ class News {
         var old = tool.array_intersection(newImg, oldImg);
         var del = tool.array_difference(old, oldImg);
         var add = tool.array_difference(old, newImg);
-        if (del.length > 0) await imgModel.useInc({ path: del }, -1);
-        if (add.length > 0) await imgModel.useInc({ path: add }, 1);
-        return this.model.update({ _id: data._id }, data).then(function (result) {
-            return { err_code: 200, err_msg: '修改成功', data: result }
-        }, function (err) {
+        if (del.length > 0) await imgModel.useInc({
+            path: del
+        }, -1);
+        if (add.length > 0) await imgModel.useInc({
+            path: add
+        }, 1);
+        return this.model.update({
+            _id: data._id
+        }, data).then(function(result) {
+            return {
+                err_code: 200,
+                err_msg: '修改成功',
+                data: result
+            }
+        }, function(err) {
             return tool.dataJson(104, '数据库错误');
         });
 
@@ -143,12 +155,14 @@ class News {
             _id: data._id
         })
 
-        await imgModel.useInc({ path: olddata.data.cover }, -1);
-        return this.model.remove(data).then(function (result) {
+        await imgModel.useInc({
+            path: olddata.data.cover
+        }, -1);
+        return this.model.remove(data).then(function(result) {
             return tool.dataJson(200, '删除成功');
-        }, function (err) {
+        }, function(err) {
 
-            return tool.dataJson(104,err);
+            return tool.dataJson(104, err);
             //return tool.dataJson(104, '数据库错误');
         });
     }

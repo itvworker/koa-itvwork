@@ -3,8 +3,6 @@ const caseModel = require(path.join(webconfig.v1, 'case.js'));
 const userModel = require(path.join(webconfig.v1, 'user.js'));
 const fs = require('fs');
 const des = require(path.join(webconfig.common, 'des3.js'));
-
-
 const rsa = require(path.join(webconfig.common, 'rsa.js'));
 class Index {
 
@@ -53,7 +51,7 @@ class Index {
             iv: null
         })
         this.ctx.body=rsa.encrypt('data---weefsafa');
-    
+
 
     }
 

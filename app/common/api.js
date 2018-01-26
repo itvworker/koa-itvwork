@@ -60,7 +60,7 @@ class Api {
     async routers(paths, router, controller) {
         for (let i in controller['fun_name']) {
             if (controller['fun_name'][i] != "init") {
-                console.log('/' + paths + '/' + controller['fun_name'][i].toLowerCase());
+            
                 router.get('/' + paths + '/' + controller['fun_name'][i].toLowerCase(), async(ctx, next) => {
                     // ctx.body=paths+'/'+controller['fun_name'][i].toLowerCase();
                     // console.log(i);
