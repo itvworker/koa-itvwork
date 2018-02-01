@@ -27,20 +27,20 @@ class Index {
             page: 1
         });
         let s=rsa.encrypt('我是谁');
-        let sar="DemZSyoWK4VHYjzWUhq1nG6IHg5Ih1U9+ElVaENun69clADJd0ILl1oW5O7ch14VK+gSsnwqPFSxD6HtY1jHZHlWdTXGXupruOo4+/+gC58CzWt6Ml4vl/LhBEmBSMenJ5qVL0Mrsvgx/co8s23Q2+AaZKLnJ28Tx9BCi29Wo10=";
-        console.log(rsa.decrypt(s));
-
-        await this.ctx.render('index', {
-            ad: ad.data.result,
-            brand: brand.data.result,
-            inpage: true,
-            link: link.data.result,
-            rsa:{
-              begin:'我是谁',
-              end:s,
-              init:rsa.decrypt(sar)
-            }
-        });
+        let sar="tAxTvEGQymfW2ysiWVPVD8GGb0WywVehwuPGgunszutMWHP0rVNMLTHJYojXPoy3UgYn/xkWGrNpQ2gXWntvuWC8V9bwQp9QJ1MuouMw1d5rrkVcQZoGtLl/fSR6231Jn4NtR1SZVXJMfn7m7A8mhxigorb16V4b3xZcxMQ/6yg=";
+        // console.log(rsa.decrypt(sar),'-------wwwwwwwww--------------');
+        //
+        // await this.ctx.render('index', {
+        //     ad: ad.data.result,
+        //     brand: brand.data.result,
+        //     inpage: true,
+        //     link: link.data.result,
+        //     rsa:{
+        //       begin:'我是谁',
+        //       end:s,
+        //       init:rsa.decrypt(sar)
+        //     }
+        // });
 
     }
 }

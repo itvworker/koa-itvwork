@@ -19,12 +19,19 @@
 </head>
 
 <body>
+<textarea id="text1">
 
+
+
+</textarea>
 </body>
 
 </html>
 <script>
-var rsa='-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9eqwFdj7HKO5mm3G/BBr7l4oV//KzHYd1bIeyFeDWwWfXv/a2lJCY6E7AUr+OxIvKD8YG4fCT5k0q59M7cVPhGQkgT2hmq/uDXckiQBmYStQO65L8lwQ/N361FWfHN3WO8TH4yfdIPNBqLfTtf6tT9zadyeiAASWX/IiHD8asZQIDAQAB-----END PUBLIC KEY-----'
+var  as = document.getElementById('text1').value;
+var rsa='MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9eqwFdj7HKO5mm3G/BBr7l4oV//KzHYd1bIeyFeDWwWfXv/a2lJCY6E7AUr+OxIvKD8YG4fCT5k0q59M7cVPhGQkgT2hmq/uDXckiQBmYStQO65L8lwQ/N361FWfHN3WO8TH4yfdIPNBqLfTtf6tT9zadyeiAASWX/IiHD8asZQIDAQAB'
+localStorage.setItem('aser','web-ssss----');
+console.log(as);
     function encryptSend(data, publicKey) {
         var jsencrypt = new JSEncrypt();
         jsencrypt.setPublicKey(publicKey);
