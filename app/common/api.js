@@ -9,13 +9,34 @@ class Api {
             if (controller[url[0]]['type'] == 'path') {
                 let children = controller[url[0]]['children'];
                 if (children) {
+                    if (!children[url[1]]['controller']['init']) {
+                        let ct = children[url[1]]['controller'];
+                        ct['init'] = (ctx, next) => {
+                            ct['ctx'] = ctx;
+                            ct['next'] = next;
+                        }
+                    }
                     await children[url[1]]['controller'].init(ctx, next);
                 }
             } else {
+                if (!controller[url[0]]['controller']['init']) {
+                    let ct = controller[url[0]]['controller'];
+                    ct['init'] = (ctx, next) => {
+                        ct['ctx'] = ctx;
+                        ct['next'] = next;
+                    }
+                }
                 await controller[url[0]]['controller'].init(ctx, next);
                 let children = controller[url[0]]['children'];
                 if (children) {
                     if (url[1]) {
+                        if (!children[url[1]]['controller']['init']) {
+                          let ct = children[url[1]]['controller'];
+                          ct['init'] = (ctx, next) => {
+                              ct['ctx'] = ctx;
+                              ct['next'] = next;
+                          }
+                        }
                         await children[url[1]]['controller'].init(ctx, next);
                     }
                 }
@@ -60,8 +81,8 @@ class Api {
     async routers(paths, router, controller) {
         for (let i in controller['fun_name']) {
             if (controller['fun_name'][i] != "init") {
-            
-                router.get('/' + paths + '/' + controller['fun_name'][i].toLowerCase(), async(ctx, next) => {
+
+                router.post('/' + paths + '/' + controller['fun_name'][i].toLowerCase(), async(ctx, next) => {
                     // ctx.body=paths+'/'+controller['fun_name'][i].toLowerCase();
                     // console.log(i);
                     await controller['controller'][controller['fun_name'][i]](ctx, next);

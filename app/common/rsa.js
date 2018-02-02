@@ -3,18 +3,19 @@ const crypto = require('crypto');
 const nodeRsa = require('node-rsa');
 class Rsa {
     encrypt(data) {
-        var publicPem = fs.readFileSync(path.join(webconfig.rsa, 'rsa_public_key.pem'));
+        var publicPem = fs.readFileSync(path.join(webconfig.rsa, 'rsa_public_key.pem')).toString();
         let rsa = new nodeRsa(publicPem);
+        rsa.setOptions({encryptionScheme: 'pkcs1'});
         var encrypted = rsa.encrypt(data, 'base64');
         return encrypted;
     }
     decrypt(data) {
-        var privatePem = fs.readFileSync(path.join(webconfig.rsa, 'rsa_private_key.pem'));
+        var privatePem = fs.readFileSync(path.join(webconfig.rsa, 'rsa_private_key.pem')).toString();
         let rsa = new nodeRsa(privatePem);
+        rsa.setOptions({encryptionScheme: 'pkcs1'});
         var decrypted = rsa.decrypt(data, 'utf8');
         return decrypted;
     }
-
 }
 
 /**

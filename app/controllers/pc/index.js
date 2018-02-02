@@ -27,20 +27,16 @@ class Index {
             page: 1
         });
         let s=rsa.encrypt('我是谁');
-        let sar="tAxTvEGQymfW2ysiWVPVD8GGb0WywVehwuPGgunszutMWHP0rVNMLTHJYojXPoy3UgYn/xkWGrNpQ2gXWntvuWC8V9bwQp9QJ1MuouMw1d5rrkVcQZoGtLl/fSR6231Jn4NtR1SZVXJMfn7m7A8mhxigorb16V4b3xZcxMQ/6yg=";
-        // console.log(rsa.decrypt(sar),'-------wwwwwwwww--------------');
-        //
-        // await this.ctx.render('index', {
-        //     ad: ad.data.result,
-        //     brand: brand.data.result,
-        //     inpage: true,
-        //     link: link.data.result,
-        //     rsa:{
-        //       begin:'我是谁',
-        //       end:s,
-        //       init:rsa.decrypt(sar)
-        //     }
-        // });
+        let sar="j75r6AF0iE8e/LfdmeAGCCcS11IffD5htEq0WdBBVE+GkBKpKpzAtSmKa51Y8ZAWCV9uUVLdVF+Z4lEP1pSGFW9UBHn97pTqvniZyOg5RhrXttWxsC/uIriMhKVIwx1wUNieFK+hRkNRkhAf8bKZyFAS9v9iX67tu2YbEXy6BYrqGrii2X1Xw7EW12OA5kVGPBeUws6wG2X34quvY6J+YbhPz5JL30AC5yAfPYixobqEU+zaxsPCWv1SPwMIjk1CYw22ofOwV0grmZdIoSyYqKbdJJm0lOR0H0IrcXbG43DNdct+KhqS9TKSsHN+pFHfimINL2DfKJG8VJBkKKD4uw==";
+        console.log(rsa.decrypt(sar),'-------wwwwwwwww--------------');
+
+        await this.ctx.render('index', {
+            ad: ad.data.result,
+            brand: brand.data.result,
+            inpage: true,
+            link: link.data.result
+
+        });
 
     }
 }

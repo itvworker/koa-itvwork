@@ -1,56 +1,36 @@
-const newsModel = require(path.join(webconfig.v1, 'news.js'));
-const fs = require('fs');
+const newsModel = require(path.join(webconfig.v1,'news.js'));
+
 
 class News {
+  // init(ctx,next){
+  //   this.ctx=ctx;
+  //   this.next=next;
+  // }
+    async add(ctx,next){
+       let post=this.ctx.request.body;
+       this.ctx.body= await newsModel.add(post.data);
 
-    async init(ctx, next) {
-        this.ctx = ctx;
-        this.next = next;
-        this.params=tool.paramArr(ctx.path);
     }
-    async index(ctx, next) {
-
-        let query = this.ctx.query;
-        let search = {};
-        if (this.params.length>3) {
-            search['sort'] ={
-              id:this.params[3]
-            };
-        }
-
-        let list = await newsModel.find({
-            query: search,
-            num: 16,
-            page: 1
-        });
-        let url = tool.pageurl(this.ctx.path, query);
-
-        let page = new Page({
-            pot: 13,
-            url: url,
-            page: query.page ? query.page : 1,
-            num: 12,
-            count: 30000
-        })
-
-        await this.ctx.render('news', {
-            data: list.data.result,
-            page: page.html()
-        });
-
-
+    async list(ctx,next) {
+        let post=this.ctx.request.body;
+        this.ctx.body=await newsModel.find(post.data);
 
     }
 
-    async reg(ctx, next) {
-
-
-
+    async detail(ctx,next){
+        let post=ctx.request.body;
+        ctx.body=await newsModel.findOne(post.data);
     }
 
+    async updata(ctx,next){
+        let post = ctx.request.body;
+        ctx.body= await newsModel.updata(post.data);
+    }
 
-
+    async del(ctx, next) {
+        let post = ctx.request.body;
+        ctx.body = await newsModel.del(post.data);
+    }
 }
 
-
-module.exports = new News();
+module.exports=new News();

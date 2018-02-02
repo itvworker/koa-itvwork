@@ -20,8 +20,7 @@
 
 <body>
 <textarea id="text1">
-
-
+  -----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAydjYzX9HlsMBzN8ij73xY40tj7QPzGfsrSrT81Lruv90qn+o3J/ppK+prOuFVMMGV0vna8tu+BnBw8GsKbHLSU9dcSMyGcRL/IHo0aRZ7WCDKvTZeKSJtS3Qn8ltUflDe1DW3d9vlvHEV8trkQiY4YpZ/ZgTk0v7tREOqgbAiu0W4wEKLAavqUPtyUQFj0bAa46wrH86boZMr1leGD8cueoK1M9Idom6i213UpOpbMKOfpLz0QWT5y52qseTJ/IpivTvq+lDcNxNx1kNLrMWQsTKgbHC9Y9SQMF9ArcY661So/bAi5n+3h62+FpY+1ce4+qSHJo67S+VA7yGh33S2wIDAQAB-----END PUBLIC KEY-----
 
 </textarea>
 </body>
@@ -29,14 +28,14 @@
 </html>
 <script>
 var  as = document.getElementById('text1').value;
-var rsa='MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9eqwFdj7HKO5mm3G/BBr7l4oV//KzHYd1bIeyFeDWwWfXv/a2lJCY6E7AUr+OxIvKD8YG4fCT5k0q59M7cVPhGQkgT2hmq/uDXckiQBmYStQO65L8lwQ/N361FWfHN3WO8TH4yfdIPNBqLfTtf6tT9zadyeiAASWX/IiHD8asZQIDAQAB'
+ var rsa='-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAydjYzX9HlsMBzN8ij73xY40tj7QPzGfsrSrT81Lruv90qn+o3J/ppK+prOuFVMMGV0vna8tu+BnBw8GsKbHLSU9dcSMyGcRL/IHo0aRZ7WCDKvTZeKSJtS3Qn8ltUflDe1DW3d9vlvHEV8trkQiY4YpZ/ZgTk0v7tREOqgbAiu0W4wEKLAavqUPtyUQFj0bAa46wrH86boZMr1leGD8cueoK1M9Idom6i213UpOpbMKOfpLz0QWT5y52qseTJ/IpivTvq+lDcNxNx1kNLrMWQsTKgbHC9Y9SQMF9ArcY661So/bAi5n+3h62+FpY+1ce4+qSHJo67S+VA7yGh33S2wIDAQAB-----END PUBLIC KEY-----'
 localStorage.setItem('aser','web-ssss----');
 console.log(as);
     function encryptSend(data, publicKey) {
         var jsencrypt = new JSEncrypt();
         jsencrypt.setPublicKey(publicKey);
         // enData用来装载加密后的数据
-        var rsas=jsencrypt.encrypt(data);
+        var rsas=jsencrypt.encrypt(data,'base64');
         console.log(rsas);
 
 

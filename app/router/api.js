@@ -19,5 +19,4 @@ module.exports =async function (app) {
   api.initRouter('apiadmin',router,controller);
   api.bulidRouter(router,controller);
   app.use(router.routes());
-
 }
