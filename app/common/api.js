@@ -3,6 +3,7 @@ const fs = require('fs');
 class Api {
     initRouter(name, router, controller) {
         let self = this;
+        var pass = true;
         router.use(async(ctx, next) => {
             let url = self.urlpath(ctx.path);
             url = this.pathToLower(url);
@@ -15,8 +16,9 @@ class Api {
                             ct['ctx'] = ctx;
                             ct['next'] = next;
                         }
+                        return true;
                     }
-                    await children[url[1]]['controller'].init(ctx, next);
+                    pass = await children[url[1]]['controller'].init(ctx, next);
                 }
             } else {
                 if (!controller[url[0]]['controller']['init']) {
@@ -24,24 +26,34 @@ class Api {
                     ct['init'] = (ctx, next) => {
                         ct['ctx'] = ctx;
                         ct['next'] = next;
+                        return true;
                     }
                 }
-                await controller[url[0]]['controller'].init(ctx, next);
+                pass = await controller[url[0]]['controller'].init(ctx, next);
                 let children = controller[url[0]]['children'];
                 if (children) {
                     if (url[1]) {
                         if (!children[url[1]]['controller']['init']) {
-                          let ct = children[url[1]]['controller'];
-                          ct['init'] = (ctx, next) => {
-                              ct['ctx'] = ctx;
-                              ct['next'] = next;
-                          }
+                            let ct = children[url[1]]['controller'];
+                            ct['init'] = (ctx, next) => {
+                                ct['ctx'] = ctx;
+                                ct['next'] = next;
+                            }
+                            return true;
                         }
-                        await children[url[1]]['controller'].init(ctx, next);
+                        if (pass === true) {
+                            pass = await children[url[1]]['controller'].init(ctx, next);
+                        }
+
                     }
                 }
             }
-            await next();
+            if (pass === true) {
+                await next();
+            } else {
+                ctx.body = pass;
+            }
+
         })
     }
     urlpath(url) {

@@ -28,6 +28,10 @@ module.exports = function (app) {
         let data = ctx.request.body;
         let url = ctx.request.url.substring(1, ctx.request.url.length).split('/');
         ctx.session = require(path.join(webconfig.model + '/v1', 'session.js'));
+        
+
+
+
         let token = '';
         switch (url[1]) {
             case 'login':

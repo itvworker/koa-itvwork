@@ -22,9 +22,7 @@ class Images {
             let begin="";
             type=data.type;
             delete data.type;
-
             for(let i in data){
-
                 if(!begin){
                     begin= i.indexOf('[type]')>=0?'type':'data';
                 }
@@ -48,11 +46,7 @@ class Images {
                         }
                         break;
                 }
-
-
             }
-
-
         }
 
         ctx.body=await imgModel.uploads(arr,ctx,type);
