@@ -18,7 +18,7 @@ class AdSort {
 
     async detail() {
         let post = this.ctx.request.body;
-        console.log(post);
+    
         let result = await adSortModel.findone(post['data']);
         this.ctx.body = result;
     }

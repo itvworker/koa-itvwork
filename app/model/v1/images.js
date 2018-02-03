@@ -188,10 +188,9 @@ class Images {
         let arr = [];
         let defeatNum = 0;
         for (let i = 0, len = data.length; i < len; i++) {
-            console.log(i);
             let result = await this.saveBase64(data[i]);
-          //  let resize1 = await this.resizeImg(result.url,400,result.id,result.type);    
 
+          //  let resize1 = await this.resizeImg(result.url,400,result.id,result.type);
 
             if (result.err_code == 200) {
                 arr.push({
@@ -199,7 +198,8 @@ class Images {
                     path: result.url,
                     author: ctx.admin.id,
                     sort: type,
-                    size: result.size
+                    size: result.size,
+                    add_time:tool.time()
                 })
             } else {
                 defeatNum++;
@@ -211,8 +211,6 @@ class Images {
             arr[i]['height'] = result.height;
             arr[i]['type'] = result.type;
         }
-
-
         return this.inserts(arr);
     }
 

@@ -15,5 +15,6 @@ module.exports = (root)=> {
         db:'mongodb://localhost:27017/more',
         scret:'moreapp_admin',
         rsa:path.join(root,'app/rsa/'),
+        mid:path.join(root,'app/middleware/'),
     }
 }

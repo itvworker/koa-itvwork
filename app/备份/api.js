@@ -117,7 +117,7 @@ module.exports =async (app)=> {
 
 
     controller=await apitool.funName(controller);
-    console.log(controller,'web----------------------------------------');
+    
     apitool.initRouter(router, controller); //执行init()
     apitool.bulidRouter(router,controller);
 

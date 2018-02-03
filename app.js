@@ -16,7 +16,7 @@ const db = mongoose.connect(webconfig.db);
 
 const koaBody = require('koa-body');
 const resouce = require('koa-static2');
-const cors = require('@koa/cors');
+//const cors = require('@koa/cors');
 
 
 render(app, {
@@ -28,7 +28,7 @@ render(app, {
 });
 
 app.use(koaBody({multipart: true}))
-app.use(cors());
+// app.use(cors());
 app.use(resouce("",__dirname+"/public"));
 
 

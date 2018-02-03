@@ -11,60 +11,19 @@ const api = require('../common/api.js');
 
 const koaRouter = require('koa-router')
 const busboy = require('koa-busboy');
-const rsa=require(path.join(webconfig.common, 'rsa.js'));
+const tovalt=require(path.join(webconfig.mid, 'token.js'));
+const rsadata=require(path.join(webconfig.mid, 'data.js'));
+const power=require(path.join(webconfig.mid, 'power.js'));
+const cors = require('@koa/cors');
 
 module.exports =async function (app) {
   // router.use(koajson());
   let controller=await ctrl.readdirSync(webconfig.apiadmin);
   controller=ctrl.funName(controller);
-  router.use(async function (ctx, next) {
-      let data = ctx.request.body;
-      if(data['rsa']){
-      data= JSON.parse(rsa.decrypt(data['rsa']));
-      ctx.request.body=data;
-      console.log(data);
-      }
-
-
-      let url = ctx.request.url.substring(1, ctx.request.url.length).split('/');
-      ctx.session = require(path.join(webconfig.model + '/v1', 'session.js'));
-      let token = '';
-      switch (url[1]) {
-          case 'login':
-              await next();
-              break;
-
-          default:
-              if (data['fields']) {
-                  token = data['fields']['token'];
-              } else {
-                  token = data['token'];
-              }
-
-              if (token) {
-                  let mess = await ctx.session.findOne({
-                      _id: token
-                  });
-                  if (mess.err_code == 200) {
-                      ctx.admin = mess.data.data;
-                      await next();
-                  } else {
-                      ctx.body = {
-                          err_code: 104,
-                          err_msg: '登录过时'
-                      };
-                  }
-              } else {
-
-                  ctx.body = {
-                      err_code: 104,
-                      err_msg: '你没有权限，请登录'
-                  };
-              }
-      }
-
-  });
-
+  router.use(cors());//允许跨域
+  router.use(tovalt());
+  router.use(rsadata());//解密数据
+  router.use(power());//验证权限
   api.initRouter('apiadmin',router,controller);
   api.bulidRouter(router,controller);
   app.use(router.routes());
