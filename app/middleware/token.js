@@ -18,6 +18,8 @@ module.exports = function(options) {
   return function app(ctx, next) {
     // If the Origin header is not present terminate this set of steps.
     // The request is outside the scope of this specification.
+    console.log('-----');
+    console.log(ctx);
     return next();
   };
 };
