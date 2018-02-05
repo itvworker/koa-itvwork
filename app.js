@@ -7,6 +7,7 @@ global.webconfig = require(path.join(__dirname,'app/config/config.js'))(__dirnam
 var router = require('./app/router/admin');  //后台路由
 var pcrouter= require('./app/router/pc');
 var apirouter= require('./app/router/api.js');
+var plane = require('./app/router/plane.js');
 const mongoose= require('mongoose');
 mongoose.Promise = global.Promise;
 global.mdb=mongoose;
@@ -48,6 +49,7 @@ db.connection.on('disconnected', function() {
 router(app);
 pcrouter(app);
 apirouter(app);
+plane(app);
 
 
 

@@ -93,19 +93,12 @@ class Api {
     async routers(paths, router, controller) {
         for (let i in controller['fun_name']) {
             if (controller['fun_name'][i] != "init") {
-
                 router.post('/' + paths + '/' + controller['fun_name'][i].toLowerCase(), async(ctx, next) => {
-                    // ctx.body=paths+'/'+controller['fun_name'][i].toLowerCase();
-                    // console.log(i);
                     await controller['controller'][controller['fun_name'][i]](ctx, next);
                 });
-
             }
         };
-
     }
-
-
 }
 
 module.exports = new Api();

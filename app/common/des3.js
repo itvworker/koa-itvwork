@@ -12,12 +12,12 @@ class Des3 {
         //encrypt
         var cipher = crypto.createCipheriv(alg, key, iv);
         cipher.setAutoPadding(autoPad) //default true
-        var ciph = cipher.update(plaintext, 'utf8', 'hex');
-        ciph += cipher.final('hex');
-        return {
-            alg: alg,
-            ciph: ciph
-        };
+        var ciph = cipher.update(plaintext, 'utf8', param.type);
+        ciph += cipher.final('base64');
+        // var buf = Buffer.from(ciph, 'utf8');
+        // return buf.toString('base64');
+        return ciph
+
     }
     decrypt(param) {
         var key = new Buffer(param.key);
@@ -29,10 +29,11 @@ class Des3 {
         var cipher = crypto.createCipheriv(alg, key, iv);
         cipher.setAutoPadding(autoPad);
         var decipher = crypto.createDecipheriv(alg, key, iv);
-        var txt = decipher.update(plaintext, 'hex', 'utf8');
+        var txt = decipher.update(plaintext, param.type, 'utf8');
         txt += decipher.final('utf8');
         return txt;
     }
+    
 
 }
 
