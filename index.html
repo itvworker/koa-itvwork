@@ -19,26 +19,28 @@
 </head>
 
 <body>
-<textarea id="text1">
-  -----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAydjYzX9HlsMBzN8ij73xY40tj7QPzGfsrSrT81Lruv90qn+o3J/ppK+prOuFVMMGV0vna8tu+BnBw8GsKbHLSU9dcSMyGcRL/IHo0aRZ7WCDKvTZeKSJtS3Qn8ltUflDe1DW3d9vlvHEV8trkQiY4YpZ/ZgTk0v7tREOqgbAiu0W4wEKLAavqUPtyUQFj0bAa46wrH86boZMr1leGD8cueoK1M9Idom6i213UpOpbMKOfpLz0QWT5y52qseTJ/IpivTvq+lDcNxNx1kNLrMWQsTKgbHC9Y9SQMF9ArcY661So/bAi5n+3h62+FpY+1ce4+qSHJo67S+VA7yGh33S2wIDAQAB-----END PUBLIC KEY-----
 
-</textarea>
 </body>
 
 </html>
 <script>
-var  as = document.getElementById('text1').value;
- var rsa='-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAydjYzX9HlsMBzN8ij73xY40tj7QPzGfsrSrT81Lruv90qn+o3J/ppK+prOuFVMMGV0vna8tu+BnBw8GsKbHLSU9dcSMyGcRL/IHo0aRZ7WCDKvTZeKSJtS3Qn8ltUflDe1DW3d9vlvHEV8trkQiY4YpZ/ZgTk0v7tREOqgbAiu0W4wEKLAavqUPtyUQFj0bAa46wrH86boZMr1leGD8cueoK1M9Idom6i213UpOpbMKOfpLz0QWT5y52qseTJ/IpivTvq+lDcNxNx1kNLrMWQsTKgbHC9Y9SQMF9ArcY661So/bAi5n+3h62+FpY+1ce4+qSHJo67S+VA7yGh33S2wIDAQAB-----END PUBLIC KEY-----'
+    var arr = [{
+            data: 1,
+            type: 1,
+        }, {
+            data: 1,
+            type: 1,
+        },
+        {
+            data: 2,
+            type: 2
+        }
+    ];
 
-console.log(as);
-    function encryptSend(data, publicKey) {
-        var jsencrypt = new JSEncrypt();
-        jsencrypt.setPublicKey(publicKey);
-        // enData用来装载加密后的数据
-        var rsas=jsencrypt.encrypt(data,'base64');
-        console.log(rsas);
+
+  var arr=new WeakSet(arr);
 
 
-    }
-    encryptSend('我是谁',rsa);
+
+    console.log(JSON);
 </script>

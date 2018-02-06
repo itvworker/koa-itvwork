@@ -24,9 +24,9 @@ class Index {
             'changeTicket': url + '/dfs/service/changeTicket.json'
         };
         this.key = {
-            'memchantID': '',
-            'MD5_KEY': '',
-            'DES_KEY': ''
+          'memchantID': '10765962',
+          'MD5_KEY':'OTA_WEBSITE_GEYATBXY_KEY',
+          'DES_KEY':'OTA_WEBSITE_GEYATBXY_KEY'
         };
 
         let post = this.ctx.request.body;
@@ -72,7 +72,7 @@ class Index {
     async paymentNotice(){
       let data = await tool.curl(this.plane.paymentNotice,this.senddata);
       this.ctx.body = {error_code:200,error_msg:"资源正常",data:data};
-
+      
     }
 
 

@@ -231,6 +231,8 @@ class Images {
             let exites = fs.existsSync(webconfig.source + '/' + url);
             if (exites) {
                 resolve(fs.unlink(webconfig.source + '/' + url));
+            }else{
+                reject(exites)
             }
 
         })
