@@ -13,7 +13,7 @@ class Index {
     }
     async index() {
         let as = new Verify({
-          data:{
+          username:{
               schema:'phone',
               schemaReqiure:'电话号码是密填',
               schemaUniq:['电话号帐号已经存在',userModel],
@@ -34,13 +34,13 @@ class Index {
         });
 
           let data =  await as.init({
-            data: [15018499455,13265155297],
+            username: 15018499455,
             date:[{
               data:1,
               type:10
             }]
         });
-    
+
         this.ctx.body=data;
         // let ad = await adModel.find({
         //     query: {

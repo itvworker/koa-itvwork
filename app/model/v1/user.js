@@ -76,7 +76,7 @@ class User {
 
   async reg(data) {
 
-    let awt = await this.findOne({username: data.username});
+    let awt = await this.model.findOne({username: data.username});
     if (awt.err_code == 200) {
       return tool.dataJson(104, '帐号已经存在请用别的帐号');
     };
@@ -91,7 +91,6 @@ class User {
   }
 
   async findOne(data) {
-
     return this.model.findOne(data).then(function(result) {
       if (result) {
         return tool.dataJson(200, '查询成功', result)
