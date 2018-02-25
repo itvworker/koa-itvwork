@@ -8,8 +8,7 @@ class AdSort {
         let post = this.ctx.request.body;
         let data = await adSortModel.find(post['data']);
         this.ctx.body = data;
-
-    }
+      }
 
     async add() {
         let data=this.ctx.request.body;
@@ -18,7 +17,7 @@ class AdSort {
 
     async detail() {
         let post = this.ctx.request.body;
-    
+
         let result = await adSortModel.findone(post['data']);
         this.ctx.body = result;
     }

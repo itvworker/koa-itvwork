@@ -68,7 +68,7 @@ class Case {
       path: arr
     }, 1);
 
-    return new this.model(data).save().then(function(result) {
+    return this.model(data).save().then(function(result) {
       return tool.dataJson(200, '查询成功', result);
 
     }, function(err) {

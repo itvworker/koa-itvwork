@@ -15,7 +15,6 @@ class Admin {
                  type:Object,
                  default:"",
              },
-
              pwd:{
                type:String
              },
@@ -28,7 +27,6 @@ class Admin {
              collection:'admin',
              versionKey:false
          });
-
         this.model = mdb.model('admin', this.schema);
         this.model.schema.path('username').validate(function (value) {
             if(value.length<=1){
@@ -38,11 +36,6 @@ class Admin {
             }
 
         },'用户名不能为空');
-        // this.model.schema.path('username').validate(function (value) {
-        //     console.log(value);
-        //       return false;
-        // },'请输入正确的用户名');
-
     }
 
     //添加后台管理人员
@@ -96,9 +89,7 @@ class Admin {
                     err_code:0,
                     err_msg:'没有数据',
                 }
-
             }
-
         },function (err) {
             return {
                 err_code:500,

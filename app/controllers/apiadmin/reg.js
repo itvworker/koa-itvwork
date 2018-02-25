@@ -1,30 +1,77 @@
-const adModel = require(path.join(webconfig.v1, 'ad.js'));
-const caseModel = require(path.join(webconfig.v1, 'case.js'));
 const userModel = require(path.join(webconfig.v1, 'user.js'));
-const fs = require('fs');
+const Verify = require(path.join(webconfig.common, 'verify.js'));
+const moneyModel = require(path.join(webconfig.v1, 'money.js'));
 
 class Reg {
-  constructor() {
-    return this;
-  }
-  async init(ctx, next) {
-      this.ctx = ctx;
-      this.next = next;
-
-  }
-    async index(ctx, next) {
-        let pwd = tool.md5('wwwww' + 'qazxswedqwertyuiop');
-        ctx.body = await userModel.reg({
-            username: 'wkwx',
-            pwd: pwd
+    async index() {
+        let post = this.ctx.request.body;
+        let as = new Verify({
+          username:{
+              schema:'phone',
+              schemaReqiure:'电话号码是必填的',
+              schemaUniq:['电话号码已经存',userModel],
+              schemaMsg:'电话号码格式错误'
+          },
+          pwd:{
+            schema:'pwd',
+            schemaReqiure:'密码必须填的',
+            schemaMsg:'密码必须包括大写字母小写字母以及数字并长度大于等于6的字符'
+          }
         });
+
+        let very = await as.init(post);
+        if(very!==true){
+          this.ctx.body=tool.dataJson(103, '错误',  very);
+          return false;
+        }
+
+        let data={
+          username:post.username,
+          pwd: tool.md5(post.pwd + 'qazxswedqwertyuiop')
+        };
+        let res=await userModel.reg(data);
+
+        if(res.err_code==200){
+            this.ctx.body=tool.dataJson(200, '注册成功');
+        }else{
+            this.ctx.body=res;
+        }
 
     }
 
+    async admin(){
+        let post = this.ctx.request.body;
+        let as = new Verify({
+          username:{
+              schemaReqiure:'帐号是必填的',
+              schemaUniq:['帐号已经存在',userModel],
+          },
+          pwd:{
+            schema:'pwd',
+            schemaReqiure:'密码必须填的',
+            schemaMsg:'密码必须包括大写字母小写字母以及数字并长度大于等于6的字符'
+          }
+        });
+        let very = await as.init(post);
+        if(very!==true){
+            this.ctx.body=tool.dataJson(104, very);
+            return false;
+        }
+        let data={
+          username:post.username,
+          pwd: tool.md5(post.pwd + 'qazxswedqwertyuiop'),
+          role:0
+        };
+        let res=await userModel.reg(data);
+        this.ctx.body=res;
+    }
 
-
-
+    async login(){
+        
+    }
 }
+
+
 
 
 module.exports = new Reg();

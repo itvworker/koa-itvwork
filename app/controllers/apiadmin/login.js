@@ -7,11 +7,8 @@ class Login {
     async index() {
 
         let data = this.ctx.request.body;
-
         let result = await AdminModel.findone({username: data['username']});
         if (result.err_code == 200) {
-
-
             if (tool.md5(data.pwd + 'qazxswedqwertyuiop') === result.data.pwd) {
                 let tokenSession = await this.ctx.session.add({
                     _id:tool.getid(),
