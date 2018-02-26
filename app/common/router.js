@@ -5,17 +5,12 @@ class Router {
     router.get('/' + name, async (ctx, next) => {
       await controller['controller']['index']();
     });
-    router.post('/' + name, async (ctx, next) => {
-      await controller['controller']['index']();
-    });
 
     if (controller['controller']['index']) {
       router.get('/' + name, async (ctx, next) => {
         await controller['controller']['index']();
       });
-      router.post('/' + name, async (ctx, next) => {
-        await controller['controller']['index']();
-      });
+
     }
     let fun_name = controller['fun_name'];
     let c = controller['controller'];
@@ -28,13 +23,7 @@ class Router {
             '/' + name + '/' + fun_name[a] + '/*'
           ], async (ctx, next) => {
             await c[fun_name[a]]();
-          });
-          router.post([
-            '/' + name + '/' + fun_name[a],
-            '/' + name + '/' + fun_name[a] + '/*'
-          ], async (ctx, next) => {
-            await c[fun_name[a]]();
-          })
+          });  
         }
       }
     }

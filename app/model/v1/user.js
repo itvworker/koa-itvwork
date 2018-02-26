@@ -31,7 +31,7 @@ class User {
         default:''
       },
       role:{
-        type:String,
+        type:Number,
         default:0
       },
       header:{
@@ -69,14 +69,11 @@ class User {
     return this.model.findOne(data).then(function(result) {
       if (result) {
         return tool.dataJson(200, '查询成功', result)
-
       } else {
         return tool.dataJson(0, '没有数据');
       }
-
     }, function(err) {
       return tool.dataJson(104, '错误', err);
-
     })
   }
 

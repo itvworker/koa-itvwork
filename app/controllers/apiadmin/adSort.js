@@ -2,8 +2,7 @@ const adSortModel = require(path.join(webconfig.v1, 'adSort.js'));
 const imgModel = require(path.join(webconfig.v1, 'images.js'));
 
 class AdSort {
-
-
+  
     async index() {
         let post = this.ctx.request.body;
         let data = await adSortModel.find(post['data']);
@@ -27,8 +26,6 @@ class AdSort {
         let result = await adSortModel.del(post.data);
         this.ctx.body = result;
     }
-
-
     async update(){
         let post = this.ctx.request.body;
         let detail = await adSortModel.findone({_id:post.data._id});

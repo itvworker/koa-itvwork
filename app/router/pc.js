@@ -75,7 +75,8 @@ module.exports = async (app)=>{
         await ctx.render('admin');
     });
     router.get(['/', '/index', '/index/index'], async (ctx, next) => {
-        await controller.index['controller'].index();
+        //ctx.body=controller;
+         await controller.index['controller'].index();
     });
     //建立路由
     routerTool.bulidRouter(router,controller);
