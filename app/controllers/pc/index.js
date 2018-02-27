@@ -3,9 +3,9 @@ const caseModel = require(path.join(webconfig.v1, 'case.js'));
 const userModel = require(path.join(webconfig.v1, 'user.js'));
 const rsa = require(path.join(webconfig.common, 'rsa.js'));
 const Verify = require(path.join(webconfig.common, 'verify.js'));
-const gm = require('gm').subClass({
-    imageMagick: true
-});
+// const gm = require('gm').subClass({
+//     imageMagick: true
+// });
 const fs = require('fs');
 
 
@@ -39,11 +39,9 @@ class Index {
         });
     }
     async test() {
-
-
-        this.ctx.body = gm(path.join(webconfig.images, '8b70fa33330647f508c57ff4f7c08219.jpg')).resize(240, 240).write(path.join(webconfig.images, 'aaa.jpg'), function(err) {
-          console.log(err);
-        });;
+        // this.ctx.body = gm(path.join(webconfig.images, '8b70fa33330647f508c57ff4f7c08219.jpg')).resize(240, 240).write(path.join(webconfig.images, 'aaa.jpg'), function(err) {
+        //   console.log(err);
+        // });;
         //8b70fa33330647f508c57ff4f7c08219.jpg
         // this.ctx.body = {
         //     data: 'test'
