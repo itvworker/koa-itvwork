@@ -23,7 +23,6 @@ class Admin {
                type:Number,
                default:0
              }
-
         },{
              collection:'admin',
              versionKey:false

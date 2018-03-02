@@ -22,45 +22,21 @@ class User {
         type: String,
         default: 1
       },
-      marterial: {
-        person: {
-          nickname: {
-            type: String,
-            default: ''
-          },
-          name: {
-            type: String,
-            default: ""
-          },
-          phone: {
-            type: String,
-            default: ''
-          },
-          info: {
-            type: String,
-            default: ''
-          },
-          ID: {
-            type: String,
-            default: ''
-          },
-          header: {
-            type: String,
-            default: ''
-          },
-          sex: {
-            type: String,
-            default: 0
-          },
-          email: {
-            type: String,
-            default: ''
-          }
-        },
-        shoper: {
-          type: String,
-          default: ''
-        }
+      integral:{
+        type:Number,
+        default:0,
+      },
+      header:{
+        type:String,
+        default:''
+      },
+      nickname:{
+        type:String,
+        default:''
+      },
+      power:{
+        type:String,
+        default:''
       },
       add_time: {
         type: Number,
@@ -70,16 +46,10 @@ class User {
       collection: 'user',
       versionKey: false
     });
-
     this.model = mdb.model('uesr', this.schema);
   }
-
+  
   async reg(data) {
-
-    let awt = await this.model.findOne({username: data.username});
-    if (awt.err_code == 200) {
-      return tool.dataJson(104, '帐号已经存在请用别的帐号');
-    };
     data['add_time'] = tool.time();
     data['_id'] = tool.getid();
     return new this.model(data).save().then(function(result) {
@@ -98,10 +68,8 @@ class User {
       } else {
         return tool.dataJson(0, '没有数据');
       }
-
     }, function(err) {
       return tool.dataJson(104, '错误', err);
-
     })
   }
 
@@ -116,7 +84,6 @@ class User {
     }, function(err) {
       return tool.dataJson(104, '数据库错误');
     });
-
   }
 
 }
