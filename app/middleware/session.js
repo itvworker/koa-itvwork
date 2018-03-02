@@ -1,5 +1,3 @@
-
-
 /**
  * CORS middleware
  *
@@ -14,10 +12,12 @@
  * @return {Function} cors middleware
  * @api public
  */
-module.exports = function(options) {
-  return function app(ctx, next) {
-    // If the Origin header is not present terminate this set of steps.
-    // The request is outside the scope of this specification.
-    return next();
-  };
+
+module.exports =  function(options) {
+    return async function  app(ctx, next) {
+        let data = ctx.request.body;
+        let url = ctx.request.url.substring(1, ctx.request.url.length).split('/');
+        ctx.session = require(path.join(webconfig.model + '/v1', 'session.js'));
+        return next();
+    };
 };

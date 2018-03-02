@@ -10,24 +10,30 @@ class Api {
             if (controller[url[0]]['type'] == 'path') {
                 let children = controller[url[0]]['children'];
                 if (children) {
+                    let ct = children[url[1]]['controller'];
                     if (!children[url[1]]['controller']['init']) {
-                        let ct = children[url[1]]['controller'];
                         ct['init'] = (ctx, next) => {
                             ct['ctx'] = ctx;
                             ct['next'] = next;
                         }
                         return true;
+                    }else{
+                      ct['ctx'] = ctx;
+                      ct['next'] = next;
                     }
                     pass = await children[url[1]]['controller'].init(ctx, next);
                 }
             } else {
+              let ct = controller[url[0]]['controller'];
                 if (!controller[url[0]]['controller']['init']) {
-                    let ct = controller[url[0]]['controller'];
                     ct['init'] = (ctx, next) => {
                         ct['ctx'] = ctx;
                         ct['next'] = next;
                         return true;
                     }
+                }else {
+                  ct['ctx'] = ctx;
+                  ct['next'] = next;
                 }
                 pass = await controller[url[0]]['controller'].init(ctx, next);
                 let children = controller[url[0]]['children'];

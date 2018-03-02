@@ -18,13 +18,27 @@ class User {
         type: String,
         default: 1
       },
+      integral:{
+        type:Number,
+        default:0
+      },
       type: {
-        type: String,
+        type: Number,
         default: 1
       },
+<<<<<<< HEAD
       integral:{
         type:Number,
         default:0,
+=======
+      power:{
+        type:Object,
+        default:''
+      },
+      role:{
+        type:Number,
+        default:0
+>>>>>>> 6c7770053d6d4597066e562dcfe67a19c0abc0cc
       },
       header:{
         type:String,
@@ -33,10 +47,13 @@ class User {
       nickname:{
         type:String,
         default:''
+<<<<<<< HEAD
       },
       power:{
         type:String,
         default:''
+=======
+>>>>>>> 6c7770053d6d4597066e562dcfe67a19c0abc0cc
       },
       add_time: {
         type: Number,
@@ -52,10 +69,10 @@ class User {
   async reg(data) {
     data['add_time'] = tool.time();
     data['_id'] = tool.getid();
-    return new this.model(data).save().then(function(result) {
-      return tool.dataJson(200, '保存成功', result);
+    return this.model(data).save().then(function(result) {
+      return tool.dataJson(200, '注册成功', result);
     }, function(err) {
-      return tool.dataJson(103, '保存失败', err);
+      return tool.dataJson(103, '注册失败', err);
     })
 
   }
@@ -64,7 +81,6 @@ class User {
     return this.model.findOne(data).then(function(result) {
       if (result) {
         return tool.dataJson(200, '查询成功', result)
-
       } else {
         return tool.dataJson(0, '没有数据');
       }
@@ -73,6 +89,7 @@ class User {
     })
   }
 
+<<<<<<< HEAD
   async updataPerson(condition, data) {
     let arr = {}
     for (let i in data) {
@@ -85,6 +102,8 @@ class User {
       return tool.dataJson(104, '数据库错误');
     });
   }
+=======
+>>>>>>> 6c7770053d6d4597066e562dcfe67a19c0abc0cc
 
 }
 

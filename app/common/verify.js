@@ -5,26 +5,22 @@ class Verify {
     async init(data) {
         let arr = this.argUrl(data);
         let obj = false;
-
         for (let i in arr) {
             let as = this.key(arr[i]['name']);
-            if (as) {
+            if (as&&as['schema']) {
                 let res = this[as['schema']](arr[i]['value'], as['schemaVal']);
                 //let awt = await this.findOne({username: data.username});
                 if (res === true) {
                     obj = true;
                 } else {
-                    obj = {
-                        msg: as['schemaMsg'],
-                        value: arr[i]['value'],
-                        path: arr[i]['name']
-                    }
+                    obj = as['schemaMsg'];
                     break;
                 }
             }
         }
 
         for (let i in this.obj) {
+
             if (this.obj[i]['schemaReqiure'] && data[i]) {
                 switch (tool.dataType[data[i]]) {
                     case 'array':
@@ -51,9 +47,14 @@ class Verify {
                                 obj = true;
                             }
                         } else {
+
                             obj = this.obj[i]['schemaReqiure'];
                         }
+
                 }
+
+            }else{
+                obj = this.obj[i]['schemaReqiure'];
             }
 
             if (this.obj[i]['schemaUniq'] && data[i]) {
@@ -65,7 +66,7 @@ class Verify {
                         obj = true;
                     }
                 } else {
-                    obj ={msg:this.obj[i]['schemaUniq'][0],value:data[i],path:i};
+                    obj =this.obj[i]['schemaUniq'][0];
                 }
             }
         }
@@ -75,7 +76,6 @@ class Verify {
     async update(data) {
         let arr = this.argUrl(data);
         let obj = false;
-
         for (let i in arr) {
             let as = this.key(arr[i]['name']);
             if (as) {
@@ -232,6 +232,22 @@ class Verify {
 
         return res;
         //for(let i=0)
+    }
+    strlen(value){
+        return value.length>=6&&value.length<=16;
+    }
+    hasnum(value){
+      return !!value.match(/\d/i);
+    }
+
+    hasUpper(value){
+      return !!value.match(/[A-Z]/g);
+    }
+    hasLower(value){
+      return !!value.match(/[a-z]/g);
+    }
+    pwd(value){
+      return this.hasnum(value)&&this.hasUpper(value)&&this.hasLower(value)&&this.strlen(value);
     }
 }
 module.exports = Verify;

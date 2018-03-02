@@ -10,6 +10,7 @@ module.exports = (root)=> {
         validate:path.join(root,'App/Validate/'),
         view:path.join(root,'app/view/'),
         source:path.join(root,'public/'),
+        images:path.join(root,'public/images/'),
         common:path.join(root,'app/common/'),
         root:root,
         port: 7200,

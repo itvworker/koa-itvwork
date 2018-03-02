@@ -17,25 +17,26 @@ module.exports = function(options) {
     return function app(ctx, next) {
         let data = ctx.request.body;
         if (data['rsa']) {
-            data = JSON.parse(rsa.decrypt(data['rsa']));
-            ctx.request.body = data;
+            let res = JSON.parse(rsa.decrypt(data['rsa']));
+            if(!data['data']){
+              ctx.request.body=res;
+            }else{
+              ctx.request.body ={
+                rsa:res,
+                data:data['data']
+              };
+            }
+
         }
         if (data['fields']) {
-            let arrdata = {
-                data: {},
-                token: '',
-                timetemp: '',
-                type: ''
+            let db = JSON.parse(rsa.decrypt(data['fields']['rsa']));
+            if(data['fields']['data']){
+                let data = JSON.parse(data['fields']['data']);
+                ctx.request.body = {rsa:db,data:data};
+            }else{
+                ctx.request.body = db;
             }
-            let db = JSON.parse(rsa.decrypt(data['fields']['rsas']));
-            arrdata.token = db.token,
-            arrdata.timetemp = db.timetemp,
-            arrdata.type = db.type;
-            arrdata.data = JSON.parse(data['fields']['data']);
-            data = arrdata;
-            ctx.request.body = data;
         }
-
         return next();
     };
 };

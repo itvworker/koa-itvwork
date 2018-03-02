@@ -13,7 +13,7 @@ const koaRouter = require('koa-router')
 const busboy = require('koa-busboy');
 const tovalt=require(path.join(webconfig.mid, 'token.js'));
 const rsadata=require(path.join(webconfig.mid, 'data.js'));
-const power=require(path.join(webconfig.mid, 'power.js'));
+const session=require(path.join(webconfig.mid, 'session.js'));
 const cors = require('@koa/cors');
 
 module.exports =async function (app) {
@@ -23,7 +23,7 @@ module.exports =async function (app) {
   router.use(cors());//允许跨域
   router.use(tovalt());
   router.use(rsadata());//解密数据
-  router.use(power());//验证权限
+  router.use(session());//验证权限
   api.initRouter('apiadmin',router,controller);
   api.bulidRouter(router,controller);
   app.use(router.routes());
