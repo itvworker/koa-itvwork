@@ -61,6 +61,12 @@
     "v8_use_snapshot": "true",
     "want_separate_host_toolset": 0,
     "nodedir": "C:\\Users\\19944\\.node-gyp\\8.9.3",
-    "standalone_static_library": 1
+    "copy_dev_lib": "true",
+    "standalone_static_library": 1,
+    "cache": "C:\\Users\\19944\\.npminstall_tarball",
+    "disturl": "https://npm.taobao.org/mirrors/node",
+    "r": "https://registry.npm.taobao.org",
+    "registry": "https://registry.npm.taobao.org",
+    "userconfig": "C:\\Users\\19944\\.cnpmrc"
   }
 }
