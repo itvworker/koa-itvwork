@@ -10,10 +10,11 @@ class Images {
 
     async uploads(){
         let post = this.ctx.request.body;
-        this.ctx.body=await imgModel.uploads(post.data,this.ctx,post.type);
+        console.log(post);
+        //this.ctx.body=await imgModel.uploads(post.data,this.ctx,post.type);
     }
 
-    del(url){
+    async del(url){
 
     }
 

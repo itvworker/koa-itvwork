@@ -14,11 +14,12 @@
  */
 const rsa = require(path.join(webconfig.common, 'rsa.js'));
 module.exports = function(options) {
-    return function app(ctx, next) {
+    return async function app(ctx, next) {
         let data = ctx.request.body;
-        if (data['rsa']) {
+        if (data['rsa']&&!data['fields']) {
             let res = JSON.parse(rsa.decrypt(data['rsa']));
             if(!data['data']){
+
               ctx.request.body=res;
             }else{
               ctx.request.body ={
@@ -26,15 +27,20 @@ module.exports = function(options) {
                 data:data['data']
               };
             }
-
         }
         if (data['fields']) {
-            let db = JSON.parse(rsa.decrypt(data['fields']['rsa']));
+            var db = JSON.parse(rsa.decrypt(data['fields']['rsa']));
+
+             db=JSON.parse(db);
+
+
             if(data['fields']['data']){
-                let data = JSON.parse(data['fields']['data']);
-                ctx.request.body = {rsa:db,data:data};
-            }else{
+                db['data']=JSON.parse(data['fields']['data']);
+
                 ctx.request.body = db;
+            }else{
+
+                ctx.request.body = db ;
             }
         }
         return next();

@@ -14,10 +14,13 @@
  */
 
 module.exports =  function(options) {
-    return async function  app(ctx, next) {
+    return async function app(ctx, next) {
+        let token="";
         let data = ctx.request.body;
-        let url = ctx.request.url.substring(1, ctx.request.url.length).split('/');
-        ctx.session = require(path.join(webconfig.model + '/v1', 'session.js'));
+        const ses = require(path.join(webconfig.model + '/v1', 'session.js'));
+        if(data['token']){
+              ctx.session= await ses.findOne({_id:data['token']});
+        }
         return next();
     };
 };
