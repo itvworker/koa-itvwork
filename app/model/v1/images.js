@@ -186,6 +186,7 @@ class Images {
     //上传多张图片
     async uploads(data, ctx, type) {
         let arr = [];
+        console.log(ctx.session);
         let defeatNum = 0;
         for (let i = 0, len = data.length; i < len; i++) {
             let result = await this.saveBase64(data[i]);
@@ -195,7 +196,7 @@ class Images {
                 arr.push({
                     _id: tool.getid(),
                     path: result.url,
-                    author: ctx.admin.id,
+                    author: ctx.session.data._id,
                     sort: type,
                     size: result.size,
                     add_time:tool.time()

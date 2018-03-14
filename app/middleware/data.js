@@ -19,8 +19,9 @@ module.exports = function(options) {
         if (data['rsa']&&!data['fields']) {
             let res = JSON.parse(rsa.decrypt(data['rsa']));
             if(!data['data']){
+                 
+               ctx.request.body=res;
 
-              ctx.request.body=res;
             }else{
               ctx.request.body ={
                 rsa:res,
