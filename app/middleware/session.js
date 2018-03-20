@@ -18,7 +18,7 @@ module.exports =  function(options) {
         let token="";
         let data = ctx.request.body;
         const ses = require(path.join(webconfig.model + '/v1', 'session.js'));
-        console.log(data);
+      
         if(data['token']){
 
               ctx.session= await ses.findOne({_id:data['token']});
