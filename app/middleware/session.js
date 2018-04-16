@@ -15,14 +15,12 @@
 
 module.exports =  function(options) {
     return async (ctx, next)=> {
-        let token="";
+
         let data = ctx.request.body;
         const ses = require(path.join(webconfig.model + '/v1', 'session.js'));
-      
         if(data['token']){
-
               ctx.session= await ses.findOne({_id:data['token']});
-              console.log(ctx.session);
+              ctx.body=ctx.session;
         }
         return next();
     };

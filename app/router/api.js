@@ -21,10 +21,11 @@ module.exports =async function (app) {
   let controller=await ctrl.readdirSync(webconfig.apiadmin);
   controller=ctrl.funName(controller);
   router.use(cors());//允许跨域
-  router.use(tovalt());
+  // router.use(tovalt());
   router.use(rsadata());//解密数据
   router.use(session());//验证权限
   api.initRouter('apiadmin',router,controller);
   api.bulidRouter(router,controller);
   app.use(router.routes());
+
 }

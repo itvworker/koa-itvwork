@@ -19,9 +19,7 @@ module.exports = function(options) {
         if (data['rsa']&&!data['fields']) {
             let res = JSON.parse(rsa.decrypt(data['rsa']));
             if(!data['data']){
-                 
                ctx.request.body=res;
-
             }else{
               ctx.request.body ={
                 rsa:res,
@@ -31,10 +29,7 @@ module.exports = function(options) {
         }
         if (data['fields']) {
             var db = JSON.parse(rsa.decrypt(data['fields']['rsa']));
-
              db=JSON.parse(db);
-
-
             if(data['fields']['data']){
                 db['data']=JSON.parse(data['fields']['data']);
 
@@ -44,6 +39,7 @@ module.exports = function(options) {
                 ctx.request.body = db ;
             }
         }
+    
         return next();
     };
 };

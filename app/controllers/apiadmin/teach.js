@@ -12,7 +12,7 @@ class Teach {
     async index() {
         await this.ctx.render('school');
     }
-
+    
 
 
 }

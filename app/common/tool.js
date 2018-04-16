@@ -282,7 +282,6 @@ class Tool {
     dataType(data) {
         let type = Object.prototype.toString.call(data);
         return type.slice(8, -1).toLowerCase();
-
     }
 
 

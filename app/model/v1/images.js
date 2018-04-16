@@ -186,11 +186,11 @@ class Images {
     //上传多张图片
     async uploads(data, ctx, type) {
         let arr = [];
-        console.log(ctx.session);
+
         let defeatNum = 0;
         for (let i = 0, len = data.length; i < len; i++) {
             let result = await this.saveBase64(data[i]);
-            console.log(ctx.session);
+      
           //  let resize1 = await this.resizeImg(result.url,400,result.id,result.type);
             if (result.err_code == 200) {
                 arr.push({

@@ -1,5 +1,5 @@
-const caseSortModel = require(path.join(webconfig.v1, 'teachSort.js'));
-const imgModel = require(path.join(webconfig.v1, 'images.js'));
+const caseSortModel = require(path.join(webconfig.v1, 'teachTags.js'));
+
 
 class TeachSort {
 
@@ -11,7 +11,7 @@ class TeachSort {
     }
 
     async add(ctx, next) {
-      
+
         let data=ctx.request.body;
         ctx.body =  await caseSortModel.add(data.data);
     }
