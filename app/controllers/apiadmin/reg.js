@@ -2,7 +2,6 @@ const userModel = require(path.join(webconfig.v1, 'user.js'));
 const Verify = require(path.join(webconfig.common, 'verify.js'));
 const moneyModel = require(path.join(webconfig.v1, 'money.js'));
 const ses = require(path.join(webconfig.v1, 'session.js'));
-
 class Reg {
     async index() {
         let post = this.ctx.request.body;
@@ -115,8 +114,5 @@ class Reg {
         }
     }
 }
-
-
-
 
 module.exports = new Reg();

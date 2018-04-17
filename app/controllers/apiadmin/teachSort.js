@@ -11,7 +11,7 @@ class TeachSort {
     }
 
     async add(ctx, next) {
-      
+
         let data=ctx.request.body;
         ctx.body =  await caseSortModel.add(data.data);
     }

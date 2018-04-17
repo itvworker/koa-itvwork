@@ -4,7 +4,7 @@ global.path = require('path');
 global.Page = require('./app/common/page');
 const render = require('koa-ejs');
 global.webconfig = require(path.join(__dirname,'app/config/config.js'))(__dirname);
-var router = require('./app/router/admin');  //后台路由
+var router = require('./app/router/admin.js');  //后台路由
 var pcrouter= require('./app/router/pc');
 var apirouter= require('./app/router/api.js');
 var plane = require('./app/router/plane.js');
@@ -17,7 +17,7 @@ const db = mongoose.connect(webconfig.db);
 
 const koaBody = require('koa-body');
 const resouce = require('koa-static2');
-//const cors = require('@koa/cors');
+const cors = require('@koa/cors');
 
 
 render(app, {
@@ -29,7 +29,7 @@ render(app, {
 });
 
 app.use(koaBody({multipart: true}))
-// app.use(cors());
+//app.use(cors());
 app.use(resouce("",__dirname+"/public"));
 
 
@@ -44,14 +44,12 @@ db.connection.on('disconnected', function() {
     console.log('数据库连接断开');
 })
 
-
-
 router(app);
 pcrouter(app);
 apirouter(app);
-plane(app);
-
-
-//  "mongoose": "^4.11.12",
+// plane(app);
+//
+//
+// //  "mongoose": "^4.11.12",
 
 app.listen(8099);

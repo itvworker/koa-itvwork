@@ -2,12 +2,17 @@ const fs = require('fs');
 const path = require('path');
 class Controllers {
     async readdirSync(pathurl) {
+
         let params = fs.readdirSync(pathurl);
         let separate = await this.separate(pathurl, params);
+
         let controller = await this.ctrlPath(pathurl, separate['files']);
-        let paths = await this.readfile(pathurl, separate['paths']);
+
+          let paths = await this.readfile(pathurl, separate['paths']);
+
         let pathCtrl = await this.pathCtrl(pathurl, paths);
         let controllers = this.mergeCtrl(controller, pathCtrl);//合并控制器
+
         return new Promise((resolve, reject) => {
             resolve(controller);
         });
@@ -29,7 +34,9 @@ class Controllers {
 
     //路径中的控制器
     async pathCtrl(pathurl, paths) {
+
         let controller = {};
+
         for (let i in paths) {
             let files = paths[i]['files'];
             let url = path.join(pathurl, i);
@@ -38,6 +45,7 @@ class Controllers {
                 children: await this.ctrlPath(url, files)
             };
         }
+
         return new Promise((resolve, reject) => {
             resolve(controller);
         })
@@ -55,6 +63,7 @@ class Controllers {
                     path: path.join(pathurl, ctrl[i])
                 }
             }
+
         }
         return controller;
     }

@@ -10,6 +10,14 @@ class TeachSort {
             title: {
                 type: String,
                 default: ""
+            },
+            update_time:{
+              type:Number,
+              default:'',
+            },
+            add_time:{
+              type:Number,
+              default:''
             }
         }, {
             collection: 'teach_tags',
@@ -20,7 +28,6 @@ class TeachSort {
     }
 
     async add(data) {
-      
         data['_id']=tool.getid();
         data['update_time']= data['add_time']= tool.time();
         return new this.model(data).save().then(function (result) {

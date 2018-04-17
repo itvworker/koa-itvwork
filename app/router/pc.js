@@ -80,10 +80,6 @@ module.exports = async (app)=>{
     });
     //建立路由
     routerTool.bulidRouter(router,controller);
-
-
-
-    //运用路由
     app.use(router.routes());
 
 }

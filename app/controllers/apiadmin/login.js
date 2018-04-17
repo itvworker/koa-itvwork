@@ -2,8 +2,6 @@ const AdminModel = require(path.join(webconfig.v1, 'admin.js'));
 
 
 class Login {
-
-
     async index() {
 
         let data = this.ctx.request.body;
