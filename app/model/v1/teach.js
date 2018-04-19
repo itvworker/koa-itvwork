@@ -75,8 +75,8 @@ class Teach {
         data['_id'] = tool.getid();
         data['update_time'] = data['add_time'];
 
-        let arr=[];
-        arr[0]=data.cover;
+        let arr = [];
+        arr[0] = data.cover;
         if (arr.lenght > 0) {
             let err = await imgModel.useInc({
                 path: [data.cover]
@@ -101,7 +101,8 @@ class Teach {
             add_time: -1
         };
         let count = await this.count(arg['query']);
-        return this.model.find(arg.query).sort(arg.sort).then(function(result) {
+        return this.model.find(arg.query).skip(parseInt(arg.page)-1).limit(parseInt(arg.num)).sort(arg.sort).then(function(result) {
+
             if (result) {
                 return tool.dataJson(200, '查询成功', {
                     count: count,
@@ -110,6 +111,7 @@ class Teach {
             } else {
                 return tool.dataJson(105, '没有数据');
             }
+
 
         }, function(err) {
             return tool.dataJson(104, '错误', err);

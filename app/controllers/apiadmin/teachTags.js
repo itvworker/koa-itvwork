@@ -17,6 +17,12 @@ class TeachTags {
 
       this.ctx.body = data;
     }
+    async del(){
+      let post = this.ctx.request.body;
+      let res = await TeachTagsModel.del(post['data']);
+      this.ctx.body=res;
+
+    }
     async index(){
       let post = this.ctx.request.body;
       let data = await TeachTagsModel.find(post['data']);
