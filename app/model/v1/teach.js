@@ -74,7 +74,6 @@ class Teach {
         data['add_time'] = tool.time();
         data['_id'] = tool.getid();
         data['update_time'] = data['add_time'];
-
         let arr = [];
         arr[0] = data.cover;
         if (arr.lenght > 0) {
