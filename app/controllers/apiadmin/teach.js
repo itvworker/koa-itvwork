@@ -11,6 +11,10 @@ class Teach {
         this.ctx.body=await teachModel.findOne(post.data);
 
     }
+    async add(){
+      let post=this.ctx.request.body;
+      this.ctx.body=await teachModel.add(post.data);
+    }
 }
 
 
