@@ -18,6 +18,8 @@ const db = mongoose.connect(webconfig.db);
 const koaBody = require('koa-body');
 const resouce = require('koa-static2');
 const cors = require('@koa/cors');
+global.CryptoJS = require('crypto-js');
+
 
 
 render(app, {

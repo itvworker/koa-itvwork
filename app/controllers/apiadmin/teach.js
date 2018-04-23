@@ -4,7 +4,8 @@ const teachModel = require(path.join(webconfig.v1, 'teach.js'));
 class Teach {
     async index() {
         let post = this.ctx.request.body;
-        this.ctx.body=await teachModel.find(post.data);
+        let res=await teachModel.find(post.data);
+        this.ctx.body = tool.aesData(res,post.key);
     }
     async msg(){
       let post = this.ctx.request.body;

@@ -5,6 +5,8 @@ const ses = require(path.join(webconfig.v1, 'session.js'));
 class Reg {
     async index() {
         let post = this.ctx.request.body;
+
+
         let as = new Verify({
             username: {
                 schema: 'phone',
@@ -69,6 +71,7 @@ class Reg {
 
     async login() {
         let post = this.ctx.request.body;
+
         let as = new Verify({
             username: {
                 schemaReqiure: '帐号是必填的',
@@ -79,17 +82,18 @@ class Reg {
                 schemaMsg: '密码必须包括大写字母小写字母以及数字并长度大于等于6的字符'
             }
         });
+        let very = await as.init(post.data);
 
-        let very = await as.init(post);
         if (very !== true) {
             this.ctx.body = tool.dataJson(104, very);
             return false;
         }
         //查找登录的会员信息
         let res = await userModel.findOne({
-            username: post.username,
-            pwd: tool.md5(post.pwd + 'qazxswedqwertyuiop')
+            username: post.data.username,
+            pwd: tool.md5(post.data.pwd + 'qazxswedqwertyuiop')
         });
+        console.log(res);
         if (res.err_code == 200) {
             let tokenSession = await ses.add({
                 _id: tool.getid(),

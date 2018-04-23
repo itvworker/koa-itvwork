@@ -73,8 +73,12 @@ class Tool {
 
             }
         }
+    }
+    aesData(data,key){
+        if(!data.data) return data;
 
-
+        data.data= CryptoJS.AES.encrypt(JSON.stringify(data.data), key).toString();
+        return data;
     }
     getImgurl(str) {
         let regx = /\w{32}.(?:jpg|png|gif|jps|bmp|jpeg)/gi;
