@@ -25,8 +25,8 @@ class TeachTags {
     }
     async index(){
       let post = this.ctx.request.body;
-      let data = await TeachTagsModel.find(post['data']);
-      this.ctx.body = data;
+      let result= await TeachTagsModel.find(post['data']);
+      this.ctx.body = tool.aesData(result, post.key);
     }
 
 

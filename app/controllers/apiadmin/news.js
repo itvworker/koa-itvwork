@@ -1,36 +1,31 @@
-const newsModel = require(path.join(webconfig.v1,'news.js'));
+const newsModel = require(path.join(webconfig.v1, 'news.js'));
 
 
 class News {
-  // init(ctx,next){
-  //   this.ctx=ctx;
-  //   this.next=next;
-  // }
-    async add(ctx,next){
-       let post=this.ctx.request.body;
-       this.ctx.body= await newsModel.add(post.data);
+    async add(ctx, next) {
+        let post = this.ctx.request.body;
+        this.ctx.body = tool.aesData(await newsModel.add(post.data), post.key);
 
     }
-    async list(ctx,next) {
-        let post=this.ctx.request.body;
-        this.ctx.body=await newsModel.find(post.data);
-
+    async list(ctx, next) {
+        let post = this.ctx.request.body;
+        this.ctx.body = tool.aesData(await newsModel.find(post.data), post.key);
     }
 
-    async detail(ctx,next){
-        let post=ctx.request.body;
-        ctx.body=await newsModel.findOne(post.data);
-    }
-
-    async updata(ctx,next){
+    async detail(ctx, next) {
         let post = ctx.request.body;
-        ctx.body= await newsModel.updata(post.data);
+        this.ctx.body = tool.aesData(await newsModel.findOne(post.data), post.key);
+    }
+
+    async updata(ctx, next) {
+        let post = ctx.request.body;
+        this.ctx.body = tool.aesData(await newsModel.updata(post.data), post.key);
     }
 
     async del(ctx, next) {
         let post = ctx.request.body;
-        ctx.body = await newsModel.del(post.data);
+        this.ctx.body = tool.aesData(await newsModel.del(post.data), post.key);
     }
 }
 
-module.exports=new News();
+module.exports = new News();

@@ -6,7 +6,7 @@ class TeachSort {
     async index(ctx, next) {
         let post = ctx.request.body;
         let data = await caseSortModel.find(post['data']);
-        ctx.body = data;
+        ctx.body =  tool.aesData(data,post.key);
 
     }
 

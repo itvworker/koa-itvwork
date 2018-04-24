@@ -2,40 +2,31 @@ const caseSortModel = require(path.join(webconfig.v1, 'caseSort.js'));
 const imgModel = require(path.join(webconfig.v1, 'images.js'));
 
 class CaseSort {
-  init(ctx,next){
-    this.ctx=ctx;
-    this.next=next;
-  }
-    async index(ctx, next) {
+    async index() {
         let post = ctx.request.body;
-        let data = await caseSortModel.find(post['data']);
-        ctx.body = data;
-
+        this.ctx.body = tool.aesData(await caseSortModel.find(post['data']), post.key);
     }
-
-    async add(ctx, next) {
-        let data=ctx.request.body;
-        ctx.body =  await caseSortModel.add(data.data);
+    async add() {
+        let data = ctx.request.body;
+        this.ctx.body = tool.aesData(await caseSortModel.add(data.data), post.key);
     }
-
-    async detail(ctx, next) {
+    async detail() {
         let post = ctx.request.body;
         let result = await caseSortModel.findOne(post['data']);
-        ctx.body = result;
+        this.ctx.body = tool.aesData(result, post.key);
     }
-
     async del(ctx, next) {
         let post = ctx.request.body;
         let result = await caseSortModel.del(post.data);
-        ctx.body = result;
+        this.ctx.body = tool.aesData(result, post.key);
     }
-
-
-    async update(){
+    async update() {
         let post = ctx.request.body;
-        let detail = await caseSortModel.findone({_id:post.data._id});
+        let result = await caseSortModel.findone({
+            _id: post.data._id
+        });
+        this.ctx.body = tool.aesData(result, post.key);
     }
-
 }
 
 module.exports = new CaseSort();

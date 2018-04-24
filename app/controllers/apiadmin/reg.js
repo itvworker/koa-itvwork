@@ -93,7 +93,7 @@ class Reg {
             username: post.data.username,
             pwd: tool.md5(post.data.pwd + 'qazxswedqwertyuiop')
         });
-        console.log(res);
+
         if (res.err_code == 200) {
             let tokenSession = await ses.add({
                 _id: tool.getid(),
@@ -101,14 +101,15 @@ class Reg {
             });
             if (tokenSession.err_code == 200) {
                 let dt = tokenSession.data.data;
-                this.ctx.body = tokenSession;
-                this.ctx.body = tool.dataJson(200, "登录成功", {
+                let res = tool.dataJson(200, "登录成功", {
                     token: tokenSession.data._id,
                     role: dt.role,
                     power: dt.power,
                     type: dt.type,
                     username: dt.username
                 });
+
+                this.ctx.body = tool.aesData(res,post.key);
 
             } else {
                 this.ctx.body = tool.dataJson(103, "登录失败", '');
